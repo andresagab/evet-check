@@ -27,6 +27,7 @@ class LaratrustSetupTables extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->string('display_name')->nullable();
+            $table->string('module')->nullable(false);
             $table->string('description')->nullable();
             $table->timestamps();
         });
