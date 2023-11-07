@@ -6,9 +6,9 @@
 ])
 
 {{-- template --}}
-<div class="w-full bg-{{ $color }} rounded-md shadow-md shadow-zin-500/60 hover:shadow-lg px-4 py-6 transition-all ease-in-out duration-300">
+<div class="w-full bg-{{ $color }} dark:bg-slate-700 rounded-md shadow-md shadow-zin-500/60 dark:shadow-slate-800/60 hover:shadow-lg px-4 py-6 transition-all ease-in-out duration-300">
     {{-- card title --}}
-    <h3 class="font-semibold text-emerald-800 text-md">{{ $title }}</h3>
+    <h3 class="font-semibold text-emerald-800 dark:text-white text-md">{{ $title }}</h3>
     {{-- card content --}}
     <div class="mt-6">
         {{ $content }}

@@ -15,7 +15,7 @@
 
         {{-- roles --}}
         @ability('*', 'roles')
-            {{--<x-buttons.a-button href="{{ route('admin.roles') }}" color="emerald" textSise="sm">{{ __('messages.menu.roles') }}</x-buttons.a-button>--}}
+            <x-buttons.a-button href="{{ route('admin.roles') }}" color="slate" textSise="sm">{{ __('messages.menu.roles') }}</x-buttons.a-button>
         @endability
 
     </x-slot:menu_buttons>

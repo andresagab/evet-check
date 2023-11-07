@@ -44,7 +44,7 @@ Route::prefix('admin')
         #Route::get('/users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users')->middleware(['ability:*,users']);
 
         ## ROLES
-        #Route::get('/roles', [\App\Http\Controllers\Admin\RoleController::class, 'index'])->name('roles')->middleware(['ability:*,roles']);
+        Route::get('/roles', [\App\Http\Controllers\Admin\RoleController::class, 'index'])->name('roles')->middleware(['ability:*,roles']);
 
         ## PERMISSIONS
         #Route::get('/permission', [\App\Http\Controllers\Admin\permissionController::class, 'index'])->name('permissions')->middleware(['ability:*,permissions']);

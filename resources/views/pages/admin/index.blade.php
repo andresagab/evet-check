@@ -7,8 +7,8 @@
         {{-- content --}}
         <div class="flex h-screen w-full">
             <div class="m-auto">
-                <h3 class="font-bold text-xl text-green-500">BIENVENIDO AL PANEL DE ADMINISTRACIÓN</h3>
-                <h3 class="text-md text-blue-700">{{ \Illuminate\Support\Facades\Auth::user()->name }}</h3>
+                <h3 class="font-bold text-xl text-green-500 dark:text-white">BIENVENIDO AL PANEL DE ADMINISTRACIÓN</h3>
+                <h3 class="text-md text-blue-700 dark:text-blue-500">{{ \Illuminate\Support\Facades\Auth::user()->name }}</h3>
             </div>
         </div>
 

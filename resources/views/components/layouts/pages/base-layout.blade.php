@@ -42,10 +42,15 @@
             /**
              * Toast message, this can be called from wire component
              */
-            Livewire.on('toast', function (title, icon = 'success') {
+            Livewire.on('toast', function (data) {
+
+                // if !data.icon set it
+                if (!data.icon)
+                    data.icon = 'success'
+
                 Toast.fire({
-                    title: title,
-                    icon: icon
+                    title: data.title,
+                    icon: data.icon
                 });
             });
 
