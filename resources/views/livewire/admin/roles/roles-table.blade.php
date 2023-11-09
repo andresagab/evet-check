@@ -29,7 +29,7 @@
                         {{-- filters.person --}}
                         <div class="flex flex-col items-start w-full">
                             <label class="font-semibold text-sm text-zinc-900 dark:text-stone-100" for="filters.person">{{ __('messages.models.role.name') }}:</label>
-                            <input wire:model.defer="filters.person" wire:keydown.enter='search(true, true)' type="text" name="filters.person" id="filters.person" placeholder="{{ __('messages.models.role.inputs.name') }}" class="border-none px-2 py-1 text-sm w-full bg-white-200 dark:bg-slate-900 dark:text-stone-200 rounded-md">
+                            <input wire:model.defer="filters.name" wire:keydown.enter='search(true, true)' type="text" name="filters.name" id="filters.name" placeholder="{{ __('messages.models.role.inputs.name') }}" class="border-none px-2 py-1 text-sm w-full bg-white-200 dark:bg-slate-900 dark:text-stone-200 rounded-md">
                         </div>
 
                     </div>

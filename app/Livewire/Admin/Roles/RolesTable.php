@@ -77,11 +77,14 @@ class RolesTable extends Component
 
         # set initial query
         $query = Role::query()
-            # filter by name
+            # filter by name or display_name
             ->where(function ($q) {
                 # if $this->filters['name'] have data
                 if ($this->filters['name'] != '')
-                    return $q->whereRaw('LOWER(name) LIKE ?', ["%" . mb_strtolower($this->filters['name'], 'UTF-8') . "%"]);
+                    # filter by name
+                    return $q->whereRaw('LOWER(name) LIKE ?', ["%" . mb_strtolower($this->filters['name'], 'UTF-8') . "%"])
+                        # or by display_name
+                        ->orWhereRaw('LOWER(display_name) LIKE ?', ["%" . mb_strtolower($this->filters['name'], 'UTF-8') . "%"]);
                 else
                     return null;
             });
