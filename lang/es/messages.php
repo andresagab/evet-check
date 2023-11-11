@@ -48,10 +48,13 @@ return [
         'record_not_loaded' => 'No fue posible cargar el registro, intentalo nuevamente',
         'try_error' => 'Error código: :code',
         'not_deleted' => 'No fue posible eliminar el registro, intentalo nuevamente',
+        'not_saved' => 'No fue posible guardar el registro, intentalo nuevamente',
+        'not_updated' => 'No fue posible actualizar el registro, intentalo nuevamente',
     ],
 
     'responses' => [
         'saved' => 'Datos guardados exitosamente',
+            'updated' => 'Datos actualizados exitosamente',
         'deleted' => 'Registro eliminado exitosamente',
     ],
 

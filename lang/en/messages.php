@@ -48,10 +48,13 @@ return [
         'record_not_loaded' => 'It was not possible to load the record, please try again',
         'try_error' => 'Error code: :code',
         'not_deleted' => 'It was not possible to delete the resource, please try again',
+        'not_saved' => 'It was not possible to save the resource, please try again',
+        'not_updated' => 'It was not possible to update the resource, please try again',
     ],
 
     'responses' => [
         'saved' => 'Data saved successfully',
+        'updated' => 'Data udpated successfully',
         'deleted' => 'Resource deleted successfully',
     ],
 

@@ -21,7 +21,7 @@
 @endphp
 
 {{-- template --}}
-<input
+<textarea
     {{-- disabled attribute --}}
     {{ $disabled ? 'disabled' : null }}
     {{-- include required directive --}}
@@ -38,3 +38,4 @@
 
     !!}
 >
+</textarea>
