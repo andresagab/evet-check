@@ -77,6 +77,7 @@
                     <th class="px-2 py-1 text-left w-96">{{ __('messages.models.role.name') }}</th>
                     <th class="px-2 py-1 text-left w-96">{{ __('messages.models.role.display_name') }}</th>
                     <th class="px-2 py-1 text-left w-96">{{ __('messages.models.role.description') }}</th>
+                    <th class="px-2 py-1 text-left w-96">{{ __('messages.data.dates') }}</th>
                     <th class="px-2 py-1 w-60"></th>
                 </tr>
                 </thead>
@@ -84,13 +85,6 @@
                 <tbody>
                 @foreach ($roles as $item)
 
-                    {{-- php code --}}
-                    @php
-                        # get state reference
-                        # $state = $item->getState();
-                        # get role
-                        # $role = $item->getRole();
-                    @endphp
                     <tr class="border-b border-b-blue-300 dark:border-b-slate-500 bg-white dark:bg-slate-600 hover:bg-blue-100 dark:hover:bg-slate-500 dark:text-stone-50 dark:hover:text-white hover:shadow transition ease-in-out duration-300">
                         {{-- id --}}
                         <td class="p-2 text-center">{{ $item->id }}</td>
@@ -106,18 +100,34 @@
                         <td class="p-2">
                             <span class="font-normal text-sm">{{ $item->description ?? __('messages.data.unknown') }}</span>
                         </td>
+                        {{-- dates --}}
+                        <td class="p-2 text-left">
+                            <x-tables.dates-columns :created_at="$item->created_at" :updated_at="$item->updated_at"/>
+                        </td>
                         {{-- actions --}}
                         <td>
                             <div class="inline-flex items-center space-x-1">
-                                {{-- edit --}}
-                                {{--@ability('*', 'people:edit')--}}
-                                <x-buttons.circle-icon-button wire:click="openEditModal({{ $item }})" title="Click para editar este registro" color="violet" size="20px">edit</x-buttons.circle-icon-button>
-                                {{--@endability--}}
-                                {{-- delete --}}
-                                {{--@ability('*', 'people:delete')--}}
-                                {{-- pending add validation for check if the resource can be deleted --}}
-                                <x-buttons.circle-icon-button wire:click="openDeleteModal({{ $item }})" title="Click para eliminar este registro" color="red" size="20px">delete</x-buttons.circle-icon-button>
-                                {{--@endability--}}
+                                {{-- is editable or removable --}}
+                                @if($item->is_editable_or_removable())
+                                    {{-- edit --}}
+                                    @ability('*', 'roles:edit')
+                                        <x-buttons.circle-icon-button wire:click="openEditModal({{ $item }})" title="Click para editar este registro" color="violet" size="20px">edit</x-buttons.circle-icon-button>
+                                    @endability
+                                    {{-- delete --}}
+                                    @ability('*', 'roles:delete')
+                                    {{-- pending add validation for check if the resource can be deleted --}}
+                                    <x-buttons.circle-icon-button wire:click="openDeleteModal({{ $item }})" title="Click para eliminar este registro" color="red" size="20px">delete</x-buttons.circle-icon-button>
+                                    @endability
+                                @else
+                                    {{-- locked icon --}}
+                                    <x-utils.icon size="20px" class="p-1 text-stone-700 dark:text-zinc-300 select-none" title="{{ __('messages.data.not_editable_removable') }}">lock</x-utils.icon>
+                                @endif
+
+                                {{-- manage-role-permissions --}}
+                                @ability('*', 'roles:manage-permissions')
+                                    <x-buttons.circle-icon-button wire:click="open_manage_role_permissions({{ $item }})" title="Click para gestionar permisos de rol" color="emerald" size="20px">manage_accounts</x-buttons.circle-icon-button>
+                                @endability
+
                             </div>
                         </td>
 
@@ -138,5 +148,7 @@
     <livewire:admin.roles.role-form/>
     {{-- role-delete --}}
     <livewire:admin.roles.role-delete/>
+    {{-- manage-role-permissions --}}
+    <livewire:admin.roles.manage-role-permissions/>
 
 </div>

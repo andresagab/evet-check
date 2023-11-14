@@ -18,8 +18,8 @@ return [
         'permissions' => 'Permisos',
         'roles' => 'Roles',
 
-        'categories' => 'Categorias',
-        'departments' => 'Departamentos',
+        'events' => 'Eventos',
+        'activities' => 'Actividades',
         'people' => 'Personas',
 
         'manage_account' => 'Gestionar cuenta',
@@ -78,12 +78,27 @@ return [
         # ROLE MODEL ATTRIBUTES
         'role' => [
             'model_name' => 'Rol',
-            
+            'plural_model_name' => 'Roles',
+
             'name' => 'Nombre',
             'display_name' => 'Nombre en pantalla',
             'description' => 'Descripción',
             'inputs' => [
                 'name' => 'Buscar por nombre de rol'
+            ],
+        ],
+
+        # PERMISSION MODEL ATTRIBUTES
+        'permission' => [
+            'model_name' => 'Permiso',
+            'plural_model_name' => 'Permisos',
+
+            'name' => 'Nombre',
+            'display_name' => 'Nombre en pantalla',
+            'module' => 'Módulo',
+            'description' => 'Descripción',
+            'inputs' => [
+                'name' => 'Buscar por nombre'
             ],
         ],
 
