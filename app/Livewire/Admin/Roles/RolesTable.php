@@ -132,6 +132,16 @@ class RolesTable extends Component
         $this->dispatch('open-modal', $role)->to('admin.roles.role-delete');
     }
 
+    /**
+     * Open delete modal to remove a resource
+     * @param Role $role => the model resource
+     * @return void
+     */
+    public function open_manage_role_permissions(Role $role): void
+    {
+        $this->dispatch('open-modal', $role)->to('admin.roles.manage-role-permissions');
+    }
+
     /// EVENTS
 
 
