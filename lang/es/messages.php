@@ -48,10 +48,13 @@ return [
         'record_not_loaded' => 'No fue posible cargar el registro, intentalo nuevamente',
         'try_error' => 'Error código: :code',
         'not_deleted' => 'No fue posible eliminar el registro, intentalo nuevamente',
+        'not_saved' => 'No fue posible guardar el registro, intentalo nuevamente',
+        'not_updated' => 'No fue posible actualizar el registro, intentalo nuevamente',
     ],
 
     'responses' => [
         'saved' => 'Datos guardados exitosamente',
+            'updated' => 'Datos actualizados exitosamente',
         'deleted' => 'Registro eliminado exitosamente',
     ],
 
@@ -74,6 +77,8 @@ return [
 
         # ROLE MODEL ATTRIBUTES
         'role' => [
+            'model_name' => 'Rol',
+            
             'name' => 'Nombre',
             'display_name' => 'Nombre en pantalla',
             'description' => 'Descripción',
@@ -84,6 +89,8 @@ return [
 
         # USER MODEL ATTRIBUTES
         'user' => [
+            'model_name' => 'Usuario',
+
             'name' => 'Nombre',
             'code' => 'Código',
             'state' => 'Estado',
@@ -92,7 +99,8 @@ return [
 
         # PERSON MODEL ATTRIBUTES
         'person' => [
-            'person' => 'Persona',
+            'model_name' => 'Persona',
+
             'names' => 'Nombres',
             'surnames' => 'Apellidos',
             'nip' => 'N° identificación',

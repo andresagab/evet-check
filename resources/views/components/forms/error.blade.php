@@ -9,5 +9,5 @@
 
 {{-- template --}}
 @error($for)
-    <span class="{!! $textSize !!} text-red-600">{{ $message }}</span>
+    <span class="{!! $textSize !!} text-red-600 dark:text-red-400">{{ $message }}</span>
 @enderror

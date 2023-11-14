@@ -15,11 +15,11 @@
     }}
 >
     {{-- title --}}
-    <h3 {{ $title->attributes->class(["font-semibold text-red-600 text-md"]) }}>{{ $title }}</h3>
+    <h3 {{ $title->attributes->class(["font-semibold text-red-600 dark:text-red-500 text-md"]) }}>{{ $title }}</h3>
     {{-- main_text --}}
-    <p {{ $main_text->attributes->class(["font-semibold text-sm text-gray-800"]) }}>{{ $main_text }}</p>
+    <p {{ $main_text->attributes->class(["font-semibold text-sm text-gray-800 dark:text-stone-100"]) }}>{{ $main_text }}</p>
     {{-- secondary_text --}}
-    <p {{ $secondary_text->attributes->class(["font-normal text-xs text-gray-700"]) }}>{{ $secondary_text }}</p>
+    <p {{ $secondary_text->attributes->class(["font-normal text-xs text-gray-700 dark:text-stone-300"]) }}>{{ $secondary_text }}</p>
     {{-- EXTRA --}}
     {{-- if extra is not null --}}
     {{ $extra ?? null }}

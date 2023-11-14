@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Utils\CommonUtils;
 use App\Utils\Threads\TableThread;
 use Illuminate\Database\Eloquent\Builder;
+use Livewire\Attributes\Locked;
 use Livewire\Component;
 
 class RolesTable extends Component
@@ -77,11 +78,14 @@ class RolesTable extends Component
 
         # set initial query
         $query = Role::query()
-            # filter by name
+            # filter by name or display_name
             ->where(function ($q) {
                 # if $this->filters['name'] have data
                 if ($this->filters['name'] != '')
-                    return $q->whereRaw('LOWER(name) LIKE ?', ["%" . mb_strtolower($this->filters['name'], 'UTF-8') . "%"]);
+                    # filter by name
+                    return $q->whereRaw('LOWER(name) LIKE ?', ["%" . mb_strtolower($this->filters['name'], 'UTF-8') . "%"])
+                        # or by display_name
+                        ->orWhereRaw('LOWER(display_name) LIKE ?', ["%" . mb_strtolower($this->filters['name'], 'UTF-8') . "%"]);
                 else
                     return null;
             });
@@ -105,23 +109,27 @@ class RolesTable extends Component
      */
     public function openAddModal(): void
     {
-        #$this->emit
+        $this->dispatch('open-modal', 'add')->to('admin.roles.role-form');
     }
 
     /**
      * Open edit modal to update a resource
+     * @param Role $role => the model resource
      * @return void
      */
-    public function openEditModal(): void
+    public function openEditModal(Role $role): void
     {
+        $this->dispatch('open-modal', 'edit', $role)->to('admin.roles.role-form');
     }
 
     /**
      * Open delete modal to remove a resource
+     * @param Role $role => the model resource
      * @return void
      */
-    public function openDeleteModal(): void
+    public function openDeleteModal(Role $role): void
     {
+        $this->dispatch('open-modal', $role)->to('admin.roles.role-delete');
     }
 
     /// EVENTS

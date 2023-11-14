@@ -32,14 +32,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // });
 
 /// ALPINE JS
-import Alpine from 'alpinejs'
+//import Alpine from 'alpinejs'
 import focus from '@alpinejs/focus'
-// add alpine to window app
-window.Alpine = Alpine
 // add focus plugin to Alpine
 Alpine.plugin(focus)
-// start service
-Alpine.start()
 
 /// SWEET
 import Toast from "@/sweet/Sweet.js";
