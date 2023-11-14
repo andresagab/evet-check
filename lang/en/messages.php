@@ -77,6 +77,8 @@ return [
 
         # ROLE MODEL ATTRIBUTES
         'role' => [
+            'model_name' => 'Role',
+
             'name' => 'Name',
             'display_name' => 'Display name',
             'description' => 'Description',
@@ -87,6 +89,8 @@ return [
 
         # USER MODEL ATTRIBUTES
         'user' => [
+            'model_name' => 'User',
+
             'name' => 'Name',
             'code' => 'Code',
             'state' => 'State',
@@ -95,7 +99,7 @@ return [
 
         # PERSON MODEL ATTRIBUTES
         'person' => [
-            'person' => 'Person',
+            'model_name' => 'Person',
             'names' => 'Names',
             'surnames' => 'Surnames',
             'nip' => 'N° identification',

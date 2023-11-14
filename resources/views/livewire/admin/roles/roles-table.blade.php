@@ -133,9 +133,10 @@
     </x-layouts.pages.content.base-content-page-layout>
 
     {{-- include wire components --}}
-    <livewire:admin.roles.role-form/>
 
-    {{-- include wire components --}}
-    {{--<livewire:sys.people.person-delete/>--}}
+    {{-- role-form --}}
+    <livewire:admin.roles.role-form/>
+    {{-- role-delete --}}
+    <livewire:admin.roles.role-delete/>
 
 </div>

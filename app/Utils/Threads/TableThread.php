@@ -106,7 +106,7 @@ trait TableThread
         # set 'total_records' of pagination with count of searched resources from db
         $this->pagination['total_records'] = $query->select($field)->count();
         # emit to child component to refresh pagination info
-        $this->dispatch('setPagination', $this->pagination)->to($childComponentPath);
+        $this->dispatch('set_pagination', $this->pagination)->to($childComponentPath);
     }
 
     /// STATIC FUNCTIONS

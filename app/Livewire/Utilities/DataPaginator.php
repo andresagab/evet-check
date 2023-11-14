@@ -3,6 +3,7 @@
 namespace App\Livewire\Utilities;
 
 use App\Utils\CommonUtils;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class DataPaginator extends Component
@@ -55,6 +56,7 @@ class DataPaginator extends Component
      * @param array $pagination
      * @return void
      */
+    #[On('set_pagination')]
     public function setPagination(array $pagination) : void
     {
         # set pagination data

@@ -114,7 +114,7 @@ class RolesTable extends Component
 
     /**
      * Open edit modal to update a resource
-     * @param Role $role the model resource
+     * @param Role $role => the model resource
      * @return void
      */
     public function openEditModal(Role $role): void
@@ -124,10 +124,12 @@ class RolesTable extends Component
 
     /**
      * Open delete modal to remove a resource
+     * @param Role $role => the model resource
      * @return void
      */
-    public function openDeleteModal(): void
+    public function openDeleteModal(Role $role): void
     {
+        $this->dispatch('open-modal', $role)->to('admin.roles.role-delete');
     }
 
     /// EVENTS
