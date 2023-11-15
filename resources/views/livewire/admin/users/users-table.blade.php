@@ -1,7 +1,7 @@
 <div wire:init="search(true, true)">
 
     {{-- full-page-loader --}}
-    <x-loaders.full-page-loader wire:loading wire:target='search, openAddModal, openEditModal, openDeleteModal'/>
+    <x-loaders.full-page-loader wire:loading wire:target='search, openAddModal, openEditModal, openDeleteModal, open_manage_role_permissions'/>
 
     {{-- sub header --}}
     <x-layouts.headers.sub-header title="{{ __('messages.menu.users') }}" :actions="true">
@@ -136,7 +136,7 @@
                                 @endability
                                 {{-- manage-user-permissions --}}
                                 @if($item->state === 'A' && Laratrust::ability('*', 'users:manage-permissions'))
-                                    <x-buttons.circle-icon-button wire:click="openManageUserPermissionsModal({{ $item }})" title="Click para gestionar los permisos de este registro" color="emerald" size="20px">manage_accounts</x-buttons.circle-icon-button>
+                                    <x-buttons.circle-icon-button wire:click="open_manage_role_permissions({{ $item }})" title="Click para gestionar los permisos de este registro" color="emerald" size="20px">manage_accounts</x-buttons.circle-icon-button>
                                 @endif
                             </div>
                         </td>
@@ -157,8 +157,8 @@
     {{-- user-form --}}
     <livewire:admin.users.user-form/>
     {{-- user-delete --}}
-    {{--<livewire:admin.users.user-delete/>--}}
+    <livewire:admin.users.user-delete/>
     {{-- manage-user-permissions --}}
-    {{--<livewire:admin.users.manage-user-permissions/>--}}
+    <livewire:admin.users.manage-user-permissions/>
 
 </div>

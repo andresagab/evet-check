@@ -12,9 +12,10 @@ use Laratrust\Traits\HasRolesAndPermissions;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Livewire\Wireable;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class User extends Authenticatable implements LaratrustUser, Auditable
+class User extends Authenticatable implements LaratrustUser, Auditable, Wireable
 {
     use HasApiTokens;
     use HasFactory;
@@ -52,6 +53,7 @@ class User extends Authenticatable implements LaratrustUser, Auditable
     protected $fillable = [
         'name',
         'code',
+        'state',
         'password',
     ];
 
@@ -100,6 +102,43 @@ class User extends Authenticatable implements LaratrustUser, Auditable
 
 
     /// PUBLIC FUNCTIONS
+
+    /**
+     * Enable attributes for livewire
+     * @return array
+     */
+    public function toLivewire()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'code' => $this->code,
+            'state' => $this->state,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+        ];
+    }
+
+    /**
+     * Load attributes from livewire
+     * @param $value
+     * @return User
+     */
+    public static function fromLivewire($value)
+    {
+        #return new static($value);
+        $user = new User();
+
+        $user->id = $value['id'];
+        $user->name = $value['name'];
+        $user->code = $value['code'];
+        $user->state = $value['state'];
+        $user->created_at = $value['created_at'];
+        $user->updated_at = $value['updated_at'];
+
+        return $user;
+
+    }
 
     /**
      * get state reference

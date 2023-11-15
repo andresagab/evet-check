@@ -31,6 +31,8 @@ npm install
 
 # run migrations
 php artisan migrate
+# run seeds
+php artisan db:seed
 
 # start server
 php artisan serve

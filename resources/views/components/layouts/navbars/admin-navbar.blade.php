@@ -10,7 +10,7 @@
 
         {{-- permissions --}}
         @ability('*', 'permissions')
-            {{--<x-buttons.a-button href="{{ route('admin.permissions') }}" color="emerald" textSise="sm">{{ __('messages.menu.permissions') }}</x-buttons.a-button>--}}
+            {{--<x-buttons.a-button href="{{ route('admin.permissions') }}" color="slate" textSise="sm">{{ __('messages.menu.permissions') }}</x-buttons.a-button>--}}
         @endability
 
         {{-- roles --}}

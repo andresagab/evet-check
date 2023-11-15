@@ -2,27 +2,32 @@
 
 namespace App\Livewire\Admin\Users;
 
-use App\Http\Controllers\admin\UserController;
 use App\Models\User;
 use App\Utils\Threads\DeleteThread;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class UserDelete extends Component
+class ManageUserPermissions extends Component
 {
 
     /// USING
-
     use DeleteThread;
+
 
     /// PROPERTIES
 
     /**
-     * The main model resource
+     * The user model
      * @var User
      */
     public User $user;
+
+    /**
+     * Array of selected or saved permissions
+     * @var array
+     */
+    public array $permissions = [];
 
     /// HOOKS
 
@@ -43,31 +48,24 @@ class UserDelete extends Component
     /// PUBLIC FUNCTIONS
 
     /**
-     * Delete a resource
+     * save the selected permissions
      * @return void
      */
-    public function delete(): void
+    public function save() : void
     {
-
-        # if user is signed
+        # check auth of signed user
         if (Auth::check())
         {
 
+            # use try
             try {
 
-                # load resource from db
-                $user = User::query()->find($this->user->id);
-
-                # delete user data with controller and get result
-                $result = UserController::delete($user);
-
-                # dispatch message
-                $this->dispatch('toast', title:$result['message'], icon:$result['icon']);
-                # dispatch to load data
-                $this->dispatch('search', true, false);
-                # close modal
-                $this->open = false;
-
+                # sync permissions of user
+                $this->user->syncPermissions($this->permissions);
+                # dispatch toast message
+                $this->dispatch('toast', title:__('messages.responses.saved'));
+                # dispatch up to reload data
+                $this->dispatch('search');
             }
             catch (\Exception $e)
             {
@@ -75,31 +73,30 @@ class UserDelete extends Component
             }
 
         }
-
     }
 
-    /// EVENTS
-
     /**
-     * Open modal component and setup to delete
-     * @param User $user => the model resource
+     * Open modal component and setup to manage permissions of user
+     * @param User $user
      * @return void
      */
     #[On('open-modal')]
     public function open_modal(User $user): void
     {
-
-        # always refresh model value
+        # always reset user model and permissions
         $this->user = new user();
-        # if model is not null
-        if ($user)
+        $this->reset(['permissions']);
+
+        # if $user have id
+        if ($user->id)
         {
-            # set model value
+            # set user model
             $this->user = $user->refresh();
+            # load permission of user
+            $this->permissions = $this->user->permissions()->pluck('id')->toArray();
             # open modal
             $this->open = true;
         }
-        # else
         else
         {
             # close modal
@@ -110,12 +107,14 @@ class UserDelete extends Component
 
     }
 
+    /// EVENTS
+
     /**
      * Render view of component
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
      */
     public function render(): \Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return view('livewire.admin.users.user-delete');
+        return view('livewire.admin.users.manage-user-permissions');
     }
 }

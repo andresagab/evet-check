@@ -7,7 +7,7 @@
     'data' => [],
     'special_key_value' => null,
     'special_key_content' => null,
-    'option_class' => 'text-gray-700 font-normal',
+    'option_class' => 'text-gray-700 dark:text-stone-400 font-normal',
     ])
 
 {{-- php --}}
@@ -35,7 +35,7 @@
     {!!
 
     $attributes->merge([
-        'class' => "px-2 py-1 $textSize w-full bg-white-200 rounded-md focus:outline-none focus:border focus:border-indigo-700 font-normal text-gray-900 transition ease-in-out duration-300",
+        'class' => "px-2 py-1 $textSize w-full bg-white-200 dark:bg-slate-900 dark:text-stone-300 rounded-md focus:outline-none focus:border focus:border-indigo-700 font-normal text-gray-900 transition ease-in-out duration-300",
         'id' => $modelReference ?? null,
         'name' => $modelReference ?? null,
     ])
