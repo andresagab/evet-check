@@ -1,15 +1,15 @@
 <div wire:init="search(true, true)">
 
     {{-- full-page-loader --}}
-    <x-loaders.full-page-loader wire:loading wire:target='search, openAddModal, openEditModal, openDeleteModal'/>
+    <x-loaders.full-page-loader wire:loading wire:target='search, openAddModal, openEditModal, openDeleteModal, open_manage_role_permissions'/>
 
     {{-- sub header --}}
-    <x-layouts.headers.sub-header title="Roles" :actions="true">
+    <x-layouts.headers.sub-header title="{{ __('messages.menu.roles') }}" :actions="true">
 
         {{-- add button --}}
-        {{--@ability('*', 'people:add')--}}
+        @ability('*', 'roles:add')
             <x-buttons.circle-icon-button wire:click="openAddModal" wire.offline="disabled" wire:loading.class="hidden" color="green">add</x-buttons.circle-icon-button>
-        {{--@endability--}}
+        @endability
 
     </x-layouts.headers.sub-header>
 
@@ -17,7 +17,7 @@
     <x-layouts.pages.content.base-content-page-layout>
 
         {{-- filters section --}}
-        <x-cards.card title="Búsqueda">
+        <x-cards.card title="{{ __('messages.content_page.searcher') }}">
 
             {{-- content --}}
             <x-slot:content>

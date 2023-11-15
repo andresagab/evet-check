@@ -27,6 +27,10 @@ return [
         'logout' => 'Cerrar sesión',
     ],
 
+    'content_page' => [
+        'searcher' => 'Buscador',
+    ],
+
     'data' => [
         'unregistered' => 'No registra',
         'unknown' => 'Desconocido',
@@ -110,6 +114,11 @@ return [
             'code' => 'Código',
             'state' => 'Estado',
             'profile_photo' => 'Foto de perfil',
+
+            'inputs' => [
+                'name' => 'Buscar por nombre',
+                'code' => 'Buscar por código',
+            ],
         ],
 
         # PERSON MODEL ATTRIBUTES
