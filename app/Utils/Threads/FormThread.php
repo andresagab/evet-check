@@ -2,6 +2,8 @@
 
 namespace App\Utils\Threads;
 
+use Livewire\Attributes\On;
+
 /**
  * Trait for form component's
  */
@@ -55,6 +57,7 @@ trait FormThread
      * @param string $action => key of action to set in the component ('add' for create new resources or 'edit' to update old resources)
      * @return void
      */
+    #[On('open-modal')]
     public function openModal(string $action) : void
     {
 

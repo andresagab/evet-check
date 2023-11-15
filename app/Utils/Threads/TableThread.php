@@ -4,6 +4,7 @@ namespace App\Utils\Threads;
 
 use App\Utils\CommonUtils;
 use Illuminate\Database\Eloquent\Builder;
+use Livewire\Attributes\On;
 
 /**
  * The trait for Table wire component
@@ -39,6 +40,17 @@ trait TableThread
 
     /// CONST
 
+    /// HOOKS
+
+    /**
+     * When component is mounted
+     * @return void
+     */
+    public function mount() : void
+    {
+
+    }
+
     /// PRIVATE FUNCTIONS
 
     /// PUBLIC FUNCTIONS
@@ -49,6 +61,7 @@ trait TableThread
      * @param callable $callback => function to be called after set pagination
      * @return void
      */
+    #[On('refreshPagination')]
     public function refreshPagination(array $pagination, callable $callback) : void
     {
         # refresh pagination
@@ -63,6 +76,7 @@ trait TableThread
      * @param bool $reset_pagination => true for reset the current pagination to 1
      * @return void
      */
+    #[On('search')]
     public function search(bool $count_total = false, bool $reset_pagination = false) : void
     {
     }

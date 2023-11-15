@@ -5,7 +5,7 @@
 
         {{-- users --}}
         @ability('*', 'users')
-            {{--<x-buttons.a-button href="{{ route('admin.users') }}" color="emerald" textSise="sm">{{ __('messages.menu.users') }}</x-buttons.a-button>--}}
+            <x-buttons.a-button href="{{ route('admin.users') }}" color="slate" textSise="sm">{{ __('messages.menu.users') }}</x-buttons.a-button>
         @endability
 
         {{-- permissions --}}

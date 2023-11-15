@@ -41,7 +41,7 @@ Route::prefix('admin')
         })->name('home');
 
         ## USERS
-        #Route::get('/users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users')->middleware(['ability:*,users']);
+        Route::get('/users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users')->middleware(['ability:*,users']);
 
         ## ROLES
         Route::get('/roles', [\App\Http\Controllers\Admin\RoleController::class, 'index'])->name('roles')->middleware(['ability:*,roles']);

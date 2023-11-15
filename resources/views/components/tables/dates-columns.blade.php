@@ -5,7 +5,7 @@
 <div class="flex flex-col">
     {{-- created_at --}}
     <div class="inline-flex items-center space-x-2" title="{{ __('messages.data.created_at') }}">
-        <x-utils.icon class="text-green-600 dar:text-green-500 select-none" size="16px">calendar_month</x-utils.icon>
+        <x-utils.icon class="text-green-600 dark:text-green-500 select-none" size="16px">calendar_month</x-utils.icon>
         <span class="font-normal">{{ \Illuminate\Support\Carbon::createFromTimeString($created_at)->format('Y-m-d h:i a') }}</span>
     </div>
     {{-- updated_at --}}

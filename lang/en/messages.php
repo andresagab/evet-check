@@ -27,6 +27,10 @@ return [
         'logout' => 'Log Out',
     ],
 
+    'content_page' => [
+        'searcher' => 'Searcher',
+    ],
+
     'data' => [
         'unregistered' => 'unregistered',
         'unknown' => 'unknown',
@@ -110,6 +114,11 @@ return [
             'code' => 'Code',
             'state' => 'State',
             'profile_photo' => 'Profile photo',
+
+            'inputs' => [
+                'name' => 'Search by name',
+                'code' => 'Search by code',
+            ],
         ],
 
         # PERSON MODEL ATTRIBUTES
