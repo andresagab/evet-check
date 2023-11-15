@@ -5,3 +5,11 @@
 [x-cloak] {
     display: none;
 }
+
+.required:before{
+    content:'*';
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    color:red;
+    padding-right:5px;
+}

@@ -45,6 +45,7 @@ return [
             'confirm' => 'Confirm action',
             'delete_question' => '¿Are you sure to delete this record?',
             'irreversible' => 'This action is irreversible',
+            'confirm_delete' => 'Type "DELETE" to confirm|DELETE',
         ]
     ],
 

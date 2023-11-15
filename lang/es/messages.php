@@ -45,6 +45,7 @@ return [
             'confirm' => 'Confirmar acción',
             'delete_question' => '¿Está seguro de eliminar éste registro?',
             'irreversible' => 'Esta acción es irreversible',
+            'confirm_delete' => 'Escribe "ELIMINAR" para confirmar la acción|ELIMINAR',
         ]
     ],
 
