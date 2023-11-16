@@ -5,10 +5,22 @@ namespace App\Models;
 use App\Utils\CommonUtils;
 use Illuminate\Support\Facades\Config;
 use Laratrust\Models\Permission as PermissionModel;
+use Livewire\Wireable;
 
-class Permission extends PermissionModel
+class Permission extends PermissionModel implements Wireable
 {
     public $guarded = [];
+
+     /**
+     * The fillable fields
+     * @var string[]
+     */
+    protected $fillable = [
+        'name',
+        'display_name',
+        'module',
+        'description',
+    ];
 
     ///const
 
@@ -43,6 +55,39 @@ class Permission extends PermissionModel
     /// private functions
 
     /// public functions
+
+    public function toLivewire()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'display_name' => $this->display_name,
+            'module' => $this->module,
+            'description' => $this->description,
+        ];
+    }
+
+     /**
+     * Load attributes from livewire
+     * @param $value
+     * @return permission
+     */
+    public static function fromLivewire($value)
+    {
+        #return new static($value);
+        $permission = new Permission();
+
+        $permission->id = $value['id'];
+        $permission->name = $value['name'];
+        $permission->display_name = $value['display_name'];
+        $permission->module = $value['module'];
+        $permission->description = $value['description'];
+
+        return $permission;
+
+    }
+
+
 
     /**
      * get module reference value
