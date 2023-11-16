@@ -114,6 +114,7 @@ class UsersTable extends Component
 
     /**
      * Open edit modal to update a resource
+     * @param User $user
      * @return void
      */
     public function openEditModal(User $user): void
@@ -123,10 +124,22 @@ class UsersTable extends Component
 
     /**
      * Open delete modal to remove a resource
+     * @param User $user
      * @return void
      */
-    public function openDeleteModal(): void
+    public function openDeleteModal(User $user): void
     {
+        $this->dispatch('open-modal', $user)->to('admin.users.user-delete');
+    }
+
+    /**
+     * Open delete modal to remove a resource
+     * @param User $user => the model resource
+     * @return void
+     */
+    public function open_manage_role_permissions(User $user): void
+    {
+        $this->dispatch('open-modal', $user)->to('admin.users.manage-user-permissions');
     }
 
     /// EVENTS
