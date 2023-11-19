@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Forms\Admin\Users;
 
+use App\Http\Controllers\admin\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
@@ -162,21 +163,13 @@ class Frm extends Form
         # use try
         try {
 
-            # store data
-            User::create([
-                'name' => $this->name,
-                'code' => $this->code,
-                'state' => $this->state,
-                'password' => $this->final_password,
-            ]);
+            # store user
+            $user = UserController::store($this->only('name', 'code', 'state', 'final_password', 'role_name'));
 
-            # search user by code
-            $user = User::query()->where('code', $this->code)->first();
+            # if user was not saved, then set message as not saved
+            if (!$user)
+                $message = __('messages.responses.not_saved');
 
-            # if user was fund
-            if ($user)
-                # sync user role
-                $user->syncRoles([$this->role_name]);
         }
         catch (\Exception $e)
         {
@@ -208,24 +201,12 @@ class Frm extends Form
         # use try
         try {
 
-            # search resource
-            $user = User::query()->find($this->user->id);
+            # update user data and set message
+            $user_update = UserController::update($this->user->id, $this->only(['name', 'code', 'state', 'password', 'final_password', 'role_name']));
 
-            # set fields
-            $user->name = $this->name;
-            $user->code = $this->code;
-            $user->state = $this->state;
-
-            # if 'password' is dirty, set password
-            if ($this->password !== '')
-                $user->password = $this->final_password;
-
-            # update data, if not then set wrong message
-            if (!$user->update())
+            # if user wasn't updated, then set wrong message
+            if (!$user_update['state'])
                 $message = __('messages.errors.not_updated');
-            # else, sync roles
-            else
-                $user->syncRoles([$this->role_name]);
 
         }
         catch (\Exception $e)
