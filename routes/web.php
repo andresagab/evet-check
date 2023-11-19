@@ -72,6 +72,9 @@ Route::prefix('sys')
             return view('pages.sys.index');
         })->name('home');
 
+        ## PEOPLE
+        Route::get('/people', \App\Livewire\Sys\People\PeopleTable::class)->name('people')->middleware(['ability:*,people']);
+
         # Route::get('/users/profile', \Laravel\Jetstream\Http\Livewire\UpdateProfileInformationForm::class);
 
     });

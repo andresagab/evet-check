@@ -130,7 +130,7 @@ return [
             'surnames' => 'Apellidos',
             'nip' => 'N° identificación',
             'sex' => 'Sexo',
-            'cell_phone' => 'Celular',
+            'cel' => 'Celular',
             'phone' => 'Teléfono',
             'email' => 'Correo electrónico',
             'address' => 'Dirección',
@@ -140,7 +140,7 @@ return [
             'names_surnames' => 'Nombres y apellidos',
 
             'filters' => [
-                'person' => 'Buscar por nombres, apellidos, n° de identificación, nombre de usuario o código de usuario'
+                'person' => 'Buscar por nombres, apellidos o n° de identificación'
             ]
 
         ]

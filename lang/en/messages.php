@@ -129,7 +129,7 @@ return [
             'surnames' => 'Surnames',
             'nip' => 'N° identification',
             'sex' => 'Sex',
-            'cell_phone' => 'Cell phone',
+            'cel' => 'Cell phone',
             'phone' => 'Phone',
             'email' => 'Email',
             'address' => 'Address',
@@ -139,7 +139,7 @@ return [
             'names_surnames' => 'Names and surnames',
 
             'filters' => [
-                'person' => 'Search by names, surnames, dni, username or user code'
+                'person' => 'Search by names, surnames or dni'
             ]
 
         ]
