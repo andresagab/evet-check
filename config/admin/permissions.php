@@ -91,4 +91,36 @@ return [
         'description' => 'Permiso que permite acceder a la función de gestionar permisos de un rol',
         'module' => 'roles',
     ],
+
+    # people
+    [
+        'name' => 'people',
+        'display_name' => 'Módulo de Personas',
+        'description' => 'Permiso que permite acceder al módulo de Personas',
+        'module' => 'people',
+    ],
+    [
+        'name' => 'people:add',
+        'display_name' => 'Agregar un registro',
+        'description' => 'Permiso que permite acceder a la función de agregar un registro',
+        'module' => 'people',
+    ],
+    [
+        'name' => 'people:edit',
+        'display_name' => 'Editar un registro',
+        'description' => 'Permiso que permite acceder a la función de editar un registro',
+        'module' => 'people',
+    ],
+    [
+        'name' => 'people:delete',
+        'display_name' => 'Borrar un registro',
+        'description' => 'Permiso que permite acceder a la función de agregar un registro',
+        'module' => 'people',
+    ],
+    [
+        'name' => 'people:manage-permissions',
+        'display_name' => 'Gestionar permisos de rol',
+        'description' => 'Permiso que permite acceder a la función de gestionar permisos de un rol',
+        'module' => 'people',
+    ],
 ];
