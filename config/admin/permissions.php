@@ -123,7 +123,7 @@ return [
         'description' => 'Permiso que permite acceder a la función de gestionar permisos de un rol',
         'module' => 'people',
     ],
-    # event
+    # events
     [
         'name' => 'events',
         'display_name' => 'Módulo de eventsos',

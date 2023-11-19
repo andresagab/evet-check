@@ -77,7 +77,7 @@ Route::prefix('sys')
 
         ## EVENTS
         Route::get('/events', \App\Livewire\Sys\Events\EventsTable::class)->name('events')->middleware(['ability:*,events']);
-
+      
         # Route::get('/users/profile', \Laravel\Jetstream\Http\Livewire\UpdateProfileInformationForm::class);
 
     });
