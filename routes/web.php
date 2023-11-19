@@ -75,6 +75,9 @@ Route::prefix('sys')
         ## PEOPLE
         Route::get('/people', \App\Livewire\Sys\People\PeopleTable::class)->name('people')->middleware(['ability:*,people']);
 
+        ## EVENTS
+        Route::get('/events', \App\Livewire\Sys\Events\EventsTable::class)->name('events')->middleware(['ability:*,events']);
+      
         # Route::get('/users/profile', \Laravel\Jetstream\Http\Livewire\UpdateProfileInformationForm::class);
 
     });

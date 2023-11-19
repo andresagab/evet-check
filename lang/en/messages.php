@@ -142,7 +142,23 @@ return [
                 'person' => 'Search by names, surnames or dni'
             ]
 
-        ]
+        ],
+
+        # EVENT MODEL ATTRIBUTES
+        'event' => [
+            'model_name' => 'Event',
+
+            'name' => 'Name',
+            'year' => 'Year',
+            'banner_path' => 'Banner',
+            'poster_path' => 'Poster',
+
+            'filters' => [
+                'event' => 'Search by event name',
+                'year' => 'Search by event year',
+            ]
+
+        ],
 
     ],
 

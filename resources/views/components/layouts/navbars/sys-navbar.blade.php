@@ -5,7 +5,12 @@
 
         {{-- people --}}
         @ability('*', 'people')
-                <x-buttons.a-button href="{{ route('sys.people') }}" color="slate" textSise="sm">{{__('messages.menu.people')}}</x-buttons.a-button>
+            <x-buttons.a-button href="{{ route('sys.people') }}" color="slate" textSise="sm">{{__('messages.menu.people')}}</x-buttons.a-button>
+        @endability
+
+        {{-- events --}}
+        @ability('*', 'events')
+            <x-buttons.a-button href="{{ route('sys.events') }}" color="slate" textSise="sm">{{__('messages.menu.events')}}</x-buttons.a-button>
         @endability
 
     </x-slot:menu_buttons>
