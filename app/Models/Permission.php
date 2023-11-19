@@ -50,7 +50,7 @@ class Permission extends PermissionModel implements Wireable
             'color' => 'violet',
             'type' => 'sys',
         ],
-        'event' => [
+        'events' => [
             'translate_key' => 'messages.menu.events',
             'color' => 'blue',
             'type' => 'sys',

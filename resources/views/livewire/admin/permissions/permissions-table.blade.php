@@ -86,6 +86,14 @@
                 <tbody>
                 @foreach ($permissions as $item)
 
+                    {{-- php code --}}
+                    @php
+                        # load module of current permission
+                        $module = $item->get_module();
+                        # define module color
+                        $module_color = $module ? $module['color'] : 'gray';
+                    @endphp
+
                     <tr class="border-b border-b-blue-300 dark:border-b-slate-500 bg-white dark:bg-slate-600 hover:bg-blue-100 dark:hover:bg-slate-500 dark:text-stone-50 dark:hover:text-white hover:shadow transition ease-in-out duration-300">
                         {{-- id --}}
                         <td class="p-2 text-center">{{ $item->id }}</td>
@@ -99,7 +107,7 @@
                         </td>
                         {{-- module --}}
                         <td class="p-2">
-                            <span class="font-semibold text-sm">{{ $item->module ?? __('messages.data.unknown') }}</span>
+                            <x-utils.cheap :color="$module_color" class="font-semibold select-none text-sm">{{ $module ? __($module['translate_key']) : 'messages.data.unknown' }}</x-utils.cheap>
                         </td>
                         {{-- description --}}
                         <td class="p-2">

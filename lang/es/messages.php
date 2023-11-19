@@ -143,7 +143,23 @@ return [
                 'person' => 'Buscar por nombres, apellidos o n° de identificación'
             ]
 
-        ]
+        ],
+
+        # EVENT MODEL ATTRIBUTES
+        'event' => [
+            'model_name' => 'Evento',
+
+            'name' => 'Nombre',
+            'year' => 'Año',
+            'banner_path' => 'Banner',
+            'poster_path' => 'Poster',
+
+            'filters' => [
+                'event' => 'Buscar por nombre del evento',
+                'year' => 'Buscar por año del evento',
+            ]
+
+        ],
 
     ]
 
