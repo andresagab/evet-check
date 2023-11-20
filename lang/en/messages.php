@@ -19,6 +19,7 @@ return [
         'roles' => 'Roles',
 
         'events' => 'Events',
+        'event_attendances' => 'Event attendances',
         'activities' => 'Activities',
         'people' => 'People',
 
@@ -46,6 +47,7 @@ return [
             'delete_question' => '¿Are you sure to delete this record?',
             'irreversible' => 'This action is irreversible',
             'confirm_delete' => 'Type "DELETE" to confirm|DELETE',
+            'go_back' => 'Click to go back',
         ]
     ],
 
@@ -154,9 +156,52 @@ return [
             'poster_path' => 'Poster',
 
             'filters' => [
-                'event' => 'Search by event name',
+                'name' => 'Search by event name',
                 'year' => 'Search by event year',
             ]
+
+        ],
+
+
+        # EVENT MODEL ATTRIBUTES
+        'event_attendance' => [
+            'model_name' => 'Event attendance',
+
+            'event' => 'Event',
+
+            'person' => 'Person',
+            'institution' => 'Institution',
+            'other_institution' => 'Other institution',
+            'attendance' => 'Attendance',
+            'participation_modality' => 'Participation modality',
+            'type' => 'Type',
+            'stay_type' => 'Stay type',
+
+            'filters' => [
+                'name' => 'Search by name of event',
+                'year' => 'Search by year of event',
+                'person' => 'Search by assistant of event (names, surnames or dni)',
+                'participation_modality' => 'Search by participation modality',
+                'type' => 'Search by type',
+                'stay_type' => 'Search by stay type',
+            ],
+
+            'participation_modalities' => [
+                'AS' => 'Assistant',
+                'SP' => 'Speaker',
+                'WS' => 'Educator',
+            ],
+            'types' => [
+                'SL' => 'Student of Program of Lic. in Computing of the Universidad de Nariño',
+                'ST' => 'Student',
+                'TE' => 'Teacher',
+                'PT' => 'Particular',
+                'EL' => 'Graduate of Program of Lic. in Computing of the Universidad de Nariño',
+            ],
+            'stay_types' => [
+                'P' => 'In person',
+                'V' => 'Virtual',
+            ],
 
         ],
 

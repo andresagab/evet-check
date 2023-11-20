@@ -154,4 +154,29 @@ return [
         'description' => 'Permiso que permite acceder al submodulo de actividades de un eventso',
         'module' => 'events',
     ],
+    # event attendances
+    [
+        'name' => 'event_attendances',
+        'display_name' => 'Módulo de asistencia de evento',
+        'description' => 'Permiso que permite acceder al módulo de asistencia de evento',
+        'module' => 'event_attendances',
+    ],
+    [
+        'name' => 'event_attendances:add',
+        'display_name' => 'Agregar un registro',
+        'description' => 'Permiso que permite acceder a la función de agregar un registro',
+        'module' => 'event_attendances',
+    ],
+    [
+        'name' => 'event_attendances:edit',
+        'display_name' => 'Editar un registro',
+        'description' => 'Permiso que permite acceder a la función de editar un registro',
+        'module' => 'event_attendances',
+    ],
+    [
+        'name' => 'event_attendances:delete',
+        'display_name' => 'Borrar un registro',
+        'description' => 'Permiso que permite acceder a la función de agregar un registro',
+        'module' => 'event_attendances',
+    ],
 ];

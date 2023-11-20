@@ -77,7 +77,10 @@ Route::prefix('sys')
 
         ## EVENTS
         Route::get('/events', \App\Livewire\Sys\Events\EventsTable::class)->name('events')->middleware(['ability:*,events']);
-      
+
+        ## EVENT ATTENDANCES
+        Route::get('/events/attendances/{event}', \App\Livewire\Sys\Events\Attendances\AttendancesTable::class)->name('events.attendances')->middleware(['ability:*,event_attendances']);
+
         # Route::get('/users/profile', \Laravel\Jetstream\Http\Livewire\UpdateProfileInformationForm::class);
 
     });
