@@ -60,6 +60,11 @@ class Permission extends PermissionModel implements Wireable
             'color' => 'orange',
             'type' => 'sys',
         ],
+        'activities' => [
+            'translate_key' => 'messages.menu.activities',
+            'color' => 'red',
+            'type' => 'sys',
+        ],
     ];
 
     /// private functions

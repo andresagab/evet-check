@@ -48,6 +48,8 @@ return [
             'irreversible' => 'This action is irreversible',
             'confirm_delete' => 'Type "DELETE" to confirm|DELETE',
             'go_back' => 'Click to go back',
+            'yes' => 'Yes',
+            'not' => 'Not',
         ]
     ],
 
@@ -162,8 +164,7 @@ return [
 
         ],
 
-
-        # EVENT MODEL ATTRIBUTES
+        # EVENT ATTENDANCE MODEL ATTRIBUTES
         'event_attendance' => [
             'model_name' => 'Event attendance',
 
@@ -201,6 +202,41 @@ return [
             'stay_types' => [
                 'P' => 'In person',
                 'V' => 'Virtual',
+            ],
+
+        ],
+
+        # ACTIVITY MODEL ATTRIBUTES
+        'activity' => [
+            'model_name' => 'Activity',
+
+            'event' => 'Event',
+            'author_name' => 'Author',
+            'name' => 'Name',
+            'type' => 'Type',
+            'status' => 'Status',
+            'hidden' => 'Hidden',
+            'date' => 'Date',
+
+            'filters' => [
+                'author_name' => 'Search by author of activity',
+                'name' => 'Search by name of activity',
+                'type' => 'Search by type of activity',
+                'status' => 'Search by status of activity',
+                'date' => 'Search by date of activity',
+            ],
+
+            'types' => [
+                'CF' => 'Conference',
+                'PT' => 'Presentation',
+                'CL' => 'Class',
+                'SN' => 'Snacks',
+                'OT' => 'Other',
+            ],
+            'status_types' => [
+                'O' => 'Open',
+                'I' => 'In progress',
+                'C' => 'Closed',
             ],
 
         ],
