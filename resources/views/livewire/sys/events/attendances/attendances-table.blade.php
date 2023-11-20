@@ -4,12 +4,15 @@
     <x-loaders.full-page-loader wire:loading wire:target='search, openAddModal, openEditModal, openDeleteModal'/>
 
     {{-- sub header --}}
-    <x-layouts.headers.sub-header title="{{ __('messages.menu.events') }}" :actions="true">
+    <x-layouts.headers.sub-header title="{{ __('messages.menu.event_attendances') }} | {{ $event->name }}" :actions="true">
 
         {{-- add button --}}
-        @ability('*', 'events:add')
+        @ability('*', 'event_attendances:add')
         <x-buttons.circle-icon-button wire:click="openAddModal" wire.offline="disabled" wire:loading.class="hidden" color="green">add</x-buttons.circle-icon-button>
         @endability
+
+        {{-- back --}}
+        <a href="javascript:history.back()"> <x-buttons.circle-icon-button title="{{ __('messages.data.action.go_back') }}" color="yellow" size="20px">undo</x-buttons.circle-icon-button></a>
 
     </x-layouts.headers.sub-header>
 
@@ -17,7 +20,7 @@
     <x-layouts.pages.content.base-content-page-layout>
 
         {{-- filters section --}}
-        <x-cards.card title="Búsqueda">
+        <x-cards.card title="{{ __('messages.content_page.searcher') }}">
 
             {{-- content --}}
             <x-slot:content>
@@ -28,8 +31,8 @@
 
                         {{-- filters.name --}}
                         <div class="flex flex-col items-start w-full">
-                            <label class="font-semibold text-sm text-zinc-900 dark:text-stone-100" for="filters.name">{{ __('messages.models.event.name') }}:</label>
-                            <input wire:model="filters.name" wire:keydown.enter='search(true, true)' type="text" name="filters.name" id="filters.name" placeholder="{{ __('messages.models.event.filters.name') }}" class="border-none px-2 py-1 text-sm w-full bg-white-200 dark:bg-slate-900 dark:text-stone-200 rounded-md">
+                            <label class="font-semibold text-sm text-zinc-900 dark:text-stone-100" for="filters.name">{{ __('messages.models.event_attendance.event') }}:</label>
+                            <input wire:model="filters.name" wire:keydown.enter='search(true, true)' type="text" name="filters.name" id="filters.name" placeholder="{{ __('messages.models.event_attendance.filters.name') }}" class="border-none px-2 py-1 text-sm w-full bg-white-200 dark:bg-slate-900 dark:text-stone-200 rounded-md">
                         </div>
 
                     </div>
@@ -43,7 +46,7 @@
                     {{-- total_records --}}
                     <div class="flex flex-row items-center space-x-1 select-none">
                         <span class="font-semibold text-xs text-zinc-900 dark:text-stone-100">Registros cargados:</span>
-                        <span class="font-semibold text-xs text-zinc-700 dark:text-stone-300">{{ count($events) }}</span>
+                        <span class="font-semibold text-xs text-zinc-700 dark:text-stone-300">{{ count($attendances) }}</span>
                     </div>
                     {{-- per_page --}}
                     <div class="flex flex-row items-center space-x-1 select-none">
@@ -74,27 +77,48 @@
                 <thead>
                 <tr class="bg-emerald-300 dark:bg-slate-700 text-emerald-900 dark:text-slate-100 text-sm font-bold uppercase">
                     <th class="px-2 py-1 text-left w-10">ID</th>
-                    <th class="px-2 py-1 text-left w-96">{{ __('messages.models.event.name') }}</th>
-                    <th class="px-2 py-1 text-left w-32">{{ __('messages.models.event.year') }}</th>
+                    <th class="px-2 py-1 text-left w-96">{{ __('messages.models.event_attendance.person') }}</th>
+                    <th class="px-2 py-1 text-left w-96">{{ __('messages.models.event_attendance.institution') }}</th>
+                    <th class="px-2 py-1 text-left w-96">{{ __('messages.models.event_attendance.attendance') }}</th>
                     <th class="px-2 py-1 text-left w-60">{{ __('messages.data.dates') }}</th>
                     <th class="px-2 py-1 w-60"></th>
                 </tr>
                 </thead>
                 {{-- body --}}
                 <tbody>
-                @foreach ($events as $item)
+                @foreach ($attendances as $item)
 
                     <tr class="border-b border-b-blue-300 dark:border-b-slate-500 bg-white dark:bg-slate-600 hover:bg-blue-100 dark:hover:bg-slate-500 dark:text-stone-50 dark:hover:text-white hover:shadow transition ease-in-out duration-300">
 
                         {{-- id event --}}
                         <td class="p-2 text-center">{{ $item->id }}</td>
-                        {{-- name --}}
+                        {{-- person name --}}
                         <td class="p-2 text-left">
-                            <span class="font-bold text-sm">{{ $item->name }}</span>
+                            <span class="font-bold text-sm">{{ $item->person->getFullName() }}</span>
                         </td>
-                        {{-- year --}}
+                        {{-- institution --}}
                         <td class="p-2 text-left">
-                            <span class="font-semibold text-sm">{{ $item->year }}</span>
+                            <span class="font-semibold text-sm">{{ $item->get_institution() }}</span>
+                        </td>
+                        {{-- attendance --}}
+                        <td class="p-2 text-left">
+                            <div class="flex flex-col">
+                                {{-- participation_modality --}}
+                                <div class="inline-flex items-center justify-start space-x-2" title="{{ __('messages.models.event_attendance.participation_modality') }}">
+                                    <x-utils.icon class="text-{{ $item->get_participation_modality('color') }}-600 dark:text-{{ $item->get_participation_modality('color') }}-500 select-none" size="16px">groups</x-utils.icon>
+                                    <span class="font-normal">{{ __($item->get_participation_modality('key_name')) }}</span>
+                                </div>
+                                {{-- type --}}
+                                <div class="inline-flex items-center justify-start space-x-2" title="{{ __('messages.models.event_attendance.type') }}">
+                                    <x-utils.icon class="text-green-600 dark:text-green-500 select-none" size="16px">recent_actors</x-utils.icon>
+                                    <span class="font-normal">{{ __($item->get_type()) }}</span>
+                                </div>
+                                {{-- stay_type --}}
+                                <div class="inline-flex items-center justify-start space-x-2" title="{{ __('messages.models.event_attendance.stay_type') }}">
+                                    <x-utils.icon class="text-pink-600 dark:text-pink-500 select-none" size="16px">hail</x-utils.icon>
+                                    <span class="font-normal">{{ __($item->get_stay_type()) }}</span>
+                                </div>
+                            </div>
                         </td>
                         {{-- dates --}}
                         <td class="p-2 text-left">
@@ -104,20 +128,12 @@
                         <td>
                             <div class="inline-flex items-center space-x-1">
                                 {{-- edit --}}
-                                @ability('*', 'events:edit')
+                                @ability('*', 'event_attendances:edit')
                                 <x-buttons.circle-icon-button wire:click="openEditModal({{ $item }})" title="Click para editar este registro" color="violet" size="20px">edit</x-buttons.circle-icon-button>
                                 @endability
                                 {{-- delete --}}
-                                @ability('*', 'events:delete')
+                                @ability('*', 'event_attendances:delete')
                                 <x-buttons.circle-icon-button wire:click="openDeleteModal({{ $item }})" title="Click para eliminar este registro" color="red" size="20px">delete</x-buttons.circle-icon-button>
-                                @endability
-                                {{-- event attendances --}}
-                                @ability('*', 'event_attendances')
-                                <a href="{{ route('sys.events.attendances', $item) }}"><x-buttons.circle-icon-button title="Click para gestionar la asistencia del evento" color="blue" size="20px">diversity_3</x-buttons.circle-icon-button></a>
-                                @endability
-                                {{-- manage-event-permissions --}}
-                                @ability('*', 'events:manage-activities')
-                                    {{--<x-buttons.circle-icon-button wire:click="open_manage_role_permissions({{ $item->user }})" title="Click para gestionar los permisos de este registro" color="emerald" size="20px">manage_accounts</x-buttons.circle-icon-button>--}}
                                 @endability
                             </div>
                         </td>
@@ -136,8 +152,8 @@
     {{-- include wire components --}}
 
     {{-- event-form --}}
-    <livewire:sys.events.event-form/>
+    <livewire:sys.events.attendances.attendance-form/>
     {{-- event-delete --}}
-    <livewire:sys.events.event-delete/>
+    <livewire:sys.events.attendances.attendance-delete/>
 
 </div>

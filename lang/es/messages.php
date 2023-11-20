@@ -19,6 +19,7 @@ return [
         'roles' => 'Roles',
 
         'events' => 'Eventos',
+        'event_attendances' => 'Asistencia de evento',
         'activities' => 'Actividades',
         'people' => 'Personas',
 
@@ -46,6 +47,7 @@ return [
             'delete_question' => '¿Está seguro de eliminar éste registro?',
             'irreversible' => 'Esta acción es irreversible',
             'confirm_delete' => 'Escribe "ELIMINAR" para confirmar la acción|ELIMINAR',
+            'go_back' => 'Click para regresar a la página anterior',
         ]
     ],
 
@@ -155,9 +157,49 @@ return [
             'poster_path' => 'Poster',
 
             'filters' => [
-                'event' => 'Buscar por nombre del evento',
+                'name' => 'Buscar por nombre del evento',
                 'year' => 'Buscar por año del evento',
             ]
+
+        ],
+
+        # EVENT MODEL ATTRIBUTES
+        'event_attendance' => [
+            'model_name' => 'Asistencia de evento',
+
+            'event' => 'Evento',
+            'person' => 'Persona',
+            'institution' => 'Institución',
+            'other_institution' => 'Otra institución',
+            'attendance' => 'Asistencia',
+            'participation_modality' => 'Modalidad de participación',
+            'type' => 'Tipo',
+            'stay_type' => 'Tipo de asistencia',
+
+            'filters' => [
+                'name' => 'Buscar por nombre del evento',
+                'year' => 'Buscar por año del evento',
+                'person' => 'Buscar por persona (nombres, apellidos o N° identificación)',
+                'type' => 'Buscar por tipo de asistencia',
+                'modality' => 'Buscar por modalidad de asistencia',
+            ],
+
+            'participation_modalities' => [
+                'AS' => 'Asistente',
+                'SP' => 'Ponente',
+                'WS' => 'Tallerista',
+            ],
+            'types' => [
+                'SL' => 'Estudiante del Programa de Lic. en Informática de la Universidad de Nariño',
+                'ST' => 'Estudiante',
+                'TE' => 'Docente',
+                'PT' => 'Particular',
+                'EL' => 'Egresado del Programa de Lic. en Informática de la Universidad de Nariño',
+            ],
+            'stay_types' => [
+                'P' => 'Presencial',
+                'V' => 'Virtual',
+            ],
 
         ],
 
