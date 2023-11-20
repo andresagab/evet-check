@@ -179,4 +179,29 @@ return [
         'description' => 'Permiso que permite acceder a la función de agregar un registro',
         'module' => 'event_attendances',
     ],
+    # activities
+    [
+        'name' => 'activities',
+        'display_name' => 'Módulo de actividades',
+        'description' => 'Permiso que permite acceder al módulo de actividades',
+        'module' => 'activities',
+    ],
+    [
+        'name' => 'activities:add',
+        'display_name' => 'Agregar un registro',
+        'description' => 'Permiso que permite acceder a la función de agregar un registro',
+        'module' => 'activities',
+    ],
+    [
+        'name' => 'activities:edit',
+        'display_name' => 'Editar un registro',
+        'description' => 'Permiso que permite acceder a la función de editar un registro',
+        'module' => 'activities',
+    ],
+    [
+        'name' => 'activities:delete',
+        'display_name' => 'Borrar un registro',
+        'description' => 'Permiso que permite acceder a la función de agregar un registro',
+        'module' => 'activities',
+    ],
 ];

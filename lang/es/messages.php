@@ -48,6 +48,8 @@ return [
             'irreversible' => 'Esta acción es irreversible',
             'confirm_delete' => 'Escribe "ELIMINAR" para confirmar la acción|ELIMINAR',
             'go_back' => 'Click para regresar a la página anterior',
+            'yes' => 'Si',
+            'not' => 'No',
         ]
     ],
 
@@ -199,6 +201,41 @@ return [
             'stay_types' => [
                 'P' => 'Presencial',
                 'V' => 'Virtual',
+            ],
+
+        ],
+
+        # ACTIVITY MODEL ATTRIBUTES
+        'activity' => [
+            'model_name' => 'Actividad',
+
+            'event' => 'Evento',
+            'author_name' => 'Autor',
+            'name' => 'Nombre',
+            'type' => 'Tipo',
+            'status' => 'Estado',
+            'hidden' => 'Oculto',
+            'date' => 'Fecha',
+
+            'filters' => [
+                'author_name' => 'Buscar por autor de la actividad',
+                'name' => 'Buscar por nombre de la actividad',
+                'type' => 'Buscar por tipo de actividad',
+                'status' => 'Buscar por estado de actividad',
+                'date' => 'Buscar por fecha de actividad',
+            ],
+
+            'types' => [
+                'CF' => 'Conferencia',
+                'PT' => 'Ponencia',
+                'CL' => 'Taller',
+                'SN' => 'Refrigerio',
+                'OT' => 'Otro',
+            ],
+            'status_types' => [
+                'O' => 'Abierta',
+                'I' => 'En ejecución',
+                'C' => 'Cerrada',
             ],
 
         ],
