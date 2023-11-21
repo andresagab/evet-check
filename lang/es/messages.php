@@ -21,6 +21,7 @@ return [
         'events' => 'Eventos',
         'event_attendances' => 'Asistencia de evento',
         'activities' => 'Actividades',
+        'activity_attendances' => 'Asistencia de actividad',
         'people' => 'Personas',
 
         'manage_account' => 'Gestionar cuenta',
@@ -236,6 +237,29 @@ return [
                 'O' => 'Abierta',
                 'I' => 'En ejecución',
                 'C' => 'Cerrada',
+            ],
+
+        ],
+
+        # ACTIVITY ATTENDANCE MODEL ATTRIBUTES
+        'activity_attendance' => [
+            'model_name' => 'Asistencia de actividad',
+
+            'activity' => 'Actividad',
+            'person' => 'Persona',
+            'state' => 'Estado',
+            'attendance_date' => 'Fecha y hora de asistencia',
+
+            'filters' => [
+                'person' => 'Buscar por nombres, apellidos o N° de identificación de la persona asistente',
+                'state' => 'Buscar por estado',
+                'attendance_date' => 'Buscar por fecha y hora de asistencia',
+            ],
+
+            'states' => [
+                'SU' => 'Inscrito',
+                'DO' => 'Realizado',
+                'UR' => 'No realizado',
             ],
 
         ],
