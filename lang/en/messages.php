@@ -21,6 +21,7 @@ return [
         'events' => 'Events',
         'event_attendances' => 'Event attendances',
         'activities' => 'Activities',
+        'activity_attendances' => 'Activity attendances',
         'people' => 'People',
 
         'manage_account' => 'Manage Account',
@@ -237,6 +238,29 @@ return [
                 'O' => 'Open',
                 'I' => 'In progress',
                 'C' => 'Closed',
+            ],
+
+        ],
+
+        # ACTIVITY ATTENDANCE MODEL ATTRIBUTES
+        'activity_attendance' => [
+            'model_name' => 'Activity attendance',
+
+            'activity' => 'Activity',
+            'person' => 'Person',
+            'state' => 'State',
+            'attendance_date' => 'Datetime of attendance',
+
+            'filters' => [
+                'person' => 'Search by names, surnames or dni of attendant',
+                'state' => 'Search by state',
+                'attendance_date' => 'Search by datetime of attendance',
+            ],
+
+            'states' => [
+                'SU' => 'Signed up',
+                'DO' => 'Done',
+                'UR' => 'Unrealized',
             ],
 
         ],

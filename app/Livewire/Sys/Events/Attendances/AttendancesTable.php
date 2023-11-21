@@ -83,16 +83,20 @@ class AttendancesTable extends Component
         $query = EventAttendance::query()
             # link to events
             ->join('events as e', 'event_attendances.event_id', '=', 'e.id')
+            # link to people
+            ->join('people as p', 'event_attendances.person_id', '=', 'p.id')
             # filter by event_id
             ->where('event_id', $this->event->id)
-            # filter by event name
+            # filter by person by names, surnames or nuip
             ->where(function ($q) {
                 # define $filter for current where
                 $filter = "%" . mb_strtolower($this->filters['name'], 'UTF-8') . "%";
-                # if $this->filters['name'] have data
+                # if filter have data
                 if ($this->filters['name'] != '')
                     # filter event name
-                    return $q->whereRaw('LOWER(e.name) LIKE ?', [$filter]);
+                    return $q->whereRaw('LOWER(p.names) LIKE ?', [$filter])
+                        ->orWhereRaw('LOWER(p.surnames) LIKE ?', [$filter])
+                        ->orWhereRaw('LOWER(p.nuip) LIKE ?', [$filter]);
                 else
                     return null;
             });
