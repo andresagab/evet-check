@@ -4,6 +4,7 @@ namespace App\Models\Sys;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Livewire\Wireable;
 use OwenIt\Auditing\Contracts\Auditable;
 
@@ -37,7 +38,14 @@ class Event extends Model implements Auditable, Wireable
 
     /// RELATIONAL FUNCTIONS
 
-
+    /**
+     * Load all activities models
+     * @return HasMany
+     */
+    public function activities() : HasMany
+    {
+        return $this->hasMany(Activity::class);
+    }
 
     /// PUBLIC FUNCTIONS
 

@@ -38,6 +38,7 @@ import focus from '@alpinejs/focus'
 Alpine.plugin(focus)
 
 /// SWEET
-import Toast from "@/sweet/Sweet.js";
+import {Toast, SAlert} from "@/sweet/Sweet.js";
 // add custom Toast to window app
 window.Toast = Toast
+window.SAlert = SAlert

@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 
 // Define the toast setup
-const Toast = Swal.mixin({
+export const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
     showConfirmButton: false,
@@ -13,5 +13,12 @@ const Toast = Swal.mixin({
     }
 })
 
-// export modules
+export const SAlert = (data) => {
+    Swal.fire({
+        title: data.title,
+        text: data.text,
+        icon: data.icon
+    });
+}
+
 export default Toast

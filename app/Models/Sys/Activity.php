@@ -6,6 +6,7 @@ use App\Utils\CommonUtils;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Lang;
 use Livewire\Wireable;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -27,7 +28,9 @@ class Activity extends Model implements Auditable, Wireable
         'event_id',
         'author_name',
         'name',
+        'slots',
         'type',
+        'modality',
         'status',
         'hidden',
         'date',
@@ -48,6 +51,15 @@ class Activity extends Model implements Auditable, Wireable
         return $this->belongsTo(Event::class);
     }
 
+    /**
+     * Load the Activity Attendances models
+     * @return HasMany
+     */
+    public function activity_attendances() : HasMany
+    {
+        return $this->hasMany(ActivityAttendance::class);
+    }
+
     /// WIRE FUNCTIONS
 
     /**
@@ -61,7 +73,9 @@ class Activity extends Model implements Auditable, Wireable
             'event_id' => $this->event_id,
             'author_name' => $this->author_name,
             'name' => $this->name,
+            'slots' => $this->slots,
             'type' => $this->type,
+            'modality' => $this->modality,
             'status' => $this->status,
             'hidden' => $this->hidden,
             'date' => $this->date,
@@ -84,7 +98,9 @@ class Activity extends Model implements Auditable, Wireable
         $activity->event_id = $value['event_id'];
         $activity->author_name = $value['author_name'];
         $activity->name = $value['name'];
+        $activity->slots = $value['slots'];
         $activity->type = $value['type'];
+        $activity->modality = $value['modality'];
         $activity->status = $value['status'];
         $activity->hidden = $value['hidden'];
         $activity->date = $value['date'];
@@ -110,6 +126,22 @@ class Activity extends Model implements Auditable, Wireable
         # if 'institution' is not null and not is 1, then load key value
         if ($this->type)
             $return_value = CommonUtils::getKeyValueFromArray($this->type, self::get_types()) ?? __('messages.data.unknown');
+
+        return $return_value;
+    }
+
+    /**
+     * Get modality name
+     * @return string
+     */
+    public function get_modality() : string
+    {
+        # define default return value with unknown message
+        $return_value = __('messages.data.unknown');
+
+        # if 'institution' is not null and not is 1, then load key value
+        if ($this->modality)
+            $return_value = CommonUtils::getKeyValueFromArray($this->modality, self::get_modalities()) ?? __('messages.data.unknown');
 
         return $return_value;
     }
@@ -143,6 +175,23 @@ class Activity extends Model implements Auditable, Wireable
             return __('messages.data.actions.not');
     }
 
+    /**
+     * Get amount of free slots to register in this activity
+     * @return int
+     */
+    public function get_free_slots() : int
+    {
+        # define free slots as 0
+        $free_slots = $this->slots;
+        # count attendance of activity
+        $total_attendance = $this->activity_attendances()->count();
+        # if total of attendance is greater than zero
+        if ($total_attendance > 0)
+            $free_slots = $this->slots - $total_attendance;
+
+        return $free_slots;
+    }
+
     /// STATIC FUNCTIONS
 
     /**
@@ -163,6 +212,13 @@ class Activity extends Model implements Auditable, Wireable
         return Lang::get('messages.models.activity.status_types');
     }
 
-
+    /**
+     * Get the array of available modalities
+     * @return array
+     */
+    public static function get_modalities() : array
+    {
+        return Lang::get('messages.models.activity.modalities');
+    }
 
 }

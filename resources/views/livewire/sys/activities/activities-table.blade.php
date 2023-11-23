@@ -86,7 +86,8 @@
                     <th class="px-2 py-1 text-left w-10">ID</th>
                     <th class="px-2 py-1 text-left w-96">{{ __('messages.models.activity.model_name') }}</th>
                     <th class="px-2 py-1 text-left w-96">{{ __('messages.models.activity.event') }}</th>
-                    <th class="px-2 py-1 text-left w-48">{{ __('messages.models.activity.type') }}</th>
+                    <th class="px-2 py-1 text-left w-48">{{ __('messages.models.activity.type') }}/{{ __('messages.models.activity.modality') }}</th>
+                    <th class="px-2 py-1 text-left w-48">{{ __('messages.models.activity.slots') }}</th>
                     <th class="px-2 py-1 text-left w-44">{{ __('messages.models.activity.status') }}</th>
                     <th class="px-2 py-1 text-left w-32">{{ __('messages.models.activity.hidden') }}</th>
                     <th class="px-2 py-1 text-left w-60">{{ __('messages.models.activity.date') }}</th>
@@ -115,9 +116,19 @@
                         <td class="p-2 text-left">
                             <span class="font-normal text-sm">{{ $item->event->name }}</span>
                         </td>
-                        {{-- type --}}
+                        {{-- type and modality --}}
                         <td class="p-2 text-left">
-                            <span class="font-normal text-sm">{{ $item->get_type() }}</span>
+                            <div class="flex flex-col space-y-0 items-start">
+                                {{-- type --}}
+                                <span class="font-semibold text-sm">{{ $item->get_type() }}</span>
+                                {{-- modality --}}
+                                <span class="font-normal text-sm text-slate-300">{{ $item->get_modality() }}</span>
+                            </div>
+
+                        </td>
+                        {{-- slots --}}
+                        <td class="p-2 text-left">
+                            <span class="font-normal text-sm">{{ "{$item->get_free_slots()}/$item->slots" }}</span>
                         </td>
                         {{-- status --}}
                         <td class="p-2 text-left">

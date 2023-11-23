@@ -138,7 +138,7 @@ class Frm extends Form
                 'max:20',
             ],
             'sex' => [
-                'required',
+                'nullable',
                 'string',
                 'max:1',
             ],
