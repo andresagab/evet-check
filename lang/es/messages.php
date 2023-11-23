@@ -211,9 +211,12 @@ return [
             'model_name' => 'Actividad',
 
             'event' => 'Evento',
-            'author_name' => 'Autor',
+            'author_name' => 'Autor/es',
             'name' => 'Nombre',
+            'slots' => 'Cupos',
+            'free_slots' => 'Cupos libres',
             'type' => 'Tipo',
+            'modality' => 'Modalidad',
             'status' => 'Estado',
             'hidden' => 'Oculto',
             'date' => 'Fecha',
@@ -233,6 +236,12 @@ return [
                 'SN' => 'Refrigerio',
                 'OT' => 'Otro',
             ],
+
+            'modalities' => [
+                'P' => 'Presencial',
+                'V' => 'Virtual',
+            ],
+
             'status_types' => [
                 'O' => 'Abierta',
                 'I' => 'En ejecución',

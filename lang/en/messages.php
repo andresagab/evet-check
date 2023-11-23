@@ -212,9 +212,12 @@ return [
             'model_name' => 'Activity',
 
             'event' => 'Event',
-            'author_name' => 'Author',
+            'author_name' => "Author/'s",
             'name' => 'Name',
+            'slots' => 'Slots',
+            'free_slots' => 'Free Slots',
             'type' => 'Type',
+            'modality' => 'Modality',
             'status' => 'Status',
             'hidden' => 'Hidden',
             'date' => 'Date',
@@ -233,6 +236,10 @@ return [
                 'CL' => 'Class',
                 'SN' => 'Snacks',
                 'OT' => 'Other',
+            ],
+            'modalities' => [
+                'P' => 'In person',
+                'V' => 'Virtual',
             ],
             'status_types' => [
                 'O' => 'Open',

@@ -54,6 +54,19 @@
                 });
             });
 
+            /**
+             * Alert message, this can be called from wire component
+             */
+            Livewire.on('alert', function (data) {
+
+                // if !data.icon set it
+                if (!data.icon)
+                    data.icon = 'success'
+
+                SAlert(data)
+
+            });
+
         </script>
 
     </body>

@@ -16,7 +16,34 @@ use Illuminate\Support\Facades\Route;
 /**
  * redirect root route to login
  */
-Route::redirect('/', '/login');
+#Route::redirect('/', '/login');
+
+Route::redirect('/', '/portal/home');
+Route::redirect('/portal', '/portal/home');
+
+/*
+|--------------------------------------------------------------------------
+| PORTAL ROUTES
+|--------------------------------------------------------------------------
+|
+*/
+
+Route::prefix('portal')
+    ->name('portal.')
+    ->middleware([
+    ])
+    ->group(function () {
+
+        ## HOME
+        Route::get('/home', \App\Livewire\Portal\Home::class)->name('home');
+
+        ## DASHBOARD
+        Route::get('/dashboard/{person}', \App\Livewire\Portal\Dashboard::class)->name('dashboard');
+
+        ## ACTIVITIES
+        Route::get('/event/{event_id}/activities/{person_id}', \App\Livewire\Portal\Activities::class)->name('event.activities')->withoutScopedBindings();
+
+    });
 
 /*
 |--------------------------------------------------------------------------

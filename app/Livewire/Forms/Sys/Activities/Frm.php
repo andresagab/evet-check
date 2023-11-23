@@ -36,10 +36,22 @@ class Frm extends Form
     public $author_name = '';
 
     /**
+     * The slots attribute
+     * @prop string
+     */
+    public $slots = 0;
+
+    /**
      * The type attribute
      * @prop string
      */
     public $type = '';
+
+    /**
+     * The modality attribute
+     * @prop string
+     */
+    public $modality = '';
 
     /**
      * The status attribute
@@ -83,10 +95,21 @@ class Frm extends Form
                 'string',
                 'max:250',
             ],
+            'slots' => [
+                'required',
+                'numeric',
+                'min:0',
+                'max:99999',
+            ],
             'type' => [
                 'required',
                 'string',
                 'max:2',
+            ],
+            'modality' => [
+                'required',
+                'string',
+                'max:1',
             ],
             'status' => [
                 'required',
@@ -119,7 +142,9 @@ class Frm extends Form
         $this->event_id = $this->activity->event_id;
         $this->name = $this->activity->name;
         $this->author_name = $this->activity->author_name;
+        $this->slots = $this->activity->slots;
         $this->type = $this->activity->type;
+        $this->modality = $this->activity->modality;
         $this->status = $this->activity->status;
         $this->hidden = $this->activity->hidden;
         $this->date = $this->activity->date;
@@ -148,7 +173,9 @@ class Frm extends Form
             $activity->event_id = $this->event_id;
             $activity->name = $this->name;
             $activity->author_name = $this->author_name;
+            $activity->slots = $this->slots;
             $activity->type = $this->type;
+            $activity->modality = $this->modality;
             $activity->status = $this->status;
             $activity->hidden = $this->hidden;
             $activity->date = $this->date;
@@ -195,7 +222,9 @@ class Frm extends Form
             $activity->event_id = $this->event_id;
             $activity->name = $this->name;
             $activity->author_name = $this->author_name;
+            $activity->slots = $this->slots;
             $activity->type = $this->type;
+            $activity->modality = $this->modality;
             $activity->status = $this->status;
             $activity->hidden = $this->hidden;
             $activity->date = $this->date;
