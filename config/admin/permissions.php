@@ -204,6 +204,12 @@ return [
         'description' => 'Permiso que permite acceder a la función de agregar un registro',
         'module' => 'activities',
     ],
+    [
+        'name' => 'activities:register-attendance',
+        'display_name' => 'Registrar asistencia',
+        'description' => 'Permiso que permite acceder a la función de registrar la asistencia a una actividad',
+        'module' => 'activities',
+    ],
     # activity_attendances
     [
         'name' => 'activity_attendances',

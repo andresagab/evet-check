@@ -259,6 +259,7 @@ return [
             'person' => 'Persona',
             'state' => 'Estado',
             'attendance_date' => 'Fecha y hora de asistencia',
+            'created_at' => 'Fecha y hora de inscripción',
 
             'filters' => [
                 'person' => 'Buscar por nombres, apellidos o N° de identificación de la persona asistente',

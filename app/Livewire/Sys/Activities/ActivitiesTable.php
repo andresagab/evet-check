@@ -156,6 +156,16 @@ class ActivitiesTable extends Component
     }
 
     /**
+     * Open register attendance modal
+     * @param Activity $activity
+     * @return void
+     */
+    public function open_register_attendance_modal(Activity $activity): void
+    {
+        $this->dispatch('open-modal', $activity)->to('sys.activities.register_attendance');
+    }
+
+    /**
      * Render view of component
      * @return mixed
      */

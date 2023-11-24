@@ -258,6 +258,7 @@ return [
             'person' => 'Person',
             'state' => 'State',
             'attendance_date' => 'Datetime of attendance',
+            'created_at' => 'Datetime of register',
 
             'filters' => [
                 'person' => 'Search by names, surnames or dni of attendant',
