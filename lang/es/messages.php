@@ -191,6 +191,7 @@ return [
                 'AS' => 'Asistente',
                 'SP' => 'Ponente',
                 'WS' => 'Tallerista',
+                'LE' => 'Conferencista',
             ],
             'types' => [
                 'SL' => 'Estudiante del Programa de Lic. en Informática de la Universidad de Nariño',

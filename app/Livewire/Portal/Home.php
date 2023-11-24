@@ -55,7 +55,7 @@ class Home extends Component
         if (!empty($person))
         {
             # redirect to dashboard
-            $this->redirectRoute('portal.dashboard', $person);
+            $this->redirectRoute('portal.dashboard', $person, navigate:true);
         }
         else
         {

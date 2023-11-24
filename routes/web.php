@@ -43,6 +43,9 @@ Route::prefix('portal')
         ## ACTIVITIES
         Route::get('/event/{event_id}/activities/{person_id}', \App\Livewire\Portal\Activities::class)->name('event.activities')->withoutScopedBindings();
 
+        ## VIRTUAL CARD
+        Route::get('/event/{event_id}/virtual-card/{person_id}', \App\Livewire\Portal\VirtualCard::class)->name('event.virtual-card')->withoutScopedBindings();
+
     });
 
 /*

@@ -7,7 +7,7 @@
     <div class="w-full flex flex-col p-8 md:p-16">
 
         {{-- page name --}}
-        <h1 class="font-bold text-3xl md:text-5xl text-white text-center">INSCRIPCIÓN DE ACTIVIDADES</h1>
+        <h1 class="font-bold text-3xl md:text-5xl text-white text-center mt-10 md:mt-6">INSCRIPCIÓN DE ACTIVIDADES</h1>
 
         {{-- event --}}
         <h2 class="font-normal text-xl md:text-3xl text-sky-100 text-center mt-8">{{ $event->name }}</h2>

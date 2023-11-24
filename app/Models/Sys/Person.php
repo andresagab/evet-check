@@ -7,8 +7,10 @@ use App\Utils\CommonUtils;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Livewire\Wireable;
 use OwenIt\Auditing\Contracts\Auditable;
+use Picqer\Barcode\BarcodeGeneratorHTML;
 
 class Person extends Model implements Auditable, Wireable
 {
@@ -103,6 +105,24 @@ class Person extends Model implements Auditable, Wireable
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Load Event Attendances models
+     * @return HasMany
+     */
+    public function event_attendances() : HasMany
+    {
+        return $this->hasMany(EventAttendance::class);
+    }
+
+    /**
+     * Load Activity Attendances models
+     * @return HasMany
+     */
+    public function activity_attendances() : HasMany
+    {
+        return $this->hasMany(ActivityAttendance::class);
+    }
+
     /// PUBLIC FUNCTIONS
 
     /**
@@ -163,12 +183,23 @@ class Person extends Model implements Auditable, Wireable
             ->where('a.date', $activity->date)
             # custom select
             ->select('activity_attendances.id')->count();
-        
+
         if ($activity_attendance === 0 && $activity->status === 'O' && $free_slots > 0 && $attendances_same_date === 0)
             # set can as true
             $can = true;
 
         return $can;
+    }
+
+    /**
+     * Get bar code as HTML
+     * @return string
+     */
+    public function get_bar_code(string $rgb_color = 'white')
+    {
+        # define generator
+        $generator = new BarcodeGeneratorHTML();
+        return $generator->getBarcode($this->nuip, $generator::TYPE_CODE_128, foregroundColor:$rgb_color);
     }
 
     /// STATIC FUNCTIONS

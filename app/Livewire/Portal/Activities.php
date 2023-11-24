@@ -170,9 +170,10 @@ class Activities extends Component
             else
                 # dispatch not saved custom message
                 $this->dispatch('alert', title:'¡INSCRIPCIÓN FALLIDA!', text:'No fue posible inscribir la actividad, intentalo nuevamente', icon:'warning');
-
-
         }
+        else
+            # dispatch cannot register attendance
+            $this->dispatch('alert', title:'¡INTENTO INVALIDO!', text:'No fue posible inscribir la actividad, porque ya realizaste una inscripción previamente.', icon:'info');
 
     }
 
@@ -188,8 +189,10 @@ class Activities extends Component
     public function render(): mixed
     {
         return view('livewire.portal.activities')
-            ->layout('components.layouts.pages.base-layout', [
-                'tabTitle' => 'Actividades | Portal de asistencia',
+            ->layout('components.layouts.pages.portal-layout', [
+                'title' => 'Actividades',
+                'person' => $this->person,
+                'event' => $this->event,
             ]);
     }
 }
