@@ -192,6 +192,7 @@ return [
                 'AS' => 'Assistant',
                 'SP' => 'Speaker',
                 'WS' => 'Educator',
+                'LE' => 'Lecturer',
             ],
             'types' => [
                 'SL' => 'Student of Program of Lic. in Computing of the Universidad de Nariño',

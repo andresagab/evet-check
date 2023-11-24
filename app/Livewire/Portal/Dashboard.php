@@ -52,6 +52,16 @@ class Dashboard extends Component
         $this->redirectRoute('portal.event.activities', ['event_id' => $event->id, 'person_id' => $this->person->id], navigate:true);
     }
 
+    /**
+     * Open activities of event
+     * @param Event $event
+     * @return void
+     */
+    public function open_virtual_card(Event $event) : void
+    {
+        $this->redirectRoute('portal.event.virtual-card', ['event_id' => $event->id, 'person_id' => $this->person->id], navigate:true);
+    }
+
     /// EVENTS
 
 
@@ -63,8 +73,8 @@ class Dashboard extends Component
     public function render(): mixed
     {
         return view('livewire.portal.dashboard')
-            ->layout('components.layouts.pages.base-layout', [
-                'tabTitle' => 'Eventos | Portal de asistencia',
+            ->layout('components.layouts.pages.portal-layout', [
+                'title' => 'Eventos',
             ]);
     }
 }
