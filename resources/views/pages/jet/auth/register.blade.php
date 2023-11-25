@@ -51,7 +51,7 @@
                                 ]) !!}
                             </div>
                         </div>
-                    </x-label>
+                    </x-jet.label>
                 </div>
             @endif
 
@@ -62,7 +62,7 @@
 
                 <x-jet.button class="ml-4">
                     {{ __('Register') }}
-                </x-button>
+                </x-jet.button>
             </div>
         </form>
     </x-jet.authentication-card>

@@ -158,11 +158,21 @@ return [
             'year' => 'Año',
             'banner_path' => 'Banner',
             'poster_path' => 'Poster',
+            'virtual_card_path' => 'Carnet Virtual',
+            'logo_path' => 'Logo',
+            'state' => 'Estado',
+            'symbolic_cost' => 'Costo simbólico',
 
             'filters' => [
                 'name' => 'Buscar por nombre del evento',
                 'year' => 'Buscar por año del evento',
-            ]
+            ],
+
+            'states' => [
+                'OP' => 'Abierto',
+                'OG' => 'En curso',
+                'CP' => 'Terminado',
+            ],
 
         ],
 
@@ -178,6 +188,7 @@ return [
             'participation_modality' => 'Modalidad de participación',
             'type' => 'Tipo',
             'stay_type' => 'Tipo de asistencia',
+            'payment_status' => 'Estado de pago',
 
             'filters' => [
                 'name' => 'Buscar por nombre del evento',
@@ -203,6 +214,11 @@ return [
             'stay_types' => [
                 'P' => 'Presencial',
                 'V' => 'Virtual',
+            ],
+            'payment_statuses' => [
+                'NP' => 'Sin pagar',
+                'NA' => 'No aplica',
+                'PA' => 'Pagado',
             ],
 
         ],

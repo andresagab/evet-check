@@ -31,8 +31,8 @@
 
                         {{-- filters.name --}}
                         <div class="flex flex-col items-start w-full">
-                            <label class="font-semibold text-sm text-zinc-900 dark:text-stone-100" for="filters.name">{{ __('messages.models.event_attendance.event') }}:</label>
-                            <input wire:model="filters.name" wire:keydown.enter='search(true, true)' type="text" name="filters.name" id="filters.name" placeholder="{{ __('messages.models.event_attendance.filters.name') }}" class="border-none px-2 py-1 text-sm w-full bg-white-200 dark:bg-slate-900 dark:text-stone-200 rounded-md">
+                            <label class="font-semibold text-sm text-zinc-900 dark:text-stone-100" for="filters.name">{{ __('messages.models.event_attendance.person') }}:</label>
+                            <input wire:model="filters.name" wire:keydown.enter='search(true, true)' type="text" name="filters.name" id="filters.name" placeholder="{{ __('messages.models.event_attendance.filters.person') }}" class="border-none px-2 py-1 text-sm w-full bg-white-200 dark:bg-slate-900 dark:text-stone-200 rounded-md">
                         </div>
 
                     </div>
@@ -80,6 +80,7 @@
                     <th class="px-2 py-1 text-left w-96">{{ __('messages.models.event_attendance.person') }}</th>
                     <th class="px-2 py-1 text-left w-96">{{ __('messages.models.event_attendance.institution') }}</th>
                     <th class="px-2 py-1 text-left w-96">{{ __('messages.models.event_attendance.attendance') }}</th>
+                    <th class="px-2 py-1 text-left w-36">{{ __('messages.models.event_attendance.payment_status') }}</th>
                     <th class="px-2 py-1 text-left w-60">{{ __('messages.data.dates') }}</th>
                     <th class="px-2 py-1 w-60"></th>
                 </tr>
@@ -87,6 +88,12 @@
                 {{-- body --}}
                 <tbody>
                 @foreach ($attendances as $item)
+
+                    {{-- php code --}}
+                    @php
+                        # load state reference
+                        $payment_status = $item->get_payment_status();
+                    @endphp
 
                     <tr class="border-b border-b-blue-300 dark:border-b-slate-500 bg-white dark:bg-slate-600 hover:bg-blue-100 dark:hover:bg-slate-500 dark:text-stone-50 dark:hover:text-white hover:shadow transition ease-in-out duration-300">
 
@@ -106,19 +113,23 @@
                                 {{-- participation_modality --}}
                                 <div class="inline-flex items-center justify-start space-x-2" title="{{ __('messages.models.event_attendance.participation_modality') }}">
                                     <x-utils.icon class="text-{{ $item->get_participation_modality('color') }}-600 dark:text-{{ $item->get_participation_modality('color') }}-500 select-none" size="16px">groups</x-utils.icon>
-                                    <span class="font-normal">{{ __($item->get_participation_modality('key_name')) }}</span>
+                                    <span class="font-bold">{{ __($item->get_participation_modality('key_name')) }}</span>
                                 </div>
                                 {{-- type --}}
                                 <div class="inline-flex items-center justify-start space-x-2" title="{{ __('messages.models.event_attendance.type') }}">
                                     <x-utils.icon class="text-green-600 dark:text-green-500 select-none" size="16px">recent_actors</x-utils.icon>
-                                    <span class="font-normal">{{ __($item->get_type()) }}</span>
+                                    <span class="font-normal italic">{{ __($item->get_type()) }}</span>
                                 </div>
                                 {{-- stay_type --}}
                                 <div class="inline-flex items-center justify-start space-x-2" title="{{ __('messages.models.event_attendance.stay_type') }}">
                                     <x-utils.icon class="text-pink-600 dark:text-pink-500 select-none" size="16px">hail</x-utils.icon>
-                                    <span class="font-normal">{{ __($item->get_stay_type()) }}</span>
+                                    <span class="font-normal text-xs">{{ __($item->get_stay_type()) }}</span>
                                 </div>
                             </div>
+                        </td>
+                        {{-- payment status --}}
+                        <td class="p-2 text-center">
+                            <span class="font-bold text-sm text-{{ $payment_status['color'] }}-700 dark:text-{{ $payment_status['color'] }}-300">{{ __($payment_status['key_name']) }}</span>
                         </td>
                         {{-- dates --}}
                         <td class="p-2 text-left">
@@ -135,6 +146,10 @@
                                 @ability('*', 'event_attendances:delete')
                                 <x-buttons.circle-icon-button wire:click="openDeleteModal({{ $item }})" title="Click para eliminar este registro" color="red" size="20px">delete</x-buttons.circle-icon-button>
                                 @endability
+                                {{-- set_as_paid --}}
+                                @if($item->payment_status === 'NP' && Laratrust::ability('*', 'event_attendances:set_as_paid'))
+                                <x-buttons.circle-icon-button wire:click="set_as_paid({{ $item }})" wire:confirm="Por favor confirma esta acción" title="Registrar el cobro simbólico como pagado" color="green" size="20px">price_check</x-buttons.circle-icon-button>
+                                @endif
                             </div>
                         </td>
 

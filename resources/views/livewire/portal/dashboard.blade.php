@@ -13,7 +13,7 @@
         {{-- events --}}
         <div class="flex flex-col space-y-2 mt-8">
             {{-- loop of events, filtering by person_id --}}
-            @foreach(\App\Models\Sys\Event::query()->join('event_attendances as ea', 'events.id', '=', 'ea.event_id')->where('ea.person_id', $person->id)->select('events.*')->orderBy('year')->get() as $item)
+            @foreach(\App\Models\Sys\Event::query()->join('event_attendances as ea', 'events.id', '=', 'ea.event_id')->where('ea.person_id', $person->id)->select('events.*')->orderBy('year', 'DESC')->get() as $item)
                 <div class="m-auto bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 transition ease-in-out duration-300 w-full md:w-1/2 rounded-md p-4">
                     {{-- head card info --}}
                     <div class="flex flex-row items-center w-full">
@@ -28,12 +28,14 @@
                         <h3 class="text-slate-300 text-sm font-normal md:flex-grow">Actividades: {{ $item->activities->count() }}</h3>
                     </div>
                     {{-- actions --}}
-                    <div class="flex flex-row space-x-2 w-full justify-end mt-4">
-                        {{-- virtual_card --}}
-                        <x-buttons.secondary-button wire:click="open_virtual_card({{ $item }})" color="violet">Carnet Virtual</x-buttons.secondary-button>
-                        {{-- open event --}}
-                        <x-buttons.secondary-button wire:click="open_activities({{ $item }})" color="sky">Actividades</x-buttons.secondary-button>
-                    </div>
+                    @if($item->state != 'CP')
+                        <div class="flex flex-row space-x-2 w-full justify-end mt-4">
+                            {{-- virtual_card --}}
+                            <x-buttons.secondary-button wire:click="open_virtual_card({{ $item }})" color="violet">Carnet Virtual</x-buttons.secondary-button>
+                            {{-- open event --}}
+                            <x-buttons.secondary-button wire:click="open_activities({{ $item }})" color="sky">Actividades</x-buttons.secondary-button>
+                        </div>
+                    @endif
                 </div>
             @endforeach
         </div>

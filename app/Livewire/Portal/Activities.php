@@ -52,12 +52,33 @@ class Activities extends Component
      */
     public function mount($event_id, $person_id) : void
     {
-        # set init values
-        $this->person = Person::query()->find($person_id);
-        $this->event = Event::query()->find($event_id);
 
-        # pending add validation after search person and event
-        $this->load_activities_dates();
+        # search event in db
+        $event = Event::query()->find($event_id);
+        # search person in db
+        $person = Person::query()->find($person_id);
+
+        # if event and person were fund
+        if (!empty($event) && !empty($person))
+        {
+            # if event is not completed
+            if ($event->state !== 'CP')
+            {
+                # set init values
+                $this->person = $person;
+                $this->event = $event;
+
+                # pending add validation after search person and event
+                $this->load_activities_dates();
+            }
+            # else, redirect to dashboard
+            else
+                $this->redirectRoute('portal.dashboard', $person, navigate: true);
+        }
+        # else, redirect to home
+        else
+            $this->redirectRoute('portal.home', navigate: true);
+
     }
 
     /// PRIVATE FUNCTIONS

@@ -179,6 +179,12 @@ return [
         'description' => 'Permiso que permite acceder a la función de agregar un registro',
         'module' => 'event_attendances',
     ],
+    [
+        'name' => 'event_attendances:set_as_paid',
+        'display_name' => 'Registrar como pagado',
+        'description' => 'Permiso que permite acceder a la función de "registrar como pagado"',
+        'module' => 'event_attendances',
+    ],
     # activities
     [
         'name' => 'activities',

@@ -38,6 +38,32 @@ class EventAttendance extends Model implements Auditable, Wireable
             'key_name' => 'messages.models.event_attendance.participation_modalities.WS',
             'color' => 'orange',
         ],
+        'LE' => [
+            'key' => 'LE',
+            'key_name' => 'messages.models.event_attendance.participation_modalities.LE',
+            'color' => 'yellow',
+        ],
+    ];
+
+    /**
+     * The available states
+     */
+    const PAYMENT_STATUSES = [
+        'NP' => [
+            'key' => 'NP',
+            'key_name' => 'messages.models.event_attendance.payment_statuses.NP',
+            'color' => 'red',
+        ],
+        'NA' => [
+            'key' => 'NA',
+            'key_name' => 'messages.models.event_attendance.payment_statuses.NA',
+            'color' => 'indigo',
+        ],
+        'PA' => [
+            'key' => 'PA',
+            'key_name' => 'messages.models.event_attendance.payment_statuses.PA',
+            'color' => 'green',
+        ],
     ];
 
     /**
@@ -70,6 +96,7 @@ class EventAttendance extends Model implements Auditable, Wireable
         'participation_modality',
         'type',
         'stay_type',
+        'payment_status',
     ];
 
     /// PRIVATE FUNCTIONS
@@ -113,6 +140,7 @@ class EventAttendance extends Model implements Auditable, Wireable
             'participation_modality' => $this->participation_modality,
             'type' => $this->type,
             'stay_type' => $this->stay_type,
+            'payment_status' => $this->payment_status,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
@@ -136,6 +164,7 @@ class EventAttendance extends Model implements Auditable, Wireable
         $event_attendance->participation_modality = $value['participation_modality'];
         $event_attendance->type = $value['type'];
         $event_attendance->stay_type = $value['stay_type'];
+        $event_attendance->payment_status = $value['payment_status'];
 
         $event_attendance->created_at = $value['created_at'];
         $event_attendance->updated_at = $value['updated_at'];
@@ -157,6 +186,27 @@ class EventAttendance extends Model implements Auditable, Wireable
         # if saved key isset in participation modalities array
         if (isset(self::PARTICIPATION_MODALITIES[$this->participation_modality]))
             $return_value = self::PARTICIPATION_MODALITIES[$this->participation_modality];
+
+        # if $key not is 'all', then set return value with data at key
+        if ($key != 'all' && is_array($return_value))
+            $return_value = $return_value[$key];
+
+        return $return_value;
+    }
+
+    /**
+     * Get payment status
+     * @param string $key => default 'all' to get an array of saved participation modality, else only use 'key_name', 'key' or 'color'
+     * @return array|string|null
+     */
+    public function get_payment_status(string $key = 'all') : array|string|null
+    {
+        # define default return value with unknown message
+        $return_value = __('messages.data.unknown');
+
+        # if saved key isset in participation modalities array
+        if (isset(self::PAYMENT_STATUSES[$this->payment_status]))
+            $return_value = self::PAYMENT_STATUSES[$this->payment_status];
 
         # if $key not is 'all', then set return value with data at key
         if ($key != 'all' && is_array($return_value))

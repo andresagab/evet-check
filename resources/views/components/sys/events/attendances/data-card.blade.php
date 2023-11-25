@@ -3,6 +3,14 @@
     'attendance',
 ])
 
+{{-- php code --}}
+@php
+    # load payment status reference
+    $payment_status = $attendance->get_payment_status();
+    # load participation modality reference
+    $participation_modality = $attendance->get_participation_modality();
+@endphp
+
 {{-- template --}}
 <x-cards.card title="{{ __('messages.models.event_attendance.model_name') }}" :footer="0" color="gray-100">
     {{-- content card --}}
@@ -38,7 +46,7 @@
             {{-- participation_modality --}}
             <div class="inline-flex items-center space-x-1 px-1.5">
                 <span class="font-semibold text-zinc-900 dark:text-stone-100 text-sm">{{ __('messages.models.event_attendance.participation_modality') }}:</span>
-                <span class="font-normal text-zinc-700 dark:text-stone-300 text-sm">{{ __($attendance->get_participation_modality('key_name')) }}</span>
+                <span class="font-normal text-{{ $participation_modality['color'] ?? 'zinc' }}-700 dark:text-{{ $participation_modality['color'] ?? 'stone' }}-300 text-sm">{{ __($participation_modality['key_name']) }}</span>
             </div>
 
             {{-- type --}}
@@ -51,6 +59,12 @@
             <div class="inline-flex items-center space-x-1 px-1.5">
                 <span class="font-semibold text-zinc-900 dark:text-stone-100 text-sm">{{ __('messages.models.event_attendance.stay_type') }}:</span>
                 <span class="font-normal text-zinc-700 dark:text-stone-300 text-sm">{{ $attendance->get_stay_type() }}</span>
+            </div>
+
+            {{-- payment_status --}}
+            <div class="inline-flex items-center space-x-1 px-1.5">
+                <span class="font-semibold text-zinc-900 dark:text-stone-100 text-sm">{{ __('messages.models.event_attendance.payment_status') }}:</span>
+                <span class="font-normal text-{{ $payment_status['color'] }}-700 dark:text-{{ $payment_status['color'] }}-300 text-sm">{{ __($payment_status['key_name']) }}</span>
             </div>
 
             {{-- created_at --}}
