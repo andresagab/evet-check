@@ -38,7 +38,7 @@
     {{-- sex --}}
     <x-forms.input-group class="w-full">
         {{-- label --}}
-        <x-forms.label value="{{ __('messages.models.person.sex') }}" for="frm.sex" class="required"/>
+        <x-forms.label value="{{ __('messages.models.person.sex') }}" for="frm.sex"/>
         {{-- select --}}
         <x-forms.select wire:model="frm.sex" required :data="\App\Models\Sys\Person::SEX_TYPES"/>
         {{-- error --}}

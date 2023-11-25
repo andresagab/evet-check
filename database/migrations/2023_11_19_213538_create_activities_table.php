@@ -17,7 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('event_id')->nullable(false);
             $table->string('author_name', 250)->nullable(false);
             $table->string('name', 250)->nullable(false);
+            $table->integer('slots')->nullable(false);
             $table->char('type', 2)->nullable(false);
+            $table->char('modality', 1)->nullable(false)->default('P');
             $table->char('status', 1)->nullable(false)->default('A');
             $table->boolean('hidden')->nullable(false)->default(0);
             $table->dateTime('date')->nullable(false);

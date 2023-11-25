@@ -60,6 +60,12 @@ class Frm extends Form
      */
     public $stay_type = '';
 
+    /**
+     * The payment_status attribute
+     * @prop string
+     */
+    public $payment_status = 'NP';
+
     /// PRIVATE FUNCTIONS
 
     /**
@@ -73,18 +79,23 @@ class Frm extends Form
         # define default message
         $message = 'La persona seleccionada puede ser registrada en este evento';
 
-        # count attendances by person_id and event_id
-        $person_attendances = EventAttendance::query()->where('event_id', $this->event->id)->where('person_id', $this->person_id)->count();
-
-        # search person
-        $person = Person::query()->find($this->person_id);
-
-        # if person have attendances in current event, then set message
-        if ($person_attendances > 0)
+        # if attendance not have id or person_id form is different of attendance
+        if (empty($this->attendance) || $this->person_id !== $this->attendance->person_id)
         {
-            $can = false;
-            $message = "{$person->getFullName()} ya está " . ($person->sex == 'F' ? 'registrada' : 'registrado') . " en este evento";
+            # count attendances by person_id and event_id
+            $person_attendances = EventAttendance::query()->where('event_id', $this->event->id)->where('person_id', $this->person_id)->count();
+
+            # search person
+            $person = Person::query()->find($this->person_id);
+
+            # if person have attendances in current event, then set message
+            if ($person_attendances > 0)
+            {
+                $can = false;
+                $message = "{$person->getFullName()} ya está " . ($person->sex == 'F' ? 'registrada' : 'registrado') . " en este evento";
+            }
         }
+
 
         return [
             'can' => $can,
@@ -129,6 +140,11 @@ class Frm extends Form
                 'string',
                 'max:1',
             ],
+            'payment_status' => [
+                'required',
+                'string',
+                'max:2',
+            ],
         ];
 
         # if participation modality is 'ws' or participation_modality is 'AS' and type is 'SL' or 'EL', then set stay_type as 'P' (in person)
@@ -165,6 +181,7 @@ class Frm extends Form
         $this->participation_modality = $this->attendance->participation_modality;
         $this->type = $this->attendance->type;
         $this->stay_type = $this->attendance->stay_type;
+        $this->payment_status = $this->attendance->payment_status;
     }
 
     /**
@@ -203,6 +220,7 @@ class Frm extends Form
                 $attendance->participation_modality = $this->participation_modality;
                 $attendance->type = $this->type;
                 $attendance->stay_type = $this->stay_type;
+                $attendance->payment_status = $this->payment_status;
 
                 # if attendance was not saved
                 if (!$attendance->save())
@@ -261,6 +279,7 @@ class Frm extends Form
                 $attendance->participation_modality = $this->participation_modality;
                 $attendance->type = $this->type;
                 $attendance->stay_type = $this->stay_type;
+                $attendance->payment_status = $this->payment_status;
 
                 # update data, if not then set wrong message
                 if (!$attendance->update())

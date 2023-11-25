@@ -157,11 +157,21 @@ return [
             'year' => 'Year',
             'banner_path' => 'Banner',
             'poster_path' => 'Poster',
+            'virtual_card_path' => 'Virtual card',
+            'logo_path' => 'Logo',
+            'state' => 'State',
+            'symbolic_cost' => 'Symbolic cost',
 
             'filters' => [
                 'name' => 'Search by event name',
                 'year' => 'Search by event year',
-            ]
+            ],
+
+            'states' => [
+                'OP' => 'Open',
+                'OG' => 'On going',
+                'CP' => 'Completed',
+            ],
 
         ],
 
@@ -178,6 +188,7 @@ return [
             'participation_modality' => 'Participation modality',
             'type' => 'Type',
             'stay_type' => 'Stay type',
+            'payment_status' => 'Payment status',
 
             'filters' => [
                 'name' => 'Search by name of event',
@@ -192,6 +203,7 @@ return [
                 'AS' => 'Assistant',
                 'SP' => 'Speaker',
                 'WS' => 'Educator',
+                'LE' => 'Lecturer',
             ],
             'types' => [
                 'SL' => 'Student of Program of Lic. in Computing of the Universidad de Nariño',
@@ -204,6 +216,11 @@ return [
                 'P' => 'In person',
                 'V' => 'Virtual',
             ],
+            'payment_statuses' => [
+                'NP' => 'Not paid',
+                'NA' => 'Not apply',
+                'PA' => 'Paid',
+            ],
 
         ],
 
@@ -212,9 +229,12 @@ return [
             'model_name' => 'Activity',
 
             'event' => 'Event',
-            'author_name' => 'Author',
+            'author_name' => "Author/'s",
             'name' => 'Name',
+            'slots' => 'Slots',
+            'free_slots' => 'Free Slots',
             'type' => 'Type',
+            'modality' => 'Modality',
             'status' => 'Status',
             'hidden' => 'Hidden',
             'date' => 'Date',
@@ -234,6 +254,10 @@ return [
                 'SN' => 'Snacks',
                 'OT' => 'Other',
             ],
+            'modalities' => [
+                'P' => 'In person',
+                'V' => 'Virtual',
+            ],
             'status_types' => [
                 'O' => 'Open',
                 'I' => 'In progress',
@@ -250,6 +274,7 @@ return [
             'person' => 'Person',
             'state' => 'State',
             'attendance_date' => 'Datetime of attendance',
+            'created_at' => 'Datetime of register',
 
             'filters' => [
                 'person' => 'Search by names, surnames or dni of attendant',

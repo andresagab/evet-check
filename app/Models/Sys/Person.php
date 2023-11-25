@@ -7,8 +7,10 @@ use App\Utils\CommonUtils;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Livewire\Wireable;
 use OwenIt\Auditing\Contracts\Auditable;
+use Picqer\Barcode\BarcodeGeneratorHTML;
 
 class Person extends Model implements Auditable, Wireable
 {
@@ -103,6 +105,24 @@ class Person extends Model implements Auditable, Wireable
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Load Event Attendances models
+     * @return HasMany
+     */
+    public function event_attendances() : HasMany
+    {
+        return $this->hasMany(EventAttendance::class);
+    }
+
+    /**
+     * Load Activity Attendances models
+     * @return HasMany
+     */
+    public function activity_attendances() : HasMany
+    {
+        return $this->hasMany(ActivityAttendance::class);
+    }
+
     /// PUBLIC FUNCTIONS
 
     /**
@@ -139,6 +159,48 @@ class Person extends Model implements Auditable, Wireable
         return $type;
     }
 
+    /**
+     * Determinate if the person can be register a one activity
+     * @param Activity $activity => the activity to check
+     * @return bool => true if person can register activity, false if not
+     */
+    public function can_register_activity(Activity $activity) : bool
+    {
+        # define $can as true
+        $can = false;
+
+        # load attendance of received activity for current person
+        $activity_attendance = ActivityAttendance::query()->where('person_id', $this->id)->where('activity_id', $activity->id)->count();
+        # load free slots of activity
+        $free_slots = $activity->get_free_slots();
+        # other attendance_at_same_date
+        $attendances_same_date = ActivityAttendance::query()
+            # link to activities
+            ->join('activities as a', 'activity_attendances.activity_id', '=', 'a.id')
+            # filter by person
+            ->where('person_id', $this->id)
+            # filter by activity date
+            ->where('a.date', $activity->date)
+            # custom select
+            ->select('activity_attendances.id')->count();
+
+        if ($activity_attendance === 0 && $activity->status === 'O' && $free_slots > 0 && $attendances_same_date === 0)
+            # set can as true
+            $can = true;
+
+        return $can;
+    }
+
+    /**
+     * Get bar code as HTML
+     * @return string
+     */
+    public function get_bar_code(string $rgb_color = 'white')
+    {
+        # define generator
+        $generator = new BarcodeGeneratorHTML();
+        return $generator->getBarcode($this->nuip, $generator::TYPE_CODE_128, foregroundColor:$rgb_color);
+    }
 
     /// STATIC FUNCTIONS
 

@@ -3,6 +3,12 @@
     'event',
 ])
 
+{{-- php code --}}
+@php
+    # load state reference
+    $state = $event->get_state();
+@endphp
+
 {{-- template --}}
 <x-cards.card title="{{ __('messages.models.event.model_name') }}" :footer="0" color="gray-100">
     {{-- content card --}}
@@ -27,6 +33,18 @@
             <div class="inline-flex items-center space-x-1 px-1.5">
                 <span class="font-semibold text-zinc-900 dark:text-stone-100 text-sm">{{ __('messages.models.event.year') }}:</span>
                 <span class="font-normal text-zinc-700 dark:text-stone-300 text-sm">{{ $event->year }}</span>
+            </div>
+
+            {{-- state --}}
+            <div class="inline-flex items-center space-x-1 px-1.5">
+                <span class="font-semibold text-zinc-900 dark:text-stone-100 text-sm">{{ __('messages.models.event.state') }}:</span>
+                <span class="font-normal text-{{ $state['color'] }}-700 dark:text-{{ $state['color'] }}-300 text-sm">{{ __($state['key_name']) }}</span>
+            </div>
+
+            {{-- symbolic_cost --}}
+            <div class="inline-flex items-center space-x-1 px-1.5">
+                <span class="font-semibold text-zinc-900 dark:text-stone-100 text-sm">{{ __('messages.models.event.symbolic_cost') }}:</span>
+                <span class="font-normal text-zinc-700 dark:text-stone-300 text-sm">${{ number_format($event->symbolic_cost) }}</span>
             </div>
 
             {{-- created_at --}}

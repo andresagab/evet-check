@@ -1,7 +1,7 @@
 <div wire:init="search(true, true)">
 
     {{-- full-page-loader --}}
-    <x-loaders.full-page-loader wire:loading wire:target='search, openAddModal, openEditModal, openDeleteModal'/>
+    <x-loaders.full-page-loader wire:loading wire:target='search, openAddModal, openEditModal, openDeleteModal, open_register_attendance_modal'/>
 
     {{-- sub header --}}
     <x-layouts.headers.sub-header title="{{ __('messages.menu.activities') }}" :actions="true">
@@ -85,13 +85,14 @@
                 <tr class="bg-emerald-300 dark:bg-slate-700 text-emerald-900 dark:text-slate-100 text-sm font-bold uppercase">
                     <th class="px-2 py-1 text-left w-10">ID</th>
                     <th class="px-2 py-1 text-left w-96">{{ __('messages.models.activity.model_name') }}</th>
-                    <th class="px-2 py-1 text-left w-96">{{ __('messages.models.activity.event') }}</th>
-                    <th class="px-2 py-1 text-left w-48">{{ __('messages.models.activity.type') }}</th>
-                    <th class="px-2 py-1 text-left w-44">{{ __('messages.models.activity.status') }}</th>
+                    <th class="px-2 py-1 text-left w-60">{{ __('messages.models.activity.event') }}</th>
+                    <th class="px-2 py-1 text-left w-48">{{ __('messages.models.activity.type') }}/{{ __('messages.models.activity.modality') }}</th>
+                    <th class="px-2 py-1 text-left w-32">{{ __('messages.models.activity.slots') }}</th>
+                    <th class="px-2 py-1 text-left w-32">{{ __('messages.models.activity.status') }}</th>
                     <th class="px-2 py-1 text-left w-32">{{ __('messages.models.activity.hidden') }}</th>
                     <th class="px-2 py-1 text-left w-60">{{ __('messages.models.activity.date') }}</th>
                     <th class="px-2 py-1 text-left w-60">{{ __('messages.data.dates') }}</th>
-                    <th class="px-2 py-1 w-60"></th>
+                    <th class="px-2 py-1 w-auto"></th>
                 </tr>
                 </thead>
                 {{-- body --}}
@@ -112,12 +113,25 @@
                             </div>
                         </td>
                         {{-- event --}}
-                        <td class="p-2 text-left">
-                            <span class="font-normal text-sm">{{ $item->event->name }}</span>
+                        <td class="p-2 text-left truncate">
+                            <div class="flex flex-col space-y-0 items-start">
+                                <span class="font-semibold text-sm">{{ $item->event->name }}</span>
+                                <span class="font-normal text-xs text-gray-700 dark:text-slate-300 italic">{{ $item->event->year }}</span>
+                            </div>
                         </td>
-                        {{-- type --}}
+                        {{-- type and modality --}}
                         <td class="p-2 text-left">
-                            <span class="font-normal text-sm">{{ $item->get_type() }}</span>
+                            <div class="flex flex-col space-y-0 items-start">
+                                {{-- type --}}
+                                <span class="font-semibold text-sm">{{ $item->get_type() }}</span>
+                                {{-- modality --}}
+                                <span class="font-normal text-sm text-slate-300">{{ $item->get_modality() }}</span>
+                            </div>
+
+                        </td>
+                        {{-- slots --}}
+                        <td class="p-2 text-left">
+                            <span class="font-normal text-sm">{{ "{$item->get_free_slots()}/$item->slots" }}</span>
                         </td>
                         {{-- status --}}
                         <td class="p-2 text-left">
@@ -150,6 +164,10 @@
                                 @ability('*', 'activity_attendances')
                                 <a href="{{ route('sys.activities.attendances', $item) }}"><x-buttons.circle-icon-button title="Click para gestionar la asistencia de la actividad" color="blue" size="20px">diversity_3</x-buttons.circle-icon-button></a>
                                 @endability
+                                {{-- regiter attendance --}}
+                                @ability('*', 'activities:register-attendance')
+                                <x-buttons.circle-icon-button wire:click="open_register_attendance_modal({{ $item }})" title="Click para registrar una asistencia a esta actividad" color="emerald" size="20px">how_to_reg</x-buttons.circle-icon-button>
+                                @endability
                             </div>
                         </td>
 
@@ -166,9 +184,11 @@
 
     {{-- include wire components --}}
 
-    {{-- event-form --}}
+    {{-- activity-form --}}
     <livewire:sys.activities.activity-form/>
-    {{-- event-delete --}}
+    {{-- activity-delete --}}
     <livewire:sys.activities.activity-delete/>
+    {{-- regiter-attendance --}}
+    <livewire:sys.activities.register-attendance/>
 
 </div>

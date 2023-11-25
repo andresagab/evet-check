@@ -116,6 +116,38 @@ class AttendancesTable extends Component
 
     }
 
+    /**
+     * Set Event Attendance payment status as paid
+     * @param EventAttendance $eventAttendance
+     * @return void
+     */
+    public function set_as_paid(EventAttendance $eventAttendance) : void
+    {
+        # load attendance
+        $attendance = EventAttendance::query()->find($eventAttendance->id);
+
+        if (!empty($attendance))
+        {
+            # set payment_status of attendance
+            $attendance->payment_status = 'PA';
+
+            # if attendance is updated
+            if ($attendance->update())
+            {
+                # dispatch success message
+                $this->dispatch('toast', title:__('messages.responses.updated'));
+                # load attendance again
+                $this->search();
+            }
+            # else, dispatch not updated message
+            else
+                $this->dispatch('toast', title:__('messages.errors.not_updated'), icon:'warning');
+
+        }
+        else
+            $this->dispatch('toast', title:__('messages.errors.record_not_loaded'), icon:'warning');
+
+    }
 
     /**
      * Open add modal to create a new resource

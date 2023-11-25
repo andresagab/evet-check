@@ -18,6 +18,10 @@ return new class extends Migration
             $table->year('year')->unique();
             $table->string('banner_path')->nullable(true)->default(null);
             $table->string('poster_path')->nullable(true)->default(null);
+            $table->string('virtual_card_path')->nullable(true)->default(null);
+            $table->string('logo_path')->nullable(true)->default(null);
+            $table->char('state', 2)->nullable(false)->default('O');
+            $table->integer('symbolic_cost')->nullable(false)->default(0);
 
             $table->timestamps();
         });

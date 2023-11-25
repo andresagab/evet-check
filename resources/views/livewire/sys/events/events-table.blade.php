@@ -76,6 +76,8 @@
                     <th class="px-2 py-1 text-left w-10">ID</th>
                     <th class="px-2 py-1 text-left w-96">{{ __('messages.models.event.name') }}</th>
                     <th class="px-2 py-1 text-left w-32">{{ __('messages.models.event.year') }}</th>
+                    <th class="px-2 py-1 text-left w-32">{{ __('messages.models.event.state') }}</th>
+                    <th class="px-2 py-1 text-left w-32">{{ __('messages.models.event.symbolic_cost') }}</th>
                     <th class="px-2 py-1 text-left w-60">{{ __('messages.data.dates') }}</th>
                     <th class="px-2 py-1 w-60"></th>
                 </tr>
@@ -83,6 +85,12 @@
                 {{-- body --}}
                 <tbody>
                 @foreach ($events as $item)
+
+                    {{-- php code --}}
+                    @php
+                        # load state reference
+                        $state = $item->get_state();
+                    @endphp
 
                     <tr class="border-b border-b-blue-300 dark:border-b-slate-500 bg-white dark:bg-slate-600 hover:bg-blue-100 dark:hover:bg-slate-500 dark:text-stone-50 dark:hover:text-white hover:shadow transition ease-in-out duration-300">
 
@@ -95,6 +103,14 @@
                         {{-- year --}}
                         <td class="p-2 text-left">
                             <span class="font-semibold text-sm">{{ $item->year }}</span>
+                        </td>
+                        {{-- state --}}
+                        <td class="p-2 text-left">
+                            <span class="font-bold text-sm text-{{ $state['color'] }}-700 dark:text-{{ $state['color'] }}-300">{{ __($state['key_name']) }}</span>
+                        </td>
+                        {{-- symbolic_cost --}}
+                        <td class="p-2 text-left">
+                            <span class="font-normal text-sm">${{ number_format($item->symbolic_cost) }}</span>
                         </td>
                         {{-- dates --}}
                         <td class="p-2 text-left">

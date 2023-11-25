@@ -158,11 +158,21 @@ return [
             'year' => 'Año',
             'banner_path' => 'Banner',
             'poster_path' => 'Poster',
+            'virtual_card_path' => 'Carnet Virtual',
+            'logo_path' => 'Logo',
+            'state' => 'Estado',
+            'symbolic_cost' => 'Costo simbólico',
 
             'filters' => [
                 'name' => 'Buscar por nombre del evento',
                 'year' => 'Buscar por año del evento',
-            ]
+            ],
+
+            'states' => [
+                'OP' => 'Abierto',
+                'OG' => 'En curso',
+                'CP' => 'Terminado',
+            ],
 
         ],
 
@@ -178,6 +188,7 @@ return [
             'participation_modality' => 'Modalidad de participación',
             'type' => 'Tipo',
             'stay_type' => 'Tipo de asistencia',
+            'payment_status' => 'Estado de pago',
 
             'filters' => [
                 'name' => 'Buscar por nombre del evento',
@@ -191,6 +202,7 @@ return [
                 'AS' => 'Asistente',
                 'SP' => 'Ponente',
                 'WS' => 'Tallerista',
+                'LE' => 'Conferencista',
             ],
             'types' => [
                 'SL' => 'Estudiante del Programa de Lic. en Informática de la Universidad de Nariño',
@@ -203,6 +215,11 @@ return [
                 'P' => 'Presencial',
                 'V' => 'Virtual',
             ],
+            'payment_statuses' => [
+                'NP' => 'Sin pagar',
+                'NA' => 'No aplica',
+                'PA' => 'Pagado',
+            ],
 
         ],
 
@@ -211,9 +228,12 @@ return [
             'model_name' => 'Actividad',
 
             'event' => 'Evento',
-            'author_name' => 'Autor',
+            'author_name' => 'Autor/es',
             'name' => 'Nombre',
+            'slots' => 'Cupos',
+            'free_slots' => 'Cupos libres',
             'type' => 'Tipo',
+            'modality' => 'Modalidad',
             'status' => 'Estado',
             'hidden' => 'Oculto',
             'date' => 'Fecha',
@@ -233,6 +253,12 @@ return [
                 'SN' => 'Refrigerio',
                 'OT' => 'Otro',
             ],
+
+            'modalities' => [
+                'P' => 'Presencial',
+                'V' => 'Virtual',
+            ],
+
             'status_types' => [
                 'O' => 'Abierta',
                 'I' => 'En ejecución',
@@ -249,6 +275,7 @@ return [
             'person' => 'Persona',
             'state' => 'Estado',
             'attendance_date' => 'Fecha y hora de asistencia',
+            'created_at' => 'Fecha y hora de inscripción',
 
             'filters' => [
                 'person' => 'Buscar por nombres, apellidos o N° de identificación de la persona asistente',

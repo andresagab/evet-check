@@ -4,7 +4,7 @@
 ])
 
 {{-- template --}}
-<x-cards.card title="{{ __('messages.models.event.model_name') }}" :footer="0" color="gray-100">
+<x-cards.card title="{{ __('messages.models.activity.model_name') }}" :footer="0" color="gray-100">
     {{-- content card --}}
     <x-slot:content>
 
@@ -35,10 +35,28 @@
                 <span class="font-normal text-zinc-700 dark:text-stone-300 text-sm">{{ $activity->author_name }}</span>
             </div>
 
+            {{-- slots --}}
+            <div class="inline-flex items-center space-x-1 px-1.5">
+                <span class="font-semibold text-zinc-900 dark:text-stone-100 text-sm">{{ __('messages.models.activity.slots') }}:</span>
+                <span class="font-normal text-zinc-700 dark:text-stone-300 text-sm">{{ $activity->slots }}</span>
+            </div>
+
+            {{-- free slots --}}
+            <div class="inline-flex items-center space-x-1 px-1.5">
+                <span class="font-semibold text-zinc-900 dark:text-stone-100 text-sm">{{ __('messages.models.activity.free_slots') }}:</span>
+                <span class="font-normal text-zinc-700 dark:text-stone-300 text-sm">{{ $activity->get_free_slots() }}</span>
+            </div>
+
             {{-- type --}}
             <div class="inline-flex items-center space-x-1 px-1.5">
                 <span class="font-semibold text-zinc-900 dark:text-stone-100 text-sm">{{ __('messages.models.activity.type') }}:</span>
                 <span class="font-normal text-zinc-700 dark:text-stone-300 text-sm">{{ $activity->get_type() }}</span>
+            </div>
+
+            {{-- modality --}}
+            <div class="inline-flex items-center space-x-1 px-1.5">
+                <span class="font-semibold text-zinc-900 dark:text-stone-100 text-sm">{{ __('messages.models.activity.modality') }}:</span>
+                <span class="font-normal text-zinc-700 dark:text-stone-300 text-sm">{{ $activity->get_modality() }}</span>
             </div>
 
             {{-- status --}}

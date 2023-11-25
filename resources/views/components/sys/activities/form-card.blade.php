@@ -39,6 +39,16 @@
         <x-forms.error for="frm.author_name"/>
     </x-forms.input-group>
 
+    {{-- slots --}}
+    <x-forms.input-group class="w-full">
+        {{-- label --}}
+        <x-forms.label value="{{ __('messages.models.activity.slots') }}" for="frm.slots" class="required"/>
+        {{-- input --}}
+        <x-forms.input type="number" min="0" wire:model="frm.slots" required max="99999" placeholder="Ingresa la cantidad de cupos disponibles para esta actividad"/>
+        {{-- error --}}
+        <x-forms.error for="frm.slots"/>
+    </x-forms.input-group>
+
     {{-- type --}}
     <x-forms.input-group class="w-full">
         {{-- label --}}
@@ -47,6 +57,16 @@
         <x-forms.select wire:model="frm.type" required :data="\App\Models\Sys\Activity::get_types()"/>
         {{-- error --}}
         <x-forms.error for="frm.type"/>
+    </x-forms.input-group>
+
+    {{-- modality --}}
+    <x-forms.input-group class="w-full">
+        {{-- label --}}
+        <x-forms.label value="{{ __('messages.models.activity.modality') }}" for="frm.modality" class="required"/>
+        {{-- select --}}
+        <x-forms.select wire:model="frm.modality" required :data="\App\Models\Sys\Activity::get_modalities()"/>
+        {{-- error --}}
+        <x-forms.error for="frm.modality"/>
     </x-forms.input-group>
 
     {{-- status --}}
