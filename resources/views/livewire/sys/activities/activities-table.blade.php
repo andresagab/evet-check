@@ -146,13 +146,9 @@
                                 @ability('*', 'activities:delete')
                                 <x-buttons.circle-icon-button wire:click="openDeleteModal({{ $item }})" title="Click para eliminar este registro" color="red" size="20px">delete</x-buttons.circle-icon-button>
                                 @endability
-                                {{-- event attendances --}}
-                                @ability('*', 'event_attendances')
-                                {{--<a href="{{ route('sys.activities.attendances', $item) }}"><x-buttons.circle-icon-button title="Click para gestionar la asistencia del evento" color="blue" size="20px">diversity_3</x-buttons.circle-icon-button></a>--}}
-                                @endability
-                                {{-- manage-event-permissions --}}
-                                @ability('*', 'activities:manage-activities')
-                                {{--<x-buttons.circle-icon-button wire:click="open_manage_role_permissions({{ $item->user }})" title="Click para gestionar los permisos de este registro" color="emerald" size="20px">manage_accounts</x-buttons.circle-icon-button>--}}
+                                {{-- activity attendances --}}
+                                @ability('*', 'activity_attendances')
+                                <a href="{{ route('sys.activities.attendances', $item) }}"><x-buttons.circle-icon-button title="Click para gestionar la asistencia de la actividad" color="blue" size="20px">diversity_3</x-buttons.circle-icon-button></a>
                                 @endability
                             </div>
                         </td>
