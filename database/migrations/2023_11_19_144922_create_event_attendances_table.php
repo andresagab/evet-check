@@ -21,6 +21,7 @@ return new class extends Migration
             $table->char('participation_modality', 2)->nullable(false);
             $table->char('type', 2)->nullable(false);
             $table->char('stay_type', 1)->nullable(false)->default('P');
+            $table->char('payment_status', 2)->nullable(false)->default('NP'); # NP => Not paid | NA => Not apply | PA => Paid
 
             $table->timestamps();
 

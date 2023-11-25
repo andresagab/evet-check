@@ -4,7 +4,7 @@
 ])
 
 {{-- template --}}
-<x-cards.card title="{{ __('messages.models.event.model_name') }}" :footer="0" color="gray-100">
+<x-cards.card title="{{ __('messages.models.activity.model_name') }}" :footer="0" color="gray-100">
     {{-- content card --}}
     <x-slot:content>
 

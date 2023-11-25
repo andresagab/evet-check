@@ -82,4 +82,21 @@
         <x-forms.error for="frm.stay_type"/>
     </x-forms.input-group>
 
+    {{-- payment_status --}}
+    @ability('*', 'event_attendances:set_as_paid')
+    <x-forms.input-group class="w-full">
+        {{-- label --}}
+        <x-forms.label value="{{ __('messages.models.event_attendance.payment_status') }}" for="frm.payment_status" class="required"/>
+        {{-- select --}}
+        <x-forms.select wire:model="frm.payment_status" required>
+            {{-- loop generate option list of participation_modalities --}}
+            @foreach(\App\Models\Sys\EventAttendance::PAYMENT_STATUSES as $item)
+                <x-forms.option value="{{ $item['key'] }}" class="text-gray-700 dark:text-stone-400 font-normal">{{ __($item['key_name']) }}</x-forms.option>
+            @endforeach
+        </x-forms.select>
+        {{-- error --}}
+        <x-forms.error for="frm.payment_status"/>
+    </x-forms.input-group>
+    @endability
+
 </div>

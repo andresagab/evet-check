@@ -157,11 +157,21 @@ return [
             'year' => 'Year',
             'banner_path' => 'Banner',
             'poster_path' => 'Poster',
+            'virtual_card_path' => 'Virtual card',
+            'logo_path' => 'Logo',
+            'state' => 'State',
+            'symbolic_cost' => 'Symbolic cost',
 
             'filters' => [
                 'name' => 'Search by event name',
                 'year' => 'Search by event year',
-            ]
+            ],
+
+            'states' => [
+                'OP' => 'Open',
+                'OG' => 'On going',
+                'CP' => 'Completed',
+            ],
 
         ],
 
@@ -178,6 +188,7 @@ return [
             'participation_modality' => 'Participation modality',
             'type' => 'Type',
             'stay_type' => 'Stay type',
+            'payment_status' => 'Payment status',
 
             'filters' => [
                 'name' => 'Search by name of event',
@@ -204,6 +215,11 @@ return [
             'stay_types' => [
                 'P' => 'In person',
                 'V' => 'Virtual',
+            ],
+            'payment_statuses' => [
+                'NP' => 'Not paid',
+                'NA' => 'Not apply',
+                'PA' => 'Paid',
             ],
 
         ],
@@ -258,6 +274,7 @@ return [
             'person' => 'Person',
             'state' => 'State',
             'attendance_date' => 'Datetime of attendance',
+            'created_at' => 'Datetime of register',
 
             'filters' => [
                 'person' => 'Search by names, surnames or dni of attendant',

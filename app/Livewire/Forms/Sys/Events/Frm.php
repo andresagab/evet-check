@@ -28,6 +28,18 @@ class Frm extends Form
      */
     public $year = '';
 
+    /**
+     * The state attribute
+     * @prop string
+     */
+    public $state = 'OP';
+
+    /**
+     * The symbolic_cost attribute
+     * @prop string
+     */
+    public $symbolic_cost = '';
+
     /// PUBLIC FUNCTIONS
 
     /**
@@ -48,6 +60,16 @@ class Frm extends Form
                 'required',
                 'string',
                 'max:4',
+            ],
+            'state' => [
+                'required',
+                'string',
+                'max:2',
+            ],
+            'symbolic_cost' => [
+                'required',
+                'numeric',
+                'min:0',
             ],
         ];
 
@@ -79,6 +101,8 @@ class Frm extends Form
         # set event form attributes
         $this->name = $this->event->name;
         $this->year = $this->event->year;
+        $this->state = $this->event->state;
+        $this->symbolic_cost = $this->event->symbolic_cost;
 
     }
 
@@ -103,6 +127,8 @@ class Frm extends Form
             # set attributes
             $event->name = $this->name;
             $event->year = $this->year;
+            $event->state = $this->state;
+            $event->symbolic_cost = $this->symbolic_cost;
 
             # if event was not saved
             if (!$event->save())
@@ -145,6 +171,8 @@ class Frm extends Form
             # set attributes
             $event->name = $this->name;
             $event->year = $this->year;
+            $event->state = $this->state;
+            $event->symbolic_cost = $this->symbolic_cost;
 
             # update data, if not then set wrong message
             if (!$event->update())
