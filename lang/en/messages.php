@@ -162,6 +162,8 @@ return [
             'state' => 'State',
             'symbolic_cost' => 'Symbolic cost',
 
+            'registered_people' => 'Registered people',
+
             'filters' => [
                 'name' => 'Search by event name',
                 'year' => 'Search by event year',

@@ -76,6 +76,7 @@
                     <th class="px-2 py-1 text-left w-10">ID</th>
                     <th class="px-2 py-1 text-left w-96">{{ __('messages.models.event.name') }}</th>
                     <th class="px-2 py-1 text-left w-32">{{ __('messages.models.event.year') }}</th>
+                    <th class="px-2 py-1 text-center w-44">{{ __('messages.models.event.registered_people') }}</th>
                     <th class="px-2 py-1 text-left w-32">{{ __('messages.models.event.state') }}</th>
                     <th class="px-2 py-1 text-left w-32">{{ __('messages.models.event.symbolic_cost') }}</th>
                     <th class="px-2 py-1 text-left w-60">{{ __('messages.data.dates') }}</th>
@@ -103,6 +104,10 @@
                         {{-- year --}}
                         <td class="p-2 text-left">
                             <span class="font-semibold text-sm">{{ $item->year }}</span>
+                        </td>
+                        {{-- registered people --}}
+                        <td class="p-2 text-center">
+                            <span class="font-bold text-sm">{{ $item->event_attendances()->count() }}</span>
                         </td>
                         {{-- state --}}
                         <td class="p-2 text-left">

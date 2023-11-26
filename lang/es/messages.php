@@ -163,6 +163,8 @@ return [
             'state' => 'Estado',
             'symbolic_cost' => 'Costo simbólico',
 
+            'registered_people' => 'Personas inscritas',
+
             'filters' => [
                 'name' => 'Buscar por nombre del evento',
                 'year' => 'Buscar por año del evento',
@@ -209,7 +211,7 @@ return [
                 'ST' => 'Estudiante',
                 'TE' => 'Docente',
                 'PT' => 'Particular',
-                'EL' => 'Egresado del Programa de Lic. en Informática de la Universidad de Nariño',
+                'EL' => 'Egresado del programa de Licenciatura en Informática',
             ],
             'stay_types' => [
                 'P' => 'Presencial',

@@ -14,13 +14,13 @@ return new class extends Migration
         Schema::create('people', function (Blueprint $table) {
             $table->id();
 
-            $table->string('names', 50)->nullable(false);
-            $table->string('surnames', 50)->nullable(false);
+            $table->string('names', 100)->nullable(false);
+            $table->string('surnames', 100)->nullable(false);
             $table->string('nuip', 255)->nullable(false);
             $table->char('sex', 1)->nullable(true);
-            $table->string('cel', 15)->nullable(true);
-            $table->string('phone', 15)->nullable(true);
-            $table->string('email', 150)->nullable(true);
+            $table->string('cel', 50)->nullable(true);
+            $table->string('phone', 50)->nullable(true);
+            $table->string('email', 250)->nullable(true);
             #$table->char('type', 1)->nullable(true);
             $table->unsignedBigInteger('user_id')->nullable(true);
 
