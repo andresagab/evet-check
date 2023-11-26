@@ -60,10 +60,10 @@ class Frm extends Form
     public $status = '';
 
     /**
-     * The hidden attribute
+     * The hide attribute
      * @prop string
      */
-    public $hidden = '';
+    public $hide = '';
 
     /**
      * The date attribute
@@ -116,7 +116,7 @@ class Frm extends Form
                 'string',
                 'max:1',
             ],
-            'hidden' => [
+            'hide' => [
                 'required',
             ],
             'date' => [
@@ -146,7 +146,7 @@ class Frm extends Form
         $this->type = $this->activity->type;
         $this->modality = $this->activity->modality;
         $this->status = $this->activity->status;
-        $this->hidden = $this->activity->hidden;
+        $this->hide = $this->activity->hide;
         $this->date = $this->activity->date;
 
     }
@@ -177,7 +177,7 @@ class Frm extends Form
             $activity->type = $this->type;
             $activity->modality = $this->modality;
             $activity->status = $this->status;
-            $activity->hidden = $this->hidden;
+            $activity->hide = $this->hide;
             $activity->date = $this->date;
 
             # if activity was not saved
@@ -226,7 +226,7 @@ class Frm extends Form
             $activity->type = $this->type;
             $activity->modality = $this->modality;
             $activity->status = $this->status;
-            $activity->hidden = $this->hidden;
+            $activity->hide = $this->hide;
             $activity->date = $this->date;
 
             # update data, if not then set wrong message

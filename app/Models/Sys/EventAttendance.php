@@ -77,7 +77,7 @@ class EventAttendance extends Model implements Auditable, Wireable
         5 => 'Universidad de Córdoba',
         6 => 'Universidad de Nariño',
         7 => 'Universidad del Magdalena',
-        8 => 'Universidad Distrital Fransico José de Caldas de Bogotá',
+        8 => 'Universidad Distrital Fransico José de Caldas',
         9 => 'Universidad Pedagógica Nacional',
         10 => 'Universidad Pedagógica y Tecnológica de Colombia',
     ];

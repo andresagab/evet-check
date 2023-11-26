@@ -18,4 +18,8 @@
     {{-- content --}}
     {{ $slot }}
 
+    @section('footer')
+        <x-layouts.footers.portal-footer/>
+    @endsection
+
 </x-layouts.pages.base-layout>

@@ -129,9 +129,26 @@
                             </div>
 
                         </td>
-                        {{-- slots --}}
+                        {{-- slots info --}}
                         <td class="p-2 text-left">
-                            <span class="font-normal text-sm">{{ "{$item->get_free_slots()}/$item->slots" }}</span>
+                            <div class="flex flex-col items-start">
+                                {{-- slots --}}
+                                <div class="flex flex-row items-center space-x-2">
+                                    <x-utils.icon class="dark:text-blue-400 select-none" title="Total de cupos">list</x-utils.icon>
+                                    <span class="font-normal text-sm">{{ $item->slots }}</span>
+                                </div>
+                                {{-- used slots --}}
+                                <div class="flex flex-row items-center space-x-2">
+                                    <x-utils.icon class="dark:text-green-400 select-none" title="Personas inscritas">clear_all</x-utils.icon>
+                                    <span class="font-normal text-sm">{{ $item->activity_attendances()->count() }}</span>
+                                </div>
+                                {{-- free slots --}}
+                                <div class="flex flex-row items-center space-x-2">
+                                    <x-utils.icon class="dark:text-yellow-400 select-none" title="Cupos libres">post_add</x-utils.icon>
+                                    <span class="font-normal text-sm">{{ $item->get_free_slots() }}</span>
+                                </div>
+
+                            </div>
                         </td>
                         {{-- status --}}
                         <td class="p-2 text-left">
@@ -157,9 +174,9 @@
                                 <x-buttons.circle-icon-button wire:click="openEditModal({{ $item }})" title="Click para editar este registro" color="violet" size="20px">edit</x-buttons.circle-icon-button>
                                 @endability
                                 {{-- delete --}}
-                                @ability('*', 'activities:delete')
+                                @if($item->can_delete() && Laratrust::ability('*', 'activities:delete'))
                                 <x-buttons.circle-icon-button wire:click="openDeleteModal({{ $item }})" title="Click para eliminar este registro" color="red" size="20px">delete</x-buttons.circle-icon-button>
-                                @endability
+                                @endif
                                 {{-- activity attendances --}}
                                 @ability('*', 'activity_attendances')
                                 <a href="{{ route('sys.activities.attendances', $item) }}"><x-buttons.circle-icon-button title="Click para gestionar la asistencia de la actividad" color="blue" size="20px">diversity_3</x-buttons.circle-icon-button></a>

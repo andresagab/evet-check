@@ -161,9 +161,9 @@
                                     <x-buttons.circle-icon-button wire:click="openEditModal({{ $item }})" title="Click para editar este registro" color="violet" size="20px">edit</x-buttons.circle-icon-button>
                                 @endability
                                 {{-- delete --}}
-                                @ability('*', 'people:delete')
+                                @if($item->can_delete() && Laratrust::ability('*', 'people:delete'))
                                     <x-buttons.circle-icon-button wire:click="openDeleteModal({{ $item }})" title="Click para eliminar este registro" color="red" size="20px">delete</x-buttons.circle-icon-button>
-                                @endability
+                                @endif
                                 {{-- manage-person-permissions --}}
                                 @if($item->user->state === 'A' && Laratrust::ability('*', 'users:manage-permissions'))
                                     <x-buttons.circle-icon-button wire:click="open_manage_role_permissions({{ $item->user }})" title="Click para gestionar los permisos de este registro" color="emerald" size="20px">manage_accounts</x-buttons.circle-icon-button>

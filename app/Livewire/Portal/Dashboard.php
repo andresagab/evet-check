@@ -23,6 +23,13 @@ class Dashboard extends Component
     #[Locked]
     public Person $person;
 
+    /**
+     * The events collection
+     * @var array
+     */
+    #[Locked]
+    public $events = [];
+
     /// HOOKS
 
     /**
@@ -34,11 +41,26 @@ class Dashboard extends Component
     {
         # set init values
         $this->person = $person;
+
+        # calls
+        $this->load_registered_events();
     }
 
     /// PRIVATE FUNCTIONS
 
-
+    /**
+     * Load registered events of person
+     * @return void
+     */
+    private function load_registered_events() : void
+    {
+        $this->events = Event::query()
+            ->join('event_attendances as ea', 'events.id', '=', 'ea.event_id')
+            ->where('ea.person_id', $this->person->id)
+            ->select('events.*')
+            ->orderBy('year', 'DESC')
+            ->get();
+    }
 
     /// PUBLIC FUNCTIONS
 

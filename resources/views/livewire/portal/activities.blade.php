@@ -89,7 +89,7 @@
                                                         <h3 class="text-slate-300 text-sm font-normal md:flex-grow">Estado: {{ $item->get_status() }}</h3>
                                                         {{-- if can_register_activity is true --}}
                                                         @if($can_register_activity)
-                                                            <h3 class="text-slate-100 text-sm font-thin">Cupos: <span class="font-normal">{{ $item->get_free_slots() }}/{{ $item->slots }}</span></h3>
+                                                            <h3 class="text-slate-100 text-sm font-thin" title="Cupos libres: {{ $item->get_free_slots() }} | Cupos habilitados: {{ $item->slots }}">Cupos: <span class="font-normal">{{ $item->activity_attendances()->count() }}/{{ $item->slots }}</span></h3>
                                                         @endif
                                                     </div>
                                                 </div>

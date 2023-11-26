@@ -12,32 +12,38 @@
 
         {{-- events --}}
         <div class="flex flex-col space-y-2 mt-8">
-            {{-- loop of events, filtering by person_id --}}
-            @foreach(\App\Models\Sys\Event::query()->join('event_attendances as ea', 'events.id', '=', 'ea.event_id')->where('ea.person_id', $person->id)->select('events.*')->orderBy('year', 'DESC')->get() as $item)
-                <div class="m-auto bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 transition ease-in-out duration-300 w-full md:w-1/2 rounded-md p-4">
-                    {{-- head card info --}}
-                    <div class="flex flex-row items-center w-full">
-                        <h3 class="text-slate-300 text-sm font-normal flex-grow">{{ $item->year }}</h3>
-                    </div>
-                    {{-- info --}}
-                    <div class="flex flex-col items-start w-full mt-4">
-                        <h3 class="text-white text-xl font-bold flex-grow">{{ $item->name }}</h3>
-                    </div>
-                    {{-- additional info --}}
-                    <div class="flex flex-col md:flex-row items-start w-full mt-5 select-none">
-                        <h3 class="text-slate-300 text-sm font-normal md:flex-grow">Actividades: {{ $item->activities->count() }}</h3>
-                    </div>
-                    {{-- actions --}}
-                    @if($item->state != 'CP')
-                        <div class="flex flex-row space-x-2 w-full justify-end mt-4">
-                            {{-- virtual_card --}}
-                            <x-buttons.secondary-button wire:click="open_virtual_card({{ $item }})" color="violet">Carnet Virtual</x-buttons.secondary-button>
-                            {{-- open event --}}
-                            <x-buttons.secondary-button wire:click="open_activities({{ $item }})" color="sky">Actividades</x-buttons.secondary-button>
+            {{-- if count of events is greater than zero --}}
+            @if(count($events) > 0)
+                {{-- loop of events, filtering by person_id --}}
+                @foreach($events as $item)
+                    <div class="m-auto bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 transition ease-in-out duration-300 w-full md:w-1/2 rounded-md p-4">
+                        {{-- head card info --}}
+                        <div class="flex flex-row items-center w-full">
+                            <h3 class="text-slate-300 text-sm font-normal flex-grow">{{ $item->year }}</h3>
                         </div>
-                    @endif
-                </div>
-            @endforeach
+                        {{-- info --}}
+                        <div class="flex flex-col items-start w-full mt-4">
+                            <h3 class="text-white text-xl font-bold flex-grow">{{ $item->name }}</h3>
+                        </div>
+                        {{-- additional info --}}
+                        <div class="flex flex-col md:flex-row items-start w-full mt-5 select-none">
+                            <h3 class="text-slate-300 text-sm font-normal md:flex-grow">Actividades: {{ $item->activities->count() }}</h3>
+                        </div>
+                        {{-- actions --}}
+                        @if($item->state != 'CP')
+                            <div class="flex flex-row space-x-2 w-full justify-end mt-4">
+                                {{-- virtual_card --}}
+                                <x-buttons.secondary-button wire:click="open_virtual_card({{ $item }})" color="violet">Carnet Virtual</x-buttons.secondary-button>
+                                {{-- open event --}}
+                                <x-buttons.secondary-button wire:click="open_activities({{ $item }})" color="sky">Actividades</x-buttons.secondary-button>
+                            </div>
+                        @endif
+                    </div>
+                @endforeach
+            {{-- else, then show custom info message --}}
+            @else
+                <p class="font-normal text-lg md:text-xl text-red-700 dark:text-red-400 text-left mt-4">No tienes eventos inscritos, por favor comunicate con los organizadores del evento para realizar tu inscripción.</p>
+            @endif
         </div>
     </div>
 

@@ -32,7 +32,7 @@ class Activity extends Model implements Auditable, Wireable
         'type',
         'modality',
         'status',
-        'hidden',
+        'hide',
         'date',
     ];
 
@@ -77,7 +77,7 @@ class Activity extends Model implements Auditable, Wireable
             'type' => $this->type,
             'modality' => $this->modality,
             'status' => $this->status,
-            'hidden' => $this->hidden,
+            'hide' => $this->hide,
             'date' => $this->date,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
@@ -102,7 +102,7 @@ class Activity extends Model implements Auditable, Wireable
         $activity->type = $value['type'];
         $activity->modality = $value['modality'];
         $activity->status = $value['status'];
-        $activity->hidden = $value['hidden'];
+        $activity->hide = $value['hide'];
         $activity->date = $value['date'];
 
         $activity->created_at = $value['created_at'];
@@ -169,7 +169,7 @@ class Activity extends Model implements Auditable, Wireable
     public function get_hidden() : string
     {
         # if 'hidden' is true
-        if ($this->hidden === 1)
+        if ($this->hide === 1)
             return __('messages.data.actions.yes');
         else
             return __('messages.data.actions.not');
@@ -220,5 +220,22 @@ class Activity extends Model implements Auditable, Wireable
     {
         return Lang::get('messages.models.activity.modalities');
     }
+
+    /**
+     * Determinate if record can be deleted
+     * @return bool
+     */
+    public function can_delete() : bool
+    {
+        # define can as true
+        $can = true;
+
+        # if count of activity attendances is greater than zero, then can as false
+        if ($this->activity_attendances()->count() > 0)
+            $can = false;
+
+        return $can;
+    }
+
 
 }

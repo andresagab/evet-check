@@ -101,7 +101,10 @@
                         <td class="p-2 text-center">{{ $item->id }}</td>
                         {{-- person name --}}
                         <td class="p-2 text-left">
-                            <span class="font-bold text-sm">{{ $item->person->getFullName() }}</span>
+                            <div class="flex flex-col items-start">
+                                <span class="font-bold dark:text-white text-sm">{{ $item->person->getFullName() }}</span>
+                                <span class="font-normal dark:text-slate-300 text-xs italic">{{ $item->person->nuip }}</span>
+                            </div>
                         </td>
                         {{-- institution --}}
                         <td class="p-2 text-left">

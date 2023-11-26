@@ -4,7 +4,7 @@
     <x-loaders.full-page-loader wire:loading wire:target='search, openAddModal, openEditModal, openDeleteModal'/>
 
     {{-- sub header --}}
-    <x-layouts.headers.sub-header title="{{ __('messages.menu.activity_attendances') }} | {{ $activity->name }}" :actions="true">
+    <x-layouts.headers.sub-header title="{{ __('messages.menu.activity_attendances') }} | {{ $activity->name }} | {{ \Illuminate\Support\Carbon::createFromTimeString($activity->date)->format('d F Y h:i A') }}" :actions="true">
 
         {{-- add button --}}
         @ability('*', 'activity_attendances:add')
@@ -31,8 +31,8 @@
 
                         {{-- filters.name --}}
                         <div class="flex flex-col items-start w-full">
-                            <label class="font-semibold text-sm text-zinc-900 dark:text-stone-100" for="filters.name">{{ __('messages.models.event_attendance.event') }}:</label>
-                            <input wire:model="filters.name" wire:keydown.enter='search(true, true)' type="text" name="filters.name" id="filters.name" placeholder="{{ __('messages.models.event_attendance.filters.name') }}" class="border-none px-2 py-1 text-sm w-full bg-white-200 dark:bg-slate-900 dark:text-stone-200 rounded-md">
+                            <label class="font-semibold text-sm text-zinc-900 dark:text-stone-100" for="filters.name">{{ __('messages.models.activity_attendance.person') }}:</label>
+                            <input wire:model="filters.name" wire:keydown.enter='search(true, true)' type="text" name="filters.name" id="filters.name" placeholder="{{ __('messages.models.activity_attendance.filters.person') }}" class="border-none px-2 py-1 text-sm w-full bg-white-200 dark:bg-slate-900 dark:text-stone-200 rounded-md">
                         </div>
 
                     </div>
@@ -88,26 +88,34 @@
                 <tbody>
                 @foreach ($attendances as $item)
 
+                    {{-- php code --}}
+                    @php
+                        # load payment status reference
+                        $state = $item->get_state();
+                    @endphp
+
                     <tr class="border-b border-b-blue-300 dark:border-b-slate-500 bg-white dark:bg-slate-600 hover:bg-blue-100 dark:hover:bg-slate-500 dark:text-stone-50 dark:hover:text-white hover:shadow transition ease-in-out duration-300">
 
                         {{-- id event --}}
                         <td class="p-2 text-center">{{ $item->id }}</td>
                         {{-- person name --}}
                         <td class="p-2 text-left">
-                            <span class="font-bold text-sm">{{ $item->person->getFullName() }}</span>
-                        
+                            <div class="flex flex-col items-start">
+                                <span class="font-bold dark:text-white text-sm">{{ $item->person->getFullName() }}</span>
+                                <span class="font-normal dark:text-slate-300 text-xs italic">{{ $item->person->nuip }}</span>
+                            </div>
                         </td>
 
                         {{-- status --}}
                         <td class="p-2 text-left">
-                            <span class="font-bold text-sm">{{ __($item->get_state('key_name')) }}</span>
+                            <span class="font-bold text-sm text-{{ $state['color'] }}-700 dark:text-{{ $state['color'] }}-300">{{ __($state['key_name']) }}</span>
                         </td>
 
                         {{-- attendance_date --}}
                         <td class="p-2 text-left">
                             <span class="font-normal text-zinc-700 dark:text-stone-300 text-sm">{{ $item->attendance_date ? \Illuminate\Support\Carbon::createFromTimeString($item->attendance_date)->format('d M Y h:i a') : __('messages.data.unregistered') }}</span>
                         </td>
-              
+
                         </td>
                         {{-- dates --}}
                         <td class="p-2 text-left">

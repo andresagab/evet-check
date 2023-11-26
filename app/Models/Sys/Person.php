@@ -140,6 +140,35 @@ class Person extends Model implements Auditable, Wireable
     }
 
     /**
+     * Get short full name of person
+     * @return string
+     */
+    public function get_short_full_name(): string
+    {
+
+        # define name with saved names
+        $name = $this->names;
+        # define surname with saved surnames
+        $surname = $this->surnames;
+
+        # explode names and surnames
+        $names_explode = explode(' ', $name);
+        $surnames_explode = explode(' ', $surname);
+
+        # if count of explode names is greater than 1
+        if (count($names_explode) > 1)
+            # set name with first value
+            $name = "{$names_explode[0]} " . substr($names_explode[1], 0, 1) . ".";
+
+        # if count of explode surnames is greater than 1
+        if (count($surnames_explode) > 1)
+            # set surname with first value
+            $surname = "{$surnames_explode[0]} " . substr($surnames_explode[1], 0, 1) . ".";
+
+        return "$name $surname";
+    }
+
+    /**
      * Get sex string value
      * @return string
      */
@@ -200,6 +229,22 @@ class Person extends Model implements Auditable, Wireable
         # define generator
         $generator = new BarcodeGeneratorHTML();
         return $generator->getBarcode($this->nuip, $generator::TYPE_CODE_128, foregroundColor:$rgb_color);
+    }
+
+    /**
+     * Determinate if record can be deleted
+     * @return bool
+     */
+    public function can_delete() : bool
+    {
+        # define can as true
+        $can = true;
+
+        # if count of activity attendances or event attendances is greater than zero, then can as false
+        if ($this->event_attendances()->count() > 0 || $this->activity_attendances()->count() > 0)
+            $can = false;
+
+        return $can;
     }
 
     /// STATIC FUNCTIONS

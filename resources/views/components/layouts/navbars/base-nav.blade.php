@@ -4,7 +4,7 @@
 
         {{-- app name --}}
         <div class="flex-grow flex-row items-center">
-            <a href="{{ route('admin.home') }}" class="uppercase text-lime-900 dark:text-stone-50 font-bold">{{ config('app.name', 'Resseeds-UDENAR') }}</a>
+            <a href="{{ route('login') }}" class="uppercase text-lime-900 dark:text-stone-50 font-bold">{{ config('app.name', 'Resseeds-UDENAR') }}</a>
         </div>
 
         {{-- menu bar --}}

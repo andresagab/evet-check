@@ -76,6 +76,7 @@
                     <th class="px-2 py-1 text-left w-10">ID</th>
                     <th class="px-2 py-1 text-left w-96">{{ __('messages.models.event.name') }}</th>
                     <th class="px-2 py-1 text-left w-32">{{ __('messages.models.event.year') }}</th>
+                    <th class="px-2 py-1 text-center w-44">{{ __('messages.models.event.registered_people') }}</th>
                     <th class="px-2 py-1 text-left w-32">{{ __('messages.models.event.state') }}</th>
                     <th class="px-2 py-1 text-left w-32">{{ __('messages.models.event.symbolic_cost') }}</th>
                     <th class="px-2 py-1 text-left w-60">{{ __('messages.data.dates') }}</th>
@@ -104,6 +105,10 @@
                         <td class="p-2 text-left">
                             <span class="font-semibold text-sm">{{ $item->year }}</span>
                         </td>
+                        {{-- registered people --}}
+                        <td class="p-2 text-center">
+                            <span class="font-bold text-sm">{{ $item->event_attendances()->count() }}</span>
+                        </td>
                         {{-- state --}}
                         <td class="p-2 text-left">
                             <span class="font-bold text-sm text-{{ $state['color'] }}-700 dark:text-{{ $state['color'] }}-300">{{ __($state['key_name']) }}</span>
@@ -124,9 +129,9 @@
                                 <x-buttons.circle-icon-button wire:click="openEditModal({{ $item }})" title="Click para editar este registro" color="violet" size="20px">edit</x-buttons.circle-icon-button>
                                 @endability
                                 {{-- delete --}}
-                                @ability('*', 'events:delete')
+                                @if($item->can_delete() && Laratrust::ability('*', 'events:delete'))
                                 <x-buttons.circle-icon-button wire:click="openDeleteModal({{ $item }})" title="Click para eliminar este registro" color="red" size="20px">delete</x-buttons.circle-icon-button>
-                                @endability
+                                @endif
                                 {{-- event attendances --}}
                                 @ability('*', 'event_attendances')
                                 <a href="{{ route('sys.events.attendances', $item) }}"><x-buttons.circle-icon-button title="Click para gestionar la asistencia del evento" color="blue" size="20px">diversity_3</x-buttons.circle-icon-button></a>

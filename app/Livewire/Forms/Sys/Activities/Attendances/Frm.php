@@ -43,7 +43,7 @@ class Frm extends Form
      */
     public $attendance_date  = '';
 
-   
+
 
     /// PRIVATE FUNCTIONS
 
@@ -58,17 +58,21 @@ class Frm extends Form
         # define default message
         $message = 'La persona seleccionada puede ser registrada en esta actividad';
 
-        # count attendances by person_id and activity_id
-        $person_attendances = ActivityAttendance::query()->where('Activity_id', $this->activity->id)->where('person_id', $this->person_id)->count();
-
-        # search person
-        $person = Person::query()->find($this->person_id);
-
-        # if person have attendances in current event, then set message
-        if ($person_attendances > 0)
+        # if attendance not have id or person_id form is different of attendance
+        if (empty($this->attendance) || $this->person_id !== $this->attendance->person_id)
         {
-            $can = false;
-            $message = "{$person->getFullName()} ya está " . ($person->sex == 'F' ? 'registrada' : 'registrado') . " en esta actividad";
+            # count attendances by person_id and activity_id
+            $person_attendances = ActivityAttendance::query()->where('activity_id', $this->activity->id)->where('person_id', $this->person_id)->count();
+
+            # search person
+            $person = Person::query()->find($this->person_id);
+
+            # if person have attendances in current event, then set message
+            if ($person_attendances > 0)
+            {
+                $can = false;
+                $message = "{$person->getFullName()} ya está " . ($person->sex == 'F' ? 'registrada' : 'registrado') . " en esta actividad";
+            }
         }
 
         return [
@@ -98,9 +102,8 @@ class Frm extends Form
             ],
             'attendance_date' => [
                 'nullable',
-                
             ],
-                
+
         ];
 
         return $rules;
@@ -130,8 +133,6 @@ class Frm extends Form
         $this->person_id = $this->attendance->person_id;
         $this->state = $this->attendance->state;
         $this->attendance_date = $this->attendance->attendance_date;
-       
-        
     }
 
     /**
@@ -140,7 +141,7 @@ class Frm extends Form
      */
     public function store() : string
     {
-        
+
 
         # validate fields
         $this->validate();
@@ -148,43 +149,54 @@ class Frm extends Form
         # define state of action: 1 => saved, 2 => not_saved, 3 => try_error
         $message = __('messages.responses.saved');
 
-        # use try
-        try {
+        # load person
+        $person = Person::query()->find($this->person_id);
+        # if person can register activity
+        if (!empty($person) && $person->can_register_activity($this->activity))
+        {
 
-            # check if attendance can be saved for current person
-            $can_response = $this->can_save();
+            # use try
+            try {
 
-            # if can_response is false, then set message
-            if (!$can_response['can'])
-                $message = $can_response['message'];
-            # else, store attendance
-            else
+                # check if attendance can be saved for current person
+                $can_response = $this->can_save();
+
+                # if can_response is false, then set message
+                if (!$can_response['can'])
+                    $message = $can_response['message'];
+                # else, store attendance
+                else
+                {
+
+                    # define new empty attendance
+                    $attendance = new ActivityAttendance();
+                    # set attributes
+                    $attendance->activity_id = $this->activity->id;
+                    $attendance->person_id = $this->person_id;
+                    $attendance->state = $this->state;
+                    $attendance->attendance_date = $this->attendance_date != '' ? $this->attendance_date : null;
+
+
+
+                    # if attendance was not saved
+                    if (!$attendance->save())
+                        $message = __('messages.responses.not_saved');
+
+                }
+
+            }
+            catch (\Exception $e)
             {
-
-                # define new empty attendance
-                $attendance = new ActivityAttendance();
-                # set attributes
-                $attendance->activity_id = $this->activity->id;
-                $attendance->person_id = $this->person_id;
-                $attendance->state = $this->state;
-                $attendance->attendance_date = $this->attendance_date;
-              
-                
-
-                # if attendance was not saved
-                if (!$attendance->save())
-                    $message = __('messages.responses.not_saved');
-
+                # dispatch toast
+                $message = __('messages.errors.try_error', ['code' => $e->getCode()]);
+                # log error
+                error_log("Error => " . $e->getMessage());
             }
 
         }
-        catch (\Exception $e)
-        {
-            # dispatch toast
-            $message = __('messages.errors.try_error', ['code' => $e->getCode()]);
-            # log error
-            error_log("Error => " . $e->getMessage());
-        }
+        # else, set custom message error
+        else
+            $message = "Esta persona ya tiene inscrita otra actividad en la misma hora y fecha, o la actividad ya no tiene cupos disponibles";
 
         # reset form
         $this->reset();
@@ -205,41 +217,53 @@ class Frm extends Form
 
         # define state of action: 1 => saved, 2 => not_saved, 3 => try_error
         $message = __('messages.responses.updated');
-        # use try
-        try {
 
-            # check if attendance can be saved for current person
-            $can_response = $this->can_save();
+        # load person
+        $person = Person::query()->find($this->person_id);
+        # if person can register activity
+        if (!empty($person) && $person->can_register_activity($this->activity))
+        {
+            # use try
+            try {
 
-            # if can_response is false, then set message
-            if (!$can_response['can'])
-                $message = $can_response['message'];
-            # else, update attendance
-            else
+                # check if attendance can be saved for current person
+                $can_response = $this->can_save();
+
+                # if can_response is false, then set message
+                if (!$can_response['can'])
+                    $message = $can_response['message'];
+                # else, update attendance
+                else
+                {
+
+                    # load attendance from db
+                    $attendance = ActivityAttendance::query()->find($this->attendance->id);
+
+                    # set attributes
+                    $attendance->person_id = $this->person_id;
+                    $attendance->state = $this->state;
+                    $attendance->attendance_date = $this->attendance_date != '' ? $this->attendance_date : null;
+
+                    # update data, if not then set wrong message
+                    if (!$attendance->update())
+                        $message = __('messages.errors.not_updated');
+
+                }
+
+            }
+            catch (\Exception $e)
             {
-
-                # load attendance from db
-                $attendance = ActivityAttendance::query()->find($this->attendance->id);
-
-                # set attributes
-                $attendance->person_id = $this->person_id;
-                $attendance->state = $this->state;
-                $attendance->attendance_date = $this->attendance_date;
-
-                # update data, if not then set wrong message
-                if (!$attendance->update())
-                    $message = __('messages.errors.not_updated');
-
+                # dispatch toast
+                $message = __('messages.errors.try_error', ['code' => $e->getCode()]);
+                # log error
+                error_log("Error => " . $e->getMessage());
             }
 
         }
-        catch (\Exception $e)
-        {
-            # dispatch toast
-            $message = __('messages.errors.try_error', ['code' => $e->getCode()]);
-            # log error
-            error_log("Error => " . $e->getMessage());
-        }
+        # else, set custom message error
+        else
+            $message = "Está persona ya tiene inscrita otra actividad en la misma hora y fecha";
+
 
         # reset form
         $this->reset();

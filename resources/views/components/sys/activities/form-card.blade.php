@@ -79,14 +79,14 @@
         <x-forms.error for="frm.status"/>
     </x-forms.input-group>
 
-    {{-- hidden --}}
+    {{-- hide --}}
     <x-forms.input-group class="w-full">
         {{-- label --}}
-        <x-forms.label value="{{ __('messages.models.activity.hidden') }}" for="frm.hidden" class="required"/>
+        <x-forms.label value="{{ __('messages.models.activity.hidden') }}" for="frm.hide" class="required"/>
         {{-- select --}}
-        <x-forms.select wire:model="frm.hidden" required :data="[1 => 'Si', 0 => 'No']"/>
+        <x-forms.select wire:model="frm.hide" required :data="[1 => 'Si', 0 => 'No']"/>
         {{-- error --}}
-        <x-forms.error for="frm.hidden"/>
+        <x-forms.error for="frm.hide"/>
     </x-forms.input-group>
 
     {{-- date --}}

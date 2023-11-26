@@ -20,6 +20,11 @@
                 {{-- main layer --}}
                 <div class="flex flex-col items-center space-y-6 w-full">
 
+                    {{-- activity card --}}
+                    @if($activity->id)
+                        <x-sys.activities.info-card :activity="$activity" bg_dark_color="slate-700"/>
+                    @endif
+
                     {{-- if attendance have id (when action is edit) --}}
                     @if($attendance->id)
                         {{-- attendance data-card --}}
