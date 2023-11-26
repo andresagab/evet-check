@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,10 +18,12 @@
         @livewireStyles
     </head>
     <body class="font-sans antialiased">
-        <x-banner />
+        <x-jet.banner />
 
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @livewire('navigation-menu')
+
+            {{-- sys-nav --}}
+            <x-layouts.navbars.sys-navbar/>
 
             <!-- Page Heading -->
             @if (isset($header))

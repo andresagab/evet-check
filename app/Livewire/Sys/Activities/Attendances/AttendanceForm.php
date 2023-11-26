@@ -57,7 +57,8 @@ class AttendanceForm extends Component
     /**
      * Open modal component and setting an action
      * @param string $action => key of action to set in the component ('add' for create new resources or 'edit' to update old resources)
-     * @param Activity|null $activity
+     * @param Activity $activity
+     * @param ActivityAttendance|null $attendance
      * @return void
      */
     #[On('open-modal')]

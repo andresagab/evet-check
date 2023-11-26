@@ -3,6 +3,12 @@
     'attendance',
 ])
 
+{{-- php code --}}
+@php
+    # load payment status reference
+    $state = $attendance->get_state();
+@endphp
+
 {{-- template --}}
 <x-cards.card title="{{ __('messages.models.activity_attendance.model_name') }}" :footer="0" color="gray-100">
     {{-- content card --}}
@@ -28,12 +34,12 @@
                 <span class="font-semibold text-zinc-900 dark:text-stone-100 text-sm">{{ __('messages.models.event_attendance.person') }}:</span>
                 <span class="font-normal text-zinc-700 dark:text-stone-300 text-sm">{{ $attendance->person->getFullName() }}</span>
             </div>
-           
 
-            {{-- stay_type --}}
+
+            {{-- state --}}
             <div class="inline-flex items-center space-x-1 px-1.5">
-                <span class="font-semibold text-zinc-900 dark:text-stone-100 text-sm">{{ __('messages.models.event_attendance.stay_type') }}:</span>
-                <span class="font-normal text-zinc-700 dark:text-stone-300 text-sm">{{ __($attendance->get_state('key_name')) }}</span>
+                <span class="font-semibold text-zinc-900 dark:text-stone-100 text-sm">{{ __('messages.models.activity_attendance.state') }}:</span>
+                <span class="font-bold text-{{ $state['color'] }}-700 dark:text-{{ $state['color'] }}-300 text-sm">{{ __($state['key_name']) }}</span>
             </div>
 
             {{-- created_at --}}

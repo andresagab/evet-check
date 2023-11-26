@@ -148,6 +148,22 @@ class Event extends Model implements Auditable, Wireable
         return $return_value;
     }
 
+    /**
+     * Determinate if record can be deleted
+     * @return bool
+     */
+    public function can_delete() : bool
+    {
+        # define can as true
+        $can = true;
+
+        # if count of activities or event attendances is greater than zero, then can as false
+        if ($this->activities()->count() > 0 || $this->event_attendances()->count() > 0)
+            $can = false;
+
+        return $can;
+    }
+
     /// STATIC FUNCTIONS
 
 

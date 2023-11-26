@@ -231,6 +231,22 @@ class Person extends Model implements Auditable, Wireable
         return $generator->getBarcode($this->nuip, $generator::TYPE_CODE_128, foregroundColor:$rgb_color);
     }
 
+    /**
+     * Determinate if record can be deleted
+     * @return bool
+     */
+    public function can_delete() : bool
+    {
+        # define can as true
+        $can = true;
+
+        # if count of activity attendances or event attendances is greater than zero, then can as false
+        if ($this->event_attendances()->count() > 0 || $this->activity_attendances()->count() > 0)
+            $can = false;
+
+        return $can;
+    }
+
     /// STATIC FUNCTIONS
 
 

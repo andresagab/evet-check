@@ -261,7 +261,7 @@ return [
 
             'status_types' => [
                 'O' => 'Abierta',
-                'I' => 'En ejecución',
+                'I' => 'En curso',
                 'C' => 'Cerrada',
             ],
 

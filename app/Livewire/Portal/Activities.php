@@ -208,7 +208,7 @@ class Activities extends Component
         }
         else
             # dispatch cannot register attendance
-            $this->dispatch('alert', title:'¡INTENTO INVALIDO!', text:'No fue posible inscribir la actividad, porque ya realizaste una inscripción previamente.', icon:'info');
+            $this->dispatch('alert', title:'¡INTENTO INVALIDO!', text:'No fue posible inscribir la actividad, porque ya realizaste una inscripción previamente o está actividad ya no tiene cupos disponibles.', icon:'info');
 
     }
 

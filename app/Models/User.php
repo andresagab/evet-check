@@ -3,8 +3,10 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Sys\Person;
 use App\Utils\CommonUtils;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laratrust\Contracts\LaratrustUser;
@@ -99,7 +101,14 @@ class User extends Authenticatable implements LaratrustUser, Auditable, Wireable
 
     /// RELATIONAL FUNCTIONS
 
-
+    /**
+     * Load the Person model
+     * @return HasOne
+     */
+    public function person() : HasOne
+    {
+        return $this->hasOne(Person::class);
+    }
 
     /// PUBLIC FUNCTIONS
 
@@ -188,6 +197,22 @@ class User extends Authenticatable implements LaratrustUser, Auditable, Wireable
             $role = $this->roles()->first();
 
         return $role;
+    }
+
+    /**
+     * Determinate if record can be deleted
+     * @return bool
+     */
+    public function can_delete() : bool
+    {
+        # define can as true
+        $can = true;
+
+        # if count of person is greater than zero, then can as false
+        if ($this->person()->count() > 0 || $this->code === env('APP_SUPERUSER_CODE'))
+            $can = false;
+
+        return $can;
     }
 
     /// STATIC FUNCTIONS

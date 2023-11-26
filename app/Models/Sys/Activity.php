@@ -221,4 +221,21 @@ class Activity extends Model implements Auditable, Wireable
         return Lang::get('messages.models.activity.modalities');
     }
 
+    /**
+     * Determinate if record can be deleted
+     * @return bool
+     */
+    public function can_delete() : bool
+    {
+        # define can as true
+        $can = true;
+
+        # if count of activity attendances is greater than zero, then can as false
+        if ($this->activity_attendances()->count() > 0)
+            $can = false;
+
+        return $can;
+    }
+
+
 }

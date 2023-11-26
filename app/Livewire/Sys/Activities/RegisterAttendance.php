@@ -112,27 +112,35 @@ class RegisterAttendance extends Component
      */
     public function search_people() : void
     {
-
-        # search people in db
-        $this->people = Person::query()
-            # filter by person, name, surnames or nuip
-            ->where(function ($q) {
-                # define $filter for current where
-                $filter = "%" . mb_strtolower($this->filters['person'], 'UTF-8') . "%";
-                # if $this->filters['person'] have data
-                if ($this->filters['person'] != '')
-                    # filter by names, surnames or nuip
-                    return $q->whereRaw('LOWER(names) LIKE ?', [$filter])
-                        ->orWhereRaw('LOWER(surnames) LIKE ?', [$filter])
-                        ->orWhereRaw('LOWER(nuip) LIKE ?', [$filter]);
-                else
-                    return null;
-            })
-            ->orderBy('names', 'asc')
-            ->get();
-        # if count of people is equal to 1, then select directly this record
-        if (count($this->people) === 1)
-            $this->select_person($this->people[0]);
+        # always clear validation errors
+        $this->resetValidation('filters.person');
+        # filter only data length is greater or equal than 3
+        if (strlen($this->filters['person']) >= 3)
+        {
+            # search people in db
+            $this->people = Person::query()
+                # filter by person, name, surnames or nuip
+                ->where(function ($q) {
+                    # define $filter for current where
+                    $filter = "%" . mb_strtolower($this->filters['person'], 'UTF-8') . "%";
+                    # if $this->filters['person'] have data
+                    if ($this->filters['person'] != '')
+                        # filter by names, surnames or nuip
+                        return $q->whereRaw('LOWER(names) LIKE ?', [$filter])
+                            ->orWhereRaw('LOWER(surnames) LIKE ?', [$filter])
+                            ->orWhereRaw('LOWER(nuip) LIKE ?', [$filter]);
+                    else
+                        return null;
+                })
+                ->orderBy('names', 'asc')
+                ->get();
+            # if count of people is equal to 1, then select directly this record
+            if (count($this->people) === 1)
+                $this->select_person($this->people[0]);
+        }
+        # else, add custom validation error
+        else
+            $this->addError('filters.person', 'Escribe por lo menos 3 carácteres para realizar la búsqueda.');
     }
 
     /**

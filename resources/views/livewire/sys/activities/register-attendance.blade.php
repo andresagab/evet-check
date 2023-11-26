@@ -63,7 +63,7 @@
                                 </div>
                             @endif
                             {{-- error --}}
-                            <x-forms.error for="person.names"/>
+                            <x-forms.error for="filters.person"/>
                         </x-forms.input-group>
 
                         {{--<x-sys.activities.attendances.data-card :attendance="$attendance"/>--}}

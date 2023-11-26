@@ -25,7 +25,7 @@
             {{-- state --}}
             <h3 class="text-slate-300 text-sm font-normal md:flex-grow">{{ __('messages.models.activity.status') }}: {{ $activity->get_status() }}</h3>
             {{-- slots --}}
-            <h3 class="text-slate-100 text-sm font-thin">{{ __('messages.models.activity.slots') }}: <span class="font-normal">{{ $activity->get_free_slots() }}/{{ $activity->slots }}</span></h3>
+            <h3 class="text-slate-100 text-sm font-thin">{{ __('messages.models.activity.slots') }}: <span class="font-normal">{{ $activity->activity_attendances()->count() }}/{{ $activity->slots }}</span></h3>
         </div>
     </div>
 </div>
