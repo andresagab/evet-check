@@ -29,7 +29,7 @@
             <img src="{{ asset('assets/img/virtual_card_template.png') }}" alt="Template Card" class="static" width="300px">
             <div class="absolute top-0 left-0 w-full">
                 {{-- person names --}}
-                <span class="absolute top-48 text-center font-bold text-xs uppercase w-full">{{ $person->getFullName() }}</span>
+                <span class="absolute top-48 text-center font-bold text-xs uppercase w-full">{{ $person->get_short_full_name() }}</span>
                 {{-- nip --}}
                 <span class="absolute pt-0.5 top-60 text-center font-bold text-sm uppercase w-full">{{ $person->nuip }}</span>
                 {{-- participation modality --}}

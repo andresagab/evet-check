@@ -5,6 +5,7 @@ namespace App\Livewire\Portal;
 use App\Models\Sys\Activity;
 use App\Models\Sys\ActivityAttendance;
 use App\Models\Sys\Event;
+use App\Models\Sys\EventAttendance;
 use App\Models\Sys\Person;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
@@ -61,19 +62,32 @@ class Activities extends Component
         # if event and person were fund
         if (!empty($event) && !empty($person))
         {
-            # if event is not completed
-            if ($event->state !== 'CP')
-            {
-                # set init values
-                $this->person = $person;
-                $this->event = $event;
 
-                # pending add validation after search person and event
-                $this->load_activities_dates();
+            # load attendance of person in event
+            $attendance = EventAttendance::query()->where('event_id', $event->id)->where('person_id', $person->id)->first();
+            # if person is signed up in event
+            if (!empty($attendance))
+            {
+
+                # if event is not completed
+                if ($event->state !== 'CP')
+                {
+                    # set init values
+                    $this->person = $person;
+                    $this->event = $event;
+
+                    # pending add validation after search person and event
+                    $this->load_activities_dates();
+                }
+                # else, redirect to dashboard
+                else
+                    $this->redirectRoute('portal.dashboard', $person, navigate: true);
+
             }
             # else, redirect to dashboard
             else
                 $this->redirectRoute('portal.dashboard', $person, navigate: true);
+
         }
         # else, redirect to home
         else
