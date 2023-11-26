@@ -100,7 +100,7 @@ class Activities extends Component
             # filter by person id in event_attendances
             ->where('ea.person_id', $this->person->id)
             # not list hidden data
-            ->where('activities.hidden', 0);
+            ->where('activities.hide', 0);
 
         return $base_query;
 
