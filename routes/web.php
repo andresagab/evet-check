@@ -71,13 +71,13 @@ Route::prefix('admin')
         })->name('home');
 
         ## USERS
-        Route::get('/users', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('users')->middleware(['ability:*,users']);
+        Route::get('/users', [\App\Http\Controllers\admin\UserController::class, 'index'])->name('users')->middleware(['ability:*,users']);
 
         ## ROLES
-        Route::get('/roles', [\App\Http\Controllers\Admin\RoleController::class, 'index'])->name('roles')->middleware(['ability:*,roles']);
+        Route::get('/roles', [\App\Http\Controllers\admin\RoleController::class, 'index'])->name('roles')->middleware(['ability:*,roles']);
 
         ## PERMISSIONS
-        Route::get('/permission', [\App\Http\Controllers\Admin\PermissionController::class, 'index'])->name('permissions')->middleware(['ability:*,permissions']);
+        Route::get('/permission', [\App\Http\Controllers\admin\PermissionController::class, 'index'])->name('permissions')->middleware(['ability:*,permissions']);
 
     });
 
