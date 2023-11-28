@@ -73,10 +73,6 @@ class RegisterAttendance extends Component
         $this->person = new Person();
         $this->attendance = new ActivityAttendance();
         $this->event_attendance = new EventAttendance();
-        # $this->load_attendance();
-        $this->openModal(Activity::query()->find(60));
-        $person = Person::query()->where('nuip', '1085343280')->first();
-        $this->select_person($person);
     }
 
     /// PRIVATE FUNCTIONS
