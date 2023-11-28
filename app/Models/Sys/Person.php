@@ -221,14 +221,16 @@ class Person extends Model implements Auditable, Wireable
     }
 
     /**
-     * Get bar code as HTML
+     * Get bar code as html
+     * @param string $rgb_color
+     * @param $height
      * @return string
      */
-    public function get_bar_code(string $rgb_color = 'white')
+    public function get_bar_code(string $rgb_color = 'white', $height = 100)
     {
         # define generator
         $generator = new BarcodeGeneratorHTML();
-        return $generator->getBarcode($this->nuip, $generator::TYPE_CODE_128, foregroundColor:$rgb_color);
+        return $generator->getBarcode($this->nuip, $generator::TYPE_CODE_128, 2, height: $height, foregroundColor:$rgb_color);
     }
 
     /**

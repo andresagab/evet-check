@@ -16,7 +16,7 @@
             <h1 class="w-full md:w-2/3">Gracias por ser parte de esta iniciativa</h1>
         </div>
         <div class="flex mt-8 flex-col md:flex-row md:justify-between">
-            <p class="w-full md:w-2/3 text-gray-400">Esperamos poder ayudarte en todo lo posible, para mayor información visita nuestras página web o comunicate a travez de las siguientes opciones:</p>
+            <p class="w-full md:w-2/3 text-gray-400">Esperamos poder ayudarte en todo lo posible, para mayor información visita nuestra página web o comunícate a través de las siguientes opciones:</p>
             <div class="w-auto pt-6 md:pt-0">
                 <a href="https://www.udenar.edu.co/congreso-repetic-viii/" target="_blank" class="bg-violet-500 hover:bg-violet-400 transition ease-in-out duration-300 justify-center text-center rounded-lg shadow px-10 py-3 flex items-center">Más información</a>
             </div>

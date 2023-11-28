@@ -4,6 +4,7 @@ namespace App\Livewire\Sys\Activities;
 
 use App\Models\Sys\Activity;
 use App\Models\Sys\ActivityAttendance;
+use App\Models\Sys\EventAttendance;
 use App\Models\Sys\Person;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -32,6 +33,12 @@ class RegisterAttendance extends Component
      * @var Person
      */
     public Person $person;
+
+    /**
+     * The EventAttendance Model
+     * @var EventAttendance
+     */
+    public EventAttendance $event_attendance;
 
     /**
      * The Activity Attendance model
@@ -63,12 +70,13 @@ class RegisterAttendance extends Component
     {
         # set init values
         $this->activity = new Activity();
-        # $this->activity = Activity::find(9);
         $this->person = new Person();
-        # $this->person = Person::find(5);
         $this->attendance = new ActivityAttendance();
+        $this->event_attendance = new EventAttendance();
         # $this->load_attendance();
-        #$this->open = true;
+        $this->openModal(Activity::query()->find(60));
+        $person = Person::query()->where('nuip', '1085343280')->first();
+        $this->select_person($person);
     }
 
     /// PRIVATE FUNCTIONS
@@ -98,6 +106,35 @@ class RegisterAttendance extends Component
             }
             /*else
                 $this->dispatch('alert', title:'INSCRIPCIÓN NO REALIZADA', text:"La persona con número de identificación {$this->person->nuip}, no tiene inscrita la actividad: '{$this->activity->name}'; por ende, no es posible realizar el registro de asistencia", icon:'error');*/
+
+        }
+        else
+            $this->dispatch('toast', title:'Asegurate de buscar a una persona', icon:'info');
+    }
+
+    /**
+     * Load the Event Attendance model for current event and selected person
+     * @return void
+     */
+    private function load_event_attendance() : void
+    {
+        # always reset event attendance model
+        $this->event_attendance = new EventAttendance();
+        # if person model have id
+        if ($this->person->id)
+        {
+            # search attendance by activity id and person id
+            $attendance = EventAttendance::query()
+                ->where('event_id', $this->activity->event_id)
+                ->where('person_id', $this->person->id)
+                ->first();
+
+            # if attendance was fund
+            if (!empty($attendance))
+            {
+                # set attendance model
+                $this->event_attendance = $attendance;
+            }
 
         }
         else
@@ -156,6 +193,8 @@ class RegisterAttendance extends Component
         $this->filters['person'] = $this->person->getFullName();
         # load attendance
         $this->load_attendance();
+        # load event attendance
+        $this->load_event_attendance();
         # reset people collection
         $this->reset(['people']);
     }
@@ -170,6 +209,8 @@ class RegisterAttendance extends Component
         $this->person = new Person();
         # set Activity Attendance model as new empty model
         $this->attendance = new ActivityAttendance();
+        # set Activity Attendance model as new empty model
+        $this->event_attendance = new EventAttendance();
         # reset filter
         $this->reset(['filters']);
     }
@@ -213,6 +254,40 @@ class RegisterAttendance extends Component
         }
     }
 
+    /**
+     * Set Event Attendance payment status as paid
+     * @return void
+     */
+    public function set_as_paid() : void
+    {
+
+        if ($this->event_attendance->id)
+        {
+
+            # load event attendance from db
+            $attendance = EventAttendance::query()->find($this->event_attendance->id);
+
+            # set payment_status of attendance
+            $attendance->payment_status = 'PA';
+
+            # if attendance is updated
+            if ($attendance->update())
+            {
+                # dispatch success message
+                $this->dispatch('toast', title:__('messages.responses.updated'));
+                # load attendance again
+                $this->event_attendance = $attendance;
+            }
+            # else, dispatch not updated message
+            else
+                $this->dispatch('toast', title:__('messages.errors.not_updated'), icon:'warning');
+
+        }
+        else
+            $this->dispatch('toast', title:__('messages.errors.record_not_loaded'), icon:'warning');
+
+    }
+
     /// EVENTS
 
     /**
@@ -228,6 +303,8 @@ class RegisterAttendance extends Component
         $this->activity = new Activity();
         # always reset Person model
         $this->person = new Person();
+        # always reset EventAttendance model
+        $this->event_attendance = new EventAttendance();
         # always reset ActivityAttendance model
         $this->attendance = new ActivityAttendance();
         # reset people and filters

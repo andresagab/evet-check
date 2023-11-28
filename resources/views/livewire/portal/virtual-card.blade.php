@@ -1,4 +1,4 @@
-<div class="w-full h-screen grid place-items-center">
+<div class="w-full h-full grid place-items-center">
 
     {{-- full-page-loader --}}
     <x-loaders.full-page-loader wire:loading/>
@@ -18,7 +18,7 @@
             {{-- participation modality --}}
             <h3 class="font-normal text-md md:text-xl text-slate-300 text-left">{{ $participation_modality }}</h3>
             {{-- bar code --}}
-            <span class="text-md text-white uppercase w-full flex items-center justify-center z-50 mt-4">{!! $person->get_bar_code() !!}</span>
+            <span class="text-md text-white uppercase w-full flex items-center justify-center mt-4 bg-white">{!! $person->get_bar_code('black') !!}</span>
         </div>
 
     </div>
@@ -34,10 +34,10 @@
                 <span class="absolute pt-0.5 top-60 text-center font-bold text-sm uppercase w-full">{{ $person->nuip }}</span>
                 {{-- participation modality --}}
                 <span class="absolute top-72 text-center font-bold text-md text-white uppercase w-full">{{ $participation_modality }}</span>
-                {{-- bar code --}}
-                <span class="absolute top-80 font-bold text-md text-white uppercase w-full flex items-center justify-center z-50 bg-stone-900 bg-opacity-50">{!! $person->get_bar_code() !!}</span>
 
             </div>
+            {{-- bar code --}}
+            <span class="font-bold text-md text-white uppercase w-full flex items-center justify-center bg-white">{!! $person->get_bar_code('black', 30) !!}</span>
         </div>
     </div>
 
