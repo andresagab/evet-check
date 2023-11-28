@@ -166,13 +166,16 @@ class PermissionsTable extends Component
      */
     public function render()
     {
-        return view('livewire.admin.permissions.permissions-table');
+        return view('livewire.admin.permissions.permissions-table')
+            ->layout('components.layouts.pages.admin-layout', [
+                'title' => __('messages.menu.permissions'),
+            ]);
     }
 }
 
 
 
 
-   
+
 
 

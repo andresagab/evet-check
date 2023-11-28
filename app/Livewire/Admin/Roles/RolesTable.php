@@ -147,10 +147,12 @@ class RolesTable extends Component
 
     /**
      * Render view of component
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
      */
-    public function render(): \Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function render()
     {
-        return view('livewire.admin.roles.roles-table');
+        return view('livewire.admin.roles.roles-table')
+            ->layout('components.layouts.pages.admin-layout', [
+                'title' => __('messages.menu.roles'),
+            ]);
     }
 }
