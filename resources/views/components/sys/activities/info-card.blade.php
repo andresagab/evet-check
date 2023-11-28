@@ -21,11 +21,17 @@
             <h3 class="text-slate-300 text-sm font-thin">{{ $activity->get_modality() }}</h3>
         </div>
         {{-- additional info --}}
-        <div class="flex flex-col md:flex-row items-start w-full mt-4 select-none">
+        <div class="flex flex-col md:flex-row md:space-x-2 items-start w-full mt-4 select-none">
             {{-- state --}}
             <h3 class="text-slate-300 text-sm font-normal md:flex-grow">{{ __('messages.models.activity.status') }}: {{ $activity->get_status() }}</h3>
             {{-- slots --}}
-            <h3 class="text-slate-100 text-sm font-thin">{{ __('messages.models.activity.slots') }}: <span class="font-normal">{{ $activity->activity_attendances()->count() }}/{{ $activity->slots }}</span></h3>
+            <h3 class="text-slate-100 text-sm font-normal dark:text-purple-300">{{ __('messages.models.activity.slots') }}: <span class="font-normal">{{ $activity->slots }}</span></h3>
+            {{-- signed slots --}}
+            <h3 class="text-slate-100 text-sm font-normal dark:text-blue-300">Inscritos: <span class="font-normal">{{ $activity->activity_attendances()->count() }}</span></h3>
+            {{-- done slots --}}
+            <h3 class="text-slate-100 text-sm font-normal dark:text-green-300">Asistentes: <span class="font-normal">{{ $activity->activity_attendances()->where('state', 'DO')->count() }}</span></h3>
+            {{-- unrealized slots --}}
+            <h3 class="text-slate-100 text-sm font-normal dark:text-red-300">No asistieron: <span class="font-normal">{{ $activity->activity_attendances()->count() - $activity->activity_attendances()->where('state', 'DO')->count() }}</span></h3>
         </div>
     </div>
 </div>

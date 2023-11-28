@@ -182,9 +182,9 @@
                                 <a href="{{ route('sys.activities.attendances', $item) }}"><x-buttons.circle-icon-button title="Click para gestionar la asistencia de la actividad" color="blue" size="20px">diversity_3</x-buttons.circle-icon-button></a>
                                 @endability
                                 {{-- regiter attendance --}}
-                                @ability('*', 'activities:register-attendance')
+                                @if($item->status != "C" && Laratrust::ability('*', 'activities:register-attendance'))
                                 <x-buttons.circle-icon-button wire:click="open_register_attendance_modal({{ $item }})" title="Click para registrar una asistencia a esta actividad" color="emerald" size="20px">how_to_reg</x-buttons.circle-icon-button>
-                                @endability
+                                @endif
                             </div>
                         </td>
 

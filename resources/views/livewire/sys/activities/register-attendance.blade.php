@@ -78,6 +78,15 @@
                     <x-sys.people.data-card :person="$person"/>
                 @endif
 
+                {{-- event attendance data-card --}}
+                @if($event_attendance->id)
+
+                    <x-sys.events.attendances.data-card :attendance="$event_attendance"/>
+
+                @elseif(!$event_attendance->id && $person->id)
+                    <span class="text-red-500 dark:text-red-400 font-bold text-sm">¡Esta persona no está inscrita en el evento!</span>
+                @endif
+
                 {{-- attendance data-card --}}
                 @if($attendance->id)
 
@@ -119,9 +128,18 @@
                 <div class="w-full inline-flex space-x-2 items-center justify-end mt-5">
                     {{-- cancel button --}}
                     <x-buttons.secondary-button wire:click="$toggle('open')" type="button" color="red">Cancelar</x-buttons.secondary-button>
-                    {{-- save button --}}
-                    @if($person->id && $attendance->id && $attendance->state === 'SU')
-                        <x-buttons.main-button wire:click="register_attendance" type="button">Registrar Asistencia</x-buttons.main-button>
+                    {{-- if person have id --}}
+                    @if($person->id)
+                        {{-- remove person button --}}
+                        <x-buttons.secondary-button wire:click="remove_person" type="button" color="blue">Reiniciar búsqueda</x-buttons.secondary-button>
+                        {{-- save as paid button --}}
+                        @if($event_attendance->id && $event_attendance->payment_status === 'NP')
+                            <x-buttons.main-button wire:click="set_as_paid" type="button" color="violet">Registrar pagado</x-buttons.main-button>
+                        @endif
+                        {{-- save button --}}
+                        @if($attendance->id && $attendance->state === 'SU')
+                            <x-buttons.main-button wire:click="register_attendance" type="button" color="emerald">Registrar Asistencia</x-buttons.main-button>
+                        @endif
                     @endif
                 </div>
 
