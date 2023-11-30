@@ -76,19 +76,21 @@
                                                     {{-- type and hour --}}
                                                     <div class="flex flex-row items-center w-full">
                                                         <h3 class="text-slate-300 text-sm font-normal flex-grow">{{ $item->get_type() }}</h3>
-                                                        <h3 class="text-slate-300 text-sm font-thin flex-shrink">{{ $date_hour->format("h:i a") }}</h3>
+                                                        <h3 class="text-slate-300 text-sm font-thin flex-shrink">{{ $date_hour->format("d M Y h:i a") }}</h3>
                                                     </div>
                                                     {{-- name, author, modality --}}
-                                                    <div class="flex flex-col items-start w-full mt-4">
-                                                        <h3 class="text-white text-xl font-bold break-all">{{ $item->name }}</h3>
+                                                    <div class="flex flex-col items-start w-full mt-6">
+                                                        <h3 class="text-white text-xl font-bold break-all text-justify">{{ $item->name }}</h3>
                                                         <h3 class="text-slate-100 text-md font-normal">{{ $item->author_name }}</h3>
                                                         <h3 class="text-slate-300 text-sm font-thin">{{ $item->get_modality() }}</h3>
                                                     </div>
                                                     {{-- additional info --}}
-                                                    <div class="flex flex-col md:flex-row items-start w-full mt-4 select-none">
+                                                    <div class="flex flex-col md:flex-row items-start w-full mt-6 select-none">
                                                         <h3 class="text-slate-300 text-sm font-normal md:flex-grow">Estado: {{ $item->get_status() }}</h3>
                                                         {{-- if can_register_activity is true --}}
-                                                        @if($can_register_activity)
+                                                        @if($item->get_free_slots() === 0)
+                                                            <span class="text-xs font-normal italic dark:text-red-300">Está actividad no tiene cupos disponibles</span>
+                                                        @else
                                                             <h3 class="text-slate-100 text-sm font-thin" title="Cupos libres: {{ $item->get_free_slots() }} | Cupos habilitados: {{ $item->slots }}">Cupos: <span class="font-normal">{{ $item->activity_attendances()->count() }}/{{ $item->slots }}</span></h3>
                                                         @endif
                                                     </div>
