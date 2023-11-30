@@ -140,6 +140,35 @@ class ActivityAttendance extends Model implements Auditable, Wireable
         return $return_value;
     }
 
+    /**
+     * Determinate if can update attendance
+     * @return bool
+     */
+    public function can_update_attendance() : bool
+    {
+        # define can as true
+        $can = true;
+
+        if ($this->id)
+        {
+
+            # get count of attendances of person at activity date, ignoring current activity
+            $attendances_date = ActivityAttendance::query()
+                ->join('activities as a', 'activity_attendances.activity_id', '=', 'a.id')
+                ->where('a.date', $this->activity->date)
+                ->where('person_id', $this->person_id)
+                ->where('a.id', '<>', $this->id)
+                ->select('activity_attendances.id')
+                ->count();
+            # if attendances of date is greater than zero and status is not OPEN, set can as false
+            if ($attendances_date > 0 && $this->activity->status != 'O')
+                $can = false;
+
+        }
+
+        return $can;
+    }
+
     /// STATIC FUNCTIONS
 
 

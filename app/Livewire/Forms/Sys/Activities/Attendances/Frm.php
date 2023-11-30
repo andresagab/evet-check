@@ -29,7 +29,7 @@ class Frm extends Form
      * The person_id attribute
      * @prop string
      */
-    public $person_id = '';
+    public int $person_id = 0;
 
     /**
      * The type attribute
@@ -130,9 +130,9 @@ class Frm extends Form
         # set attendance
         $this->attendance = $attendance;
         # set form attributes
-        $this->person_id = $this->attendance->person_id;
-        $this->state = $this->attendance->state;
-        $this->attendance_date = $this->attendance->attendance_date;
+        $this->person_id = $attendance->person_id;
+        $this->state = $attendance->state;
+        $this->attendance_date = $attendance->attendance_date;
     }
 
     /**
@@ -221,7 +221,7 @@ class Frm extends Form
         # load person
         $person = Person::query()->find($this->person_id);
         # if person can register activity
-        if (!empty($person) && $person->can_register_activity($this->activity))
+        if (!empty($person) && $this->attendance->can_update_attendance())
         {
             # use try
             try {
