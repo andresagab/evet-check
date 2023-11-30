@@ -76,8 +76,6 @@
                                                     {{-- type and hour --}}
                                                     <div class="flex flex-row items-center w-full">
                                                         <h3 class="text-slate-300 text-sm font-normal flex-grow">{{ $item->get_type() }}</h3>
-                                                        {{--<h3 class="text-slate-300 text-sm font-thin flex-shrink invisible md:visible">{{ $date_hour->format("h:i a") }}</h3>
-                                                        <h3 class="text-slate-300 text-sm font-thin flex-shrink visible md:invisible">{{ $date_hour->format("d M Y h:i a") }}</h3>--}}
                                                         <h3 class="text-slate-300 text-sm font-thin flex-shrink">{{ $date_hour->format("d M Y h:i a") }}</h3>
                                                     </div>
                                                     {{-- name, author, modality --}}
@@ -90,10 +88,10 @@
                                                     <div class="flex flex-col md:flex-row items-start w-full mt-6 select-none">
                                                         <h3 class="text-slate-300 text-sm font-normal md:flex-grow">Estado: {{ $item->get_status() }}</h3>
                                                         {{-- if can_register_activity is true --}}
-                                                        @if($can_register_activity)
-                                                            <h3 class="text-slate-100 text-sm font-thin" title="Cupos libres: {{ $item->get_free_slots() }} | Cupos habilitados: {{ $item->slots }}">Cupos: <span class="font-normal">{{ $item->activity_attendances()->count() }}/{{ $item->slots }}</span></h3>
-                                                        @else
+                                                        @if($item->get_free_slots() === 0)
                                                             <span class="text-xs font-normal italic dark:text-red-300">Está actividad no tiene cupos disponibles</span>
+                                                        @else
+                                                            <h3 class="text-slate-100 text-sm font-thin" title="Cupos libres: {{ $item->get_free_slots() }} | Cupos habilitados: {{ $item->slots }}">Cupos: <span class="font-normal">{{ $item->activity_attendances()->count() }}/{{ $item->slots }}</span></h3>
                                                         @endif
                                                     </div>
                                                 </div>
