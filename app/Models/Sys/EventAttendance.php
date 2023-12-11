@@ -286,6 +286,93 @@ class EventAttendance extends Model implements Auditable, Wireable
 
     }
 
+    /**
+     * Determinate if person of attendance can get certificate, based on participation modality, payment status and attendances in activities of event
+     * @return bool
+     */
+    public function can_get_certificate() : bool
+    {
+
+        # define can as false
+        $can = false;
+
+        # if person not is 'assistant' and payment status is 'paid'
+        if ($this->participation_modality != 'AS' && $this->payment_status === 'PA')
+            $can = true;
+        # else, if payment status is 'paid'
+        elseif ($this->payment_status === 'PA')
+        {
+
+            # load dates of event
+            $dates = $this->event->get_days();
+            # define schedule array
+            $schedule = [];
+            # define total of hours
+            $total_hours = 0;
+
+            # loop to generate schedule
+            foreach ($dates as $date)
+            {
+                # load hours of date
+                $hours = $this->event->get_hours_by_date($date);
+                # loop hours and add into schedule
+                foreach ($hours as $hour)
+                    $schedule[] = $hour;
+                # increment total of hours
+                $total_hours += count($hours);
+            }
+
+            # load total done attendance of person in activities of event
+            $total_done_attendance = $this->person->get_total_activities_attendance($this->event->id, $schedule);
+
+            # minimum percent of attendance to enable certificate
+            $min_percent = 70;
+
+            # calc min percent of attendance for current event
+            $min_attendance = floor(($min_percent / 100) * $total_hours);
+
+            # set can with logical operation
+            $can = $total_done_attendance >= $min_attendance;
+
+            return $can;
+
+        }
+
+        return $can;
+
+    }
+
+    /**
+     * Get activity attendances filtering by exclude of state ('SU', 'DO', 'UN')
+     * @param string|null $exclude_state => the exclude state only use ('SU', 'DO', 'UN'), null to ignore
+     * @param bool $data => true to get collection of data, false to get count of data
+     * @return mixed
+     */
+    public function get_activities_by_state(string $exclude_state = null, bool $data = false): mixed
+    {
+        # define base query
+        $query = $this->person
+            # from activity attendances
+            ->activity_attendances()
+            # link to activities
+            ->join('activities as a', 'activity_attendances.activity_id', '=', 'a.id')
+            # filter by event
+            ->where('a.event_id', $this->event_id)
+            # not list hidden activities
+            ->where('a.hide', 0)
+            # when exclude state, filter by different state
+            ->when($exclude_state, function ($q, string $exclude_state) {
+                $q->where('activity_attendances.state', '<>', $exclude_state);
+            });
+
+        # if data is true, then return all activity attendances from db
+        if ($data)
+            return $query->select('activity_attendances.*')->get();
+        # else, return count of activity attendances
+        else
+            return $query->select('activity_attendances.id')->count();
+    }
+
     /// STATIC FUNCTIONS
 
     /**

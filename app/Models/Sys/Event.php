@@ -164,6 +164,42 @@ class Event extends Model implements Auditable, Wireable
         return $can;
     }
 
+    /**
+     * Get dates of activities for current event
+     * @return array
+     */
+    public function get_days() : array
+    {
+
+        # load activities dates of event
+        return $this->activities()
+            ->where('activities.hide', 0)
+            ->selectRaw('DATE(activities.date) as activity_date')
+            ->groupByRaw('activity_date')->orderBy('activity_date', 'ASC')->pluck('activity_date')->toArray();
+
+    }
+
+    /**
+     * Get hour of activities by date of activity
+     * @param string $date
+     * @return mixed[]
+     */
+    public function get_hours_by_date(string $date) : array
+    {
+        return $this->activities()
+            # filter by date
+            ->whereRaw('DATE(date) = ?', $date)
+            # not list hidden
+            ->where('hide', 0)
+            # custom select
+            ->selectRaw('date')
+            # group by
+            ->groupByRaw('date')
+            # order by
+            ->orderBy('date', 'ASC')
+            ->pluck('date')->toArray();
+    }
+
     /// STATIC FUNCTIONS
 
 
