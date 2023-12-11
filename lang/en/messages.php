@@ -161,8 +161,12 @@ return [
             'logo_path' => 'Logo',
             'state' => 'State',
             'symbolic_cost' => 'Symbolic cost',
+            'certificate_path' => 'Certificate template path',
+            'certificate_setup' => 'Certificate template setup',
+            'min_percent' => 'Minimum percent',
 
             'registered_people' => 'Registered people',
+            'certificate_form' => 'Setup certificate',
 
             'filters' => [
                 'name' => 'Search by event name',

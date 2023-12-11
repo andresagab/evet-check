@@ -2,6 +2,7 @@
 
 namespace App\Utils;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -170,6 +171,23 @@ class CommonUtils
     public static function ucwordsCustom(string $str, string $encoding = 'UTF-8') : string
     {
         return ucwords(mb_strtolower($str, $encoding));
+    }
+
+    /**
+     * Get file extension
+     * @param string $path => real path of file
+     * @return string|null => the extension of file, return null if the file wasn't fund
+     */
+    public static function get_file_extension(string $path) : string|null
+    {
+        # define extension as null
+        $extension = null;
+
+        # if file exist, then set extension with original file extension
+        if (file_exists($path))
+            $extension = File::extension($path);
+
+        return $extension;
     }
 
 }

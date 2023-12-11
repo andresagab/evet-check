@@ -107,22 +107,28 @@ class Dashboard extends Component
         $this->redirectRoute('portal.event.virtual-card', ['event_id' => $event->id, 'person_id' => $this->person->id], navigate:true);
     }
 
-    public function generate_certificate(Event $event)
+    /**
+     * Generate certificate of person for attendance in event
+     * @param EventAttendance $attendance
+     * @return \Symfony\Component\HttpFoundation\StreamedResponse|void
+     */
+    public function generate_certificate(EventAttendance $attendance)
     {
 
         # event status validation
-        if ($event->state === 'CP')
+        if ($attendance->event->state === 'CP')
         {
 
             # person type and attendances validation
-            if (1 === 1)
+            if ($attendance->can_get_certificate())
             {
 
                 # define data of view
                 $data = [
-                    'event' => $event,
+                    'event' => $attendance->event,
                     'person' => $this->person,
-                    'event_attendance' => $this->person->event_attendances()->where('event_id', $event->id)->first(),
+                    'event_attendance' => $this->person->event_attendances()->where('event_id', $attendance->event->id)->first(),
+                    'setup' => $attendance->event->get_certificate_setup(),
                 ];
 
                 # define pdf view
@@ -139,7 +145,7 @@ class Dashboard extends Component
                 # stream pdf
                 return response()->streamDownload(
                     fn () => print($pdf),
-                    "Certificado_" . trim($this->person->nuip) . "_" . trim($event->year) . ".pdf"
+                    "Certificado_" . trim($this->person->nuip) . "_" . trim($attendance->event->year) . ".pdf"
                 );
 
             }

@@ -52,7 +52,7 @@
                             <div class="flex flex-row space-x-2 w-full justify-end mt-6">
                                 @if($item->can_get_certificate())
                                     {{-- certificate button --}}
-                                    <x-buttons.secondary-button wire:click="generate_certificate({{ $item->event }})" color="violet">Certificado</x-buttons.secondary-button>
+                                    <x-buttons.secondary-button wire:click="generate_certificate({{ $item }})" color="violet">Certificado</x-buttons.secondary-button>
                                 @else
                                     <span class="font-normal text-sm text-red-400 italic">No puedes acceder al certificado porque no cumples con los requisitos minímos</span>
                                 @endif

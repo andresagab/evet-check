@@ -162,8 +162,12 @@ return [
             'logo_path' => 'Logo',
             'state' => 'Estado',
             'symbolic_cost' => 'Costo simbólico',
+            'certificate_path' => 'Plantilla de certificado',
+            'certificate_setup' => 'Configuración de plantilla de certificado',
+            'min_percent' => 'Porcentaje mínimo',
 
             'registered_people' => 'Personas inscritas',
+            'certificate_form' => 'Configurar certificado',
 
             'filters' => [
                 'name' => 'Buscar por nombre del evento',

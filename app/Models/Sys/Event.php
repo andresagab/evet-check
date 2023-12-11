@@ -53,6 +53,10 @@ class Event extends Model implements Auditable, Wireable
         'logo_path',
         'state',
         'symbolic_cost',
+        'symbolic_cost',
+        'certificate_path',
+        'certificate_setup',
+        'min_percent',
     ];
 
     /// PRIVATE FUNCTIONS
@@ -96,6 +100,9 @@ class Event extends Model implements Auditable, Wireable
             'logo_path' => $this->logo_path,
             'state' => $this->state,
             'symbolic_cost' => $this->symbolic_cost,
+            'certificate_path' => $this->certificate_path,
+            'certificate_setup' => $this->certificate_setup,
+            'min_percent' => $this->min_percent,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
@@ -119,6 +126,9 @@ class Event extends Model implements Auditable, Wireable
         $event->logo_path = $value['logo_path'];
         $event->state = $value['state'];
         $event->symbolic_cost = $value['symbolic_cost'];
+        $event->certificate_path = $value['certificate_path'];
+        $event->certificate_setup = $value['certificate_setup'];
+        $event->min_percent = $value['min_percent'];
 
         $event->created_at = $value['created_at'];
         $event->updated_at = $value['updated_at'];
@@ -198,6 +208,22 @@ class Event extends Model implements Auditable, Wireable
             # order by
             ->orderBy('date', 'ASC')
             ->pluck('date')->toArray();
+    }
+
+    /**
+     * Get the certificate setup as array
+     * @return array
+     */
+    public function get_certificate_setup() : array
+    {
+        # define setup as empty array
+        $setup = [];
+
+        # if certificate_setup is not null
+        if (strlen($this->certificate_setup) > 0)
+            $setup = json_decode($this->certificate_setup, true);
+
+        return $setup;
     }
 
     /// STATIC FUNCTIONS

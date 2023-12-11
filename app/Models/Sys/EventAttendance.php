@@ -326,7 +326,7 @@ class EventAttendance extends Model implements Auditable, Wireable
             $total_done_attendance = $this->person->get_total_activities_attendance($this->event->id, $schedule);
 
             # minimum percent of attendance to enable certificate
-            $min_percent = 70;
+            $min_percent = $this->event->min_percent;
 
             # calc min percent of attendance for current event
             $min_attendance = floor(($min_percent / 100) * $total_hours);
