@@ -5,6 +5,8 @@ namespace App\Livewire\Forms\Sys\Events\Attendances;
 use App\Models\Sys\Event;
 use App\Models\Sys\EventAttendance;
 use App\Models\Sys\Person;
+use Illuminate\Support\Facades\Auth;
+use Laratrust\Laratrust;
 use Livewire\Form;
 
 class Frm extends Form
@@ -65,6 +67,12 @@ class Frm extends Form
      * @prop string
      */
     public $payment_status = 'NP';
+
+    /**
+     * The approve_certificate_manually attribute
+     * @prop string
+     */
+    public $approve_certificate_manually = 0;
 
     /// PRIVATE FUNCTIONS
 
@@ -141,11 +149,22 @@ class Frm extends Form
                 'max:1',
             ],
             'payment_status' => [
-                'required',
                 'string',
                 'max:2',
             ],
+            'approve_certificate_manually' => [
+                'boolean',
+                'max:1',
+            ],
         ];
+
+        # add rule if user or role have permission 'event_attendances:set_as_paid'
+        if (Auth::user()->ability('*', 'event_attendances:set_as_paid'))
+            $rules['payment_status'][] = 'required';
+
+        # add rule if user or role have permission 'event_attendances:set_approve_certificate_manually'
+        if (Auth::user()->ability('*', 'event_attendances:set_approve_certificate_manually'))
+            $rules['approve_certificate_manually'][] = 'required';
 
         # if participation modality is 'ws' or participation_modality is 'AS' and type is 'SL' or 'EL', then set stay_type as 'P' (in person)
         if ($this->participation_modality === 'WS' || ($this->participation_modality === 'AS' && in_array($this->type, ['SL', 'EL'])))
@@ -182,6 +201,7 @@ class Frm extends Form
         $this->type = $this->attendance->type;
         $this->stay_type = $this->attendance->stay_type;
         $this->payment_status = $this->attendance->payment_status;
+        $this->approve_certificate_manually = $this->attendance->approve_certificate_manually;
     }
 
     /**
@@ -221,6 +241,7 @@ class Frm extends Form
                 $attendance->type = $this->type;
                 $attendance->stay_type = $this->stay_type;
                 $attendance->payment_status = $this->payment_status;
+                $attendance->approve_certificate_manually = $this->approve_certificate_manually;
 
                 # if attendance was not saved
                 if (!$attendance->save())
@@ -280,6 +301,7 @@ class Frm extends Form
                 $attendance->type = $this->type;
                 $attendance->stay_type = $this->stay_type;
                 $attendance->payment_status = $this->payment_status;
+                $attendance->approve_certificate_manually = $this->approve_certificate_manually;
 
                 # update data, if not then set wrong message
                 if (!$attendance->update())

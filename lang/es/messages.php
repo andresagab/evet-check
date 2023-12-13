@@ -195,6 +195,10 @@ return [
             'type' => 'Tipo',
             'stay_type' => 'Tipo de asistencia',
             'payment_status' => 'Estado de pago',
+            'approve_certificate_manually' => 'Aprobar el certificado manualmente',
+            'certificate_info' => 'Certificado',
+            'activities_info' => 'Actividades',
+            'statuses' => 'Estados',
 
             'filters' => [
                 'name' => 'Buscar por nombre del evento',
@@ -225,6 +229,14 @@ return [
                 'NP' => 'Sin pagar',
                 'NA' => 'No aplica',
                 'PA' => 'Pagado',
+            ],
+            'certificate_statuses' => [
+                'certified' => 'Certificado',
+                'not_certified' => 'No certificado',
+            ],
+            'manually_certificate_statuses' => [
+                'approved' => 'Aprobado manualmente',
+                'not_approved' => 'No aprobado manualmente',
             ],
 
         ],

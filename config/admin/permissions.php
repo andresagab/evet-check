@@ -191,6 +191,12 @@ return [
         'description' => 'Permiso que permite acceder a la función de "registrar como pagado"',
         'module' => 'event_attendances',
     ],
+    [
+        'name' => 'event_attendances:set_approve_certificate_manually',
+        'display_name' => 'Aprobar certificado manualmente',
+        'description' => 'Permiso que permite acceder a la función de "Aprobar certificado manualmente"',
+        'module' => 'event_attendances',
+    ],
     # activities
     [
         'name' => 'activities',

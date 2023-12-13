@@ -82,6 +82,38 @@ class EventAttendance extends Model implements Auditable, Wireable
         10 => 'Universidad Pedagógica y Tecnológica de Colombia',
     ];
 
+    /**
+     * The available certificate statutes
+     */
+    const CERTIFICATE_STATUSES = [
+        0 => [
+            'key_name' => 'messages.data.actions.not',
+            'color' => 'red',
+            'full_name' => 'messages.models.event_attendance.certificate_statuses.not_certified',
+        ],
+        1 => [
+            'key_name' => 'messages.data.actions.yes',
+            'color' => 'blue',
+            'full_name' => 'messages.models.event_attendance.certificate_statuses.certified',
+        ],
+    ];
+
+    /**
+     * The available certificate statutes
+     */
+    const APPROVE_CERTIFICATE_MANUALLY_STATUSES = [
+        0 => [
+            'key_name' => 'messages.data.actions.not',
+            'color' => 'rose',
+            'full_name' => 'messages.models.event_attendance.manually_certificate_statuses.not_approved',
+        ],
+        1 => [
+            'key_name' => 'messages.data.actions.yes',
+            'color' => 'lime',
+            'full_name' => 'messages.models.event_attendance.manually_certificate_statuses.approved',
+        ],
+    ];
+
     /// PROPERTIES
 
     /**
@@ -97,6 +129,7 @@ class EventAttendance extends Model implements Auditable, Wireable
         'type',
         'stay_type',
         'payment_status',
+        'approve_certificate_manually',
     ];
 
     /// PRIVATE FUNCTIONS
@@ -141,6 +174,7 @@ class EventAttendance extends Model implements Auditable, Wireable
             'type' => $this->type,
             'stay_type' => $this->stay_type,
             'payment_status' => $this->payment_status,
+            'approve_certificate_manually' => $this->approve_certificate_manually,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
@@ -165,6 +199,7 @@ class EventAttendance extends Model implements Auditable, Wireable
         $event_attendance->type = $value['type'];
         $event_attendance->stay_type = $value['stay_type'];
         $event_attendance->payment_status = $value['payment_status'];
+        $event_attendance->approve_certificate_manually = $value['approve_certificate_manually'];
 
         $event_attendance->created_at = $value['created_at'];
         $event_attendance->updated_at = $value['updated_at'];
@@ -337,6 +372,9 @@ class EventAttendance extends Model implements Auditable, Wireable
             return $can;
 
         }
+        # else, if approve certificate manually is true
+        elseif ($this->approve_certificate_manually)
+            $can = true;
 
         return $can;
 
@@ -371,6 +409,26 @@ class EventAttendance extends Model implements Auditable, Wireable
         # else, return count of activity attendances
         else
             return $query->select('activity_attendances.id')->count();
+    }
+
+    /**
+     * Get certificate status reference value
+     * @param string $key => default 'all' to get an array of saved participation modality, else only use 'key_name', 'full_name' or 'color'
+     * @return array|string|null
+     */
+    public function get_certificate_status(string $key = 'all') : array|string|null
+    {
+        return CommonUtils::get_value_data_from_array($this->can_get_certificate(), self::CERTIFICATE_STATUSES, $key);
+    }
+
+    /**
+     * Get approve certificate manually status reference value
+     * @param string $key => default 'all' to get an array of saved participation modality, else only use 'key_name', 'full_name' or 'color'
+     * @return array|string|null
+     */
+    public function get_approve_certificate_manually_status(string $key = 'all') : array|string|null
+    {
+        return CommonUtils::get_value_data_from_array($this->approve_certificate_manually, self::APPROVE_CERTIFICATE_MANUALLY_STATUSES, $key);
     }
 
     /// STATIC FUNCTIONS

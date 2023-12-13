@@ -150,6 +150,39 @@ class AttendancesTable extends Component
     }
 
     /**
+     * Set Event Attendance approve certificate manually as true or false
+     * @param EventAttendance $eventAttendance
+     * @return void
+     */
+    public function set_approve_certificate_manually(EventAttendance $eventAttendance) : void
+    {
+        # load attendance
+        $attendance = EventAttendance::query()->find($eventAttendance->id);
+
+        if (!empty($attendance))
+        {
+            # set approve_certificate_manually of attendance
+            $attendance->approve_certificate_manually = !$attendance->approve_certificate_manually;
+
+            # if attendance is updated
+            if ($attendance->update())
+            {
+                # dispatch success message
+                $this->dispatch('toast', title:__('messages.responses.updated'));
+                # load attendance again
+                $this->search();
+            }
+            # else, dispatch not updated message
+            else
+                $this->dispatch('toast', title:__('messages.errors.not_updated'), icon:'warning');
+
+        }
+        else
+            $this->dispatch('toast', title:__('messages.errors.record_not_loaded'), icon:'warning');
+
+    }
+
+    /**
      * Open add modal to create a new resource
      * @return void
      */
