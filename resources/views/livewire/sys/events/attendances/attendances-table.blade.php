@@ -79,8 +79,9 @@
                     <th class="px-2 py-1 text-left w-10">ID</th>
                     <th class="px-2 py-1 text-left w-96">{{ __('messages.models.event_attendance.person') }}</th>
                     <th class="px-2 py-1 text-left w-96">{{ __('messages.models.event_attendance.institution') }}</th>
-                    <th class="px-2 py-1 text-left w-96">{{ __('messages.models.event_attendance.attendance') }}</th>
-                    <th class="px-2 py-1 text-left w-36">{{ __('messages.models.event_attendance.payment_status') }}</th>
+                    <th class="px-2 py-1 text-left w-72">{{ __('messages.models.event_attendance.attendance') }}</th>
+                    <th class="px-2 py-1 text-left w-36">{{ __('messages.models.event_attendance.statuses') }}</th>
+                    <th class="px-2 py-1 text-left w-44">{{ __('messages.models.event_attendance.activities_info') }}</th>
                     <th class="px-2 py-1 text-left w-60">{{ __('messages.data.dates') }}</th>
                     <th class="px-2 py-1 w-60"></th>
                 </tr>
@@ -93,6 +94,10 @@
                     @php
                         # load state reference
                         $payment_status = $item->get_payment_status();
+                        # load certificate status
+                        $certificate_status = $item->get_certificate_status();
+                        # load approve certificate manually status
+                        $manually_status = $item->get_approve_certificate_manually_status();
                     @endphp
 
                     <tr class="border-b border-b-blue-300 dark:border-b-slate-500 bg-white dark:bg-slate-600 hover:bg-blue-100 dark:hover:bg-slate-500 dark:text-stone-50 dark:hover:text-white hover:shadow transition ease-in-out duration-300">
@@ -130,9 +135,45 @@
                                 </div>
                             </div>
                         </td>
-                        {{-- payment status --}}
+                        {{-- statuses --}}
+                        <td class="p-2 text-left">
+                            <div class="flex flex-col space-y-2">
+                                {{-- payment statuse --}}
+                                <div class="inline-flex items-center justify-start space-x-2" title="Estado de pago">
+                                    <x-utils.icon class="text-{{ $payment_status['color'] }}-sky dark:text-{{ $payment_status['color'] }}-500 select-none" size="16px">attach_money</x-utils.icon>
+                                    <span class="font-bold text-sm text-{{ $payment_status['color'] }}-700 dark:text-{{ $payment_status['color'] }}-300">{{ __($payment_status['key_name']) }}</span>
+                                </div>
+                                {{-- certified status --}}
+                                <div class="inline-flex items-center justify-start space-x-2" title="Estado de certificación">
+                                    <x-utils.icon class="text-{{ $certificate_status['color'] }}-sky dark:text-{{ $certificate_status['color'] }}-500 select-none" size="16px">verified</x-utils.icon>
+                                    <span class="font-bold text-sm text-{{ $certificate_status['color'] }}-700 dark:text-{{ $certificate_status['color'] }}-300">{{ __($certificate_status['full_name']) }}</span>
+                                </div>
+                                {{-- approve certify manually status --}}
+                                <div class="inline-flex items-center justify-start space-x-2" title="Certificado aprobado manualmente">
+                                    <x-utils.icon class="text-{{ $manually_status['color'] }}-sky dark:text-{{ $manually_status['color'] }}-500 select-none" size="16px">shield</x-utils.icon>
+                                    <span class="font-normal italic text-sm text-{{ $manually_status['color'] }}-700 dark:text-{{ $manually_status['color'] }}-300">{{ __($manually_status['full_name']) }}</span>
+                                </div>
+                            </div>
+                        </td>
+                        {{-- activities info --}}
                         <td class="p-2 text-center">
-                            <span class="font-bold text-sm text-{{ $payment_status['color'] }}-700 dark:text-{{ $payment_status['color'] }}-300">{{ __($payment_status['key_name']) }}</span>
+                            <div class="flex flex-col">
+                                {{-- registered activities --}}
+                                <div class="inline-flex items-center justify-start space-x-2" title="Actividades inscritas">
+                                    <x-utils.icon class="text-lime-sky dark:text-sky-500 select-none" size="16px">subscriptions</x-utils.icon>
+                                    <span class="font-bold">{{ $item->get_activities_by_state(data: false) }}</span>
+                                </div>
+                                {{-- done activities --}}
+                                <div class="inline-flex items-center justify-start space-x-2" title="Actividades realizadas">
+                                    <x-utils.icon class="text-lime-600 dark:text-lime-500 select-none" size="16px">fact_check</x-utils.icon>
+                                    <span class="font-bold">{{ $item->person->get_total_activities_attendance($item->event_id) }}</span>
+                                </div>
+                                {{-- unregistered activities --}}
+                                <div class="inline-flex items-center justify-start space-x-2" title="Actividades no realizadas">
+                                    <x-utils.icon class="text-rose-600 dark:text-rose-500 select-none" size="16px">event_busy</x-utils.icon>
+                                    <span class="font-bold">{{ $item->get_activities_by_state('DO', false) }}</span>
+                                </div>
+                            </div>
                         </td>
                         {{-- dates --}}
                         <td class="p-2 text-left">
@@ -152,6 +193,17 @@
                                 {{-- set_as_paid --}}
                                 @if($item->payment_status === 'NP' && Laratrust::ability('*', 'event_attendances:set_as_paid'))
                                 <x-buttons.circle-icon-button wire:click="set_as_paid({{ $item }})" wire:confirm="Por favor confirma esta acción" title="Registrar el cobro simbólico como pagado" color="green" size="20px">price_check</x-buttons.circle-icon-button>
+                                @endif
+                                {{-- approve_certificate_manually --}}
+                                @if(Laratrust::ability('*', 'event_attendances:set_approve_certificate_manually'))
+                                    {{-- if approve certificate manually is true --}}
+                                    @if($item->approve_certificate_manually)
+                                        {{-- not approve button --}}
+                                        <x-buttons.circle-icon-button wire:click="set_approve_certificate_manually({{ $item }})" wire:confirm="Por favor confirma que vas a marcar este registro como: 'Certificado no aprobado manualmente'" title="No aprobar certificado manualmente" color="rose" size="20px">remove_moderator</x-buttons.circle-icon-button>
+                                    @else
+                                        {{-- not approve button --}}
+                                        <x-buttons.circle-icon-button wire:click="set_approve_certificate_manually({{ $item }})" wire:confirm="Por favor confirma que vas a marcar este registro como: 'Certificado aprobado manualmente'" title="Aprobar certificado manualmente" color="lime" size="20px">verified_user</x-buttons.circle-icon-button>
+                                    @endif
                                 @endif
                             </div>
                         </td>

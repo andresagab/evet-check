@@ -249,6 +249,34 @@ class Person extends Model implements Auditable, Wireable
         return $can;
     }
 
+    /**
+     * Get total attendances in activities filtering by state and range of dates
+     * @param $event_id => the event id to filter activities
+     * @param array $dates => the date range of activities
+     * @param string $state => the state of attendance 'SU', 'DO', 'UR'
+     * @return int => the total of attendances
+     */
+    public function get_total_activities_attendance($event_id, array $dates = [], string $state = 'DO') : int
+    {
+        return $this->activity_attendances()
+            # link to activities
+            ->join('activities as a', 'activity_attendances.activity_id', '=', 'a.id')
+            # filter by event_id
+            ->where('a.event_id', $event_id)
+            # filter by activity attendance state
+            ->where('activity_attendances.state', $state)
+            # filter by date of activity
+            ->when($dates, function ($q, $dates) {
+                $q->whereIn('a.date', $dates);
+            })
+            # filter by not hidden activities
+            ->where('a.hide', 0)
+            # only select activity_attendances.id
+            ->select('activity_attendances.id')
+            # count
+            ->count();
+    }
+
     /// STATIC FUNCTIONS
 
 

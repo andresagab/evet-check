@@ -161,8 +161,12 @@ return [
             'logo_path' => 'Logo',
             'state' => 'State',
             'symbolic_cost' => 'Symbolic cost',
+            'certificate_path' => 'Certificate template path',
+            'certificate_setup' => 'Certificate template setup',
+            'min_percent' => 'Minimum percent',
 
             'registered_people' => 'Registered people',
+            'certificate_form' => 'Setup certificate',
 
             'filters' => [
                 'name' => 'Search by event name',
@@ -191,6 +195,10 @@ return [
             'type' => 'Type',
             'stay_type' => 'Stay type',
             'payment_status' => 'Payment status',
+            'approve_certificate_manually' => 'Approve the certificate manually',
+            'certificate_info' => 'Certificate info',
+            'activities_info' => 'Activities info',
+            'statuses' => 'Statuses',
 
             'filters' => [
                 'name' => 'Search by name of event',
@@ -222,6 +230,14 @@ return [
                 'NP' => 'Not paid',
                 'NA' => 'Not apply',
                 'PA' => 'Paid',
+            ],
+            'certificate_statuses' => [
+                'certified' => 'Certified',
+                'not_certified' => 'Not certified',
+            ],
+            'manually_certificate_statuses' => [
+                'approved' => 'Manually approved',
+                'not_approved' => 'Not manually approved',
             ],
 
         ],

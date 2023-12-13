@@ -99,4 +99,21 @@
     </x-forms.input-group>
     @endability
 
+    {{-- approve_certificate_manually --}}
+    @ability('*', 'event_attendances:set_approve_certificate_manually')
+    <x-forms.input-group class="w-full">
+        {{-- label --}}
+        <x-forms.label value="{{ __('messages.models.event_attendance.approve_certificate_manually') }}" for="frm.approve_certificate_manually" class="required"/>
+        {{-- select --}}
+        <x-forms.select wire:model="frm.approve_certificate_manually" required>
+            {{-- loop generate option list of participation_modalities --}}
+            @foreach(\App\Utils\CommonUtils::AFFIRMATIONS_FROM_BOOLEAN as $key => $item)
+                <x-forms.option value="{{ $key }}" class="text-gray-700 dark:text-stone-400 font-normal">{{ __($item) }}</x-forms.option>
+            @endforeach
+        </x-forms.select>
+        {{-- error --}}
+        <x-forms.error for="frm.approve_certificate_manually"/>
+    </x-forms.input-group>
+    @endability
+
 </div>

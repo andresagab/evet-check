@@ -3,6 +3,7 @@
 namespace App\Livewire\Sys\Events;
 
 use App\Models\Sys\Event;
+use App\Utils\CommonUtils;
 use App\Utils\Threads\DeleteThread;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -57,6 +58,10 @@ class EventDelete extends Component
 
                 # load Event from db
                 $event = Event::query()->find($this->event->id);
+
+                # delete uploaded certificate
+                if (strlen($event->certificate_path) > 0)
+                    CommonUtils::deleteFileFromAppStorage($event->certificate_path);
 
                 # if event was deleted
                 if ($event->delete())

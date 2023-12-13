@@ -150,8 +150,14 @@ return [
     ],
     [
         'name' => 'events:manage-activities',
-        'display_name' => 'Gestionar actividades del eventso',
+        'display_name' => 'Gestionar actividades del evento',
         'description' => 'Permiso que permite acceder al submodulo de actividades de un eventso',
+        'module' => 'events',
+    ],
+    [
+        'name' => 'events:setup-certificate',
+        'display_name' => 'Configurar certificado del evento',
+        'description' => 'Permiso que permite acceder a la configuración del certificado de un evento',
         'module' => 'events',
     ],
     # event attendances
@@ -183,6 +189,12 @@ return [
         'name' => 'event_attendances:set_as_paid',
         'display_name' => 'Registrar como pagado',
         'description' => 'Permiso que permite acceder a la función de "registrar como pagado"',
+        'module' => 'event_attendances',
+    ],
+    [
+        'name' => 'event_attendances:set_approve_certificate_manually',
+        'display_name' => 'Aprobar certificado manualmente',
+        'description' => 'Permiso que permite acceder a la función de "Aprobar certificado manualmente"',
         'module' => 'event_attendances',
     ],
     # activities

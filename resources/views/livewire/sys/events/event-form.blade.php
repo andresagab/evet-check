@@ -30,7 +30,7 @@
                     <x-cards.card title="Formulario de Evento" :footer="0" color="stone-100">
                         <x-slot:content>
                             {{-- form-card --}}
-                            <x-sys.events.form-card/>
+                            <x-sys.events.form-card :event="$event"/>
                         </x-slot:content>
                     </x-cards.card>
 

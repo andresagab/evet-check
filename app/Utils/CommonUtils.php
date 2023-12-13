@@ -2,6 +2,7 @@
 
 namespace App\Utils;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 /**
@@ -31,6 +32,14 @@ class CommonUtils
         'lg' => 'text-lg',
         'xl' => 'text-xl',
         '2xl' => 'text-2xl',
+    ];
+
+    /**
+     * The affirmations string value reference from boolean as key
+     */
+    const AFFIRMATIONS_FROM_BOOLEAN = [
+        0 => 'messages.data.actions.not',
+        1 => 'messages.data.actions.yes',
     ];
 
     /// public functions
@@ -170,6 +179,46 @@ class CommonUtils
     public static function ucwordsCustom(string $str, string $encoding = 'UTF-8') : string
     {
         return ucwords(mb_strtolower($str, $encoding));
+    }
+
+    /**
+     * Get file extension
+     * @param string $path => real path of file
+     * @return string|null => the extension of file, return null if the file wasn't fund
+     */
+    public static function get_file_extension(string $path) : string|null
+    {
+        # define extension as null
+        $extension = null;
+
+        # if file exist, then set extension with original file extension
+        if (file_exists($path))
+            $extension = File::extension($path);
+
+        return $extension;
+    }
+
+    /**
+     * Get value data reference from values
+     * @param $value => the value to search in array
+     * @param array $reference_values => the references values
+     * @param string $return_type => the return type, 'all' to get all data, otherwise to get a specified key from values of array
+     * @return array|string|null
+     */
+    public static function get_value_data_from_array($value, array $reference_values, string $return_type = 'all') : array|string|null
+    {
+        # define default return value with unknown message
+        $return_value = __('messages.data.unknown');
+
+        # if saved key isset in participation modalities array
+        if (isset($reference_values[$value]))
+            $return_value = $reference_values[$value];
+
+        # if $key not is 'all', then set return value with data at key
+        if ($return_type != 'all' && is_array($return_value))
+            $return_value = $return_value[$return_type];
+
+        return $return_value;
     }
 
 }

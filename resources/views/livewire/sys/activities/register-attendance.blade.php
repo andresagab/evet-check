@@ -133,7 +133,7 @@
                         {{-- remove person button --}}
                         <x-buttons.secondary-button wire:click="remove_person" type="button" color="blue">Reiniciar búsqueda</x-buttons.secondary-button>
                         {{-- save as paid button --}}
-                        @if($event_attendance->id && $event_attendance->payment_status === 'NP')
+                        @if($event_attendance->id && $event_attendance->payment_status === 'NP' && Laratrust::ability('*', 'event_attendances:set_as_paid'))
                             <x-buttons.main-button wire:click="set_as_paid" type="button" color="violet">Registrar pagado</x-buttons.main-button>
                         @endif
                         {{-- save button --}}

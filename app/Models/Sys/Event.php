@@ -53,6 +53,10 @@ class Event extends Model implements Auditable, Wireable
         'logo_path',
         'state',
         'symbolic_cost',
+        'symbolic_cost',
+        'certificate_path',
+        'certificate_setup',
+        'min_percent',
     ];
 
     /// PRIVATE FUNCTIONS
@@ -96,6 +100,9 @@ class Event extends Model implements Auditable, Wireable
             'logo_path' => $this->logo_path,
             'state' => $this->state,
             'symbolic_cost' => $this->symbolic_cost,
+            'certificate_path' => $this->certificate_path,
+            'certificate_setup' => $this->certificate_setup,
+            'min_percent' => $this->min_percent,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
@@ -119,6 +126,9 @@ class Event extends Model implements Auditable, Wireable
         $event->logo_path = $value['logo_path'];
         $event->state = $value['state'];
         $event->symbolic_cost = $value['symbolic_cost'];
+        $event->certificate_path = $value['certificate_path'];
+        $event->certificate_setup = $value['certificate_setup'];
+        $event->min_percent = $value['min_percent'];
 
         $event->created_at = $value['created_at'];
         $event->updated_at = $value['updated_at'];
@@ -162,6 +172,58 @@ class Event extends Model implements Auditable, Wireable
             $can = false;
 
         return $can;
+    }
+
+    /**
+     * Get dates of activities for current event
+     * @return array
+     */
+    public function get_days() : array
+    {
+
+        # load activities dates of event
+        return $this->activities()
+            ->where('activities.hide', 0)
+            ->selectRaw('DATE(activities.date) as activity_date')
+            ->groupByRaw('activity_date')->orderBy('activity_date', 'ASC')->pluck('activity_date')->toArray();
+
+    }
+
+    /**
+     * Get hour of activities by date of activity
+     * @param string $date
+     * @return mixed[]
+     */
+    public function get_hours_by_date(string $date) : array
+    {
+        return $this->activities()
+            # filter by date
+            ->whereRaw('DATE(date) = ?', $date)
+            # not list hidden
+            ->where('hide', 0)
+            # custom select
+            ->selectRaw('date')
+            # group by
+            ->groupByRaw('date')
+            # order by
+            ->orderBy('date', 'ASC')
+            ->pluck('date')->toArray();
+    }
+
+    /**
+     * Get the certificate setup as array
+     * @return array
+     */
+    public function get_certificate_setup() : array
+    {
+        # define setup as empty array
+        $setup = [];
+
+        # if certificate_setup is not null
+        if (strlen($this->certificate_setup) > 0)
+            $setup = json_decode($this->certificate_setup, true);
+
+        return $setup;
     }
 
     /// STATIC FUNCTIONS

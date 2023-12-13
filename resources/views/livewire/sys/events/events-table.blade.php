@@ -140,6 +140,10 @@
                                 @ability('*', 'events:manage-activities')
                                     {{--<x-buttons.circle-icon-button wire:click="open_manage_role_permissions({{ $item->user }})" title="Click para gestionar los permisos de este registro" color="emerald" size="20px">manage_accounts</x-buttons.circle-icon-button>--}}
                                 @endability
+                                {{-- setup-certificate --}}
+                                @ability('*', 'events:setup-certificate')
+                                    <x-buttons.circle-icon-button wire:click="open_certificate_form_modal({{ $item }})" title="Click para configurar el certificado del evento" color="amber" size="20px">workspace_premium</x-buttons.circle-icon-button>
+                                @endability
                             </div>
                         </td>
 
@@ -160,5 +164,7 @@
     <livewire:sys.events.event-form/>
     {{-- event-delete --}}
     <livewire:sys.events.event-delete/>
+    {{-- event-delete --}}
+    <livewire:sys.events.certificate-setup-form/>
 
 </div>
