@@ -75,14 +75,6 @@ class Dashboard extends Component
             # order by year of event
             ->orderBy('year', 'DESC')
             ->get();
-
-
-        /*$this->events = Event::query()
-            ->join('event_attendances as ea', 'events.id', '=', 'ea.event_id')
-            ->where('ea.person_id', $this->person->id)
-            ->select('events.*')
-            ->orderBy('year', 'DESC')
-            ->get();*/
     }
 
     /// PUBLIC FUNCTIONS
@@ -131,8 +123,11 @@ class Dashboard extends Component
                     'setup' => $attendance->event->get_certificate_setup(),
                 ];
 
+                # define pdf from dompdf.wrapper
+                $pdf = app('dompdf.wrapper');
+
                 # define pdf view
-                $pdf = Pdf::loadView('pages.portal.certificates.certificate-pdf', $data);
+                $pdf->loadView('pages.portal.certificates.certificate-pdf', $data);
                 # setup pdf
                 $pdf->setOption([
                     'defaultFont' => 'Arial',
