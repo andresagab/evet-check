@@ -68,7 +68,7 @@
                     <span>{{ $person->nuip }}</span>
                 </div>
                 <p>
-                    Participó como <b>{{ __($event_attendance->get_participation_modality('key_name')) }}</b> {{ $setup['dates_range'] }} en el <b><i>{{ $event->name }}</i></b>
+                    Participó como <b>{{ __($event_attendance->get_participation_modality('key_name')) }}</b> {{ $setup['dates_range'] ?? 'Por favor asigna el rango de fechas' }} en el <b><i>{{ $event->name }}</i></b>
                 </p>
             </div>
         </div>
