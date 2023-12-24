@@ -213,6 +213,7 @@ return [
                 'SP' => 'Ponente',
                 'WS' => 'Tallerista',
                 'LE' => 'Conferencista',
+                'OR' => 'Organizador',
             ],
             'types' => [
                 'SL' => 'Estudiante del Programa de Lic. en Informática de la Universidad de Nariño',

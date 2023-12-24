@@ -18,3 +18,5 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+/public_html
+DO_NOT_UPLOAD_HERE

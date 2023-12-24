@@ -214,6 +214,7 @@ return [
                 'SP' => 'Speaker',
                 'WS' => 'Educator',
                 'LE' => 'Lecturer',
+                'OR' => 'Organizer',
             ],
             'types' => [
                 'SL' => 'Student of Program of Lic. in Computing of the Universidad de Nariño',
