@@ -16,14 +16,14 @@ return [
             'description' => 'Role que permite acceder al panel de administración de roles y permisos del software',
         ],
         [
-            'name' => 'assistant',
-            'display_name' => 'Asistente',
-            'description' => 'Role destinado para los usuarios asistentes',
+            'name' => 'main-coordinator',
+            'display_name' => 'Coordinador de red',
+            'description' => 'Role destinado para los usuarios coordinadores de red',
         ],
         [
-            'name' => 'organizer',
-            'display_name' => 'Organizador',
-            'description' => 'Role destinado para los usuarios organizadores',
+            'name' => 'group-coordinator',
+            'display_name' => 'Coordinador de grupo',
+            'description' => 'Role destinado para los usuarios coordinadores de grupo',
         ],
 
     ]

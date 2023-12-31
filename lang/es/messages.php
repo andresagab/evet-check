@@ -14,16 +14,16 @@ return [
     */
 
     'menu' => [
+
+        # admin module
         'users' => 'Usuarios',
         'permissions' => 'Permisos',
         'roles' => 'Roles',
 
-        'events' => 'Eventos',
-        'event_attendances' => 'Asistencia de evento',
-        'activities' => 'Actividades',
-        'activity_attendances' => 'Asistencia de actividad',
+        # sys module
         'people' => 'Personas',
 
+        # others
         'manage_account' => 'Gestionar cuenta',
         'profile' => 'Perfil',
         'logout' => 'Cerrar sesión',
@@ -146,165 +146,6 @@ return [
 
             'filters' => [
                 'person' => 'Buscar por nombres, apellidos o n° de identificación'
-            ]
-
-        ],
-
-        # EVENT MODEL ATTRIBUTES
-        'event' => [
-            'model_name' => 'Evento',
-
-            'name' => 'Nombre',
-            'year' => 'Año',
-            'banner_path' => 'Banner',
-            'poster_path' => 'Poster',
-            'virtual_card_path' => 'Carnet Virtual',
-            'logo_path' => 'Logo',
-            'state' => 'Estado',
-            'symbolic_cost' => 'Costo simbólico',
-            'certificate_path' => 'Plantilla de certificado',
-            'certificate_setup' => 'Configuración de plantilla de certificado',
-            'min_percent' => 'Porcentaje mínimo',
-
-            'registered_people' => 'Personas inscritas',
-            'certificate_form' => 'Configurar certificado',
-
-            'filters' => [
-                'name' => 'Buscar por nombre del evento',
-                'year' => 'Buscar por año del evento',
-            ],
-
-            'states' => [
-                'OP' => 'Abierto',
-                'OG' => 'En curso',
-                'CP' => 'Terminado',
-            ],
-
-        ],
-
-        # EVENT MODEL ATTRIBUTES
-        'event_attendance' => [
-            'model_name' => 'Asistencia de evento',
-
-            'event' => 'Evento',
-            'person' => 'Persona',
-            'institution' => 'Institución',
-            'other_institution' => 'Otra institución',
-            'attendance' => 'Asistencia',
-            'participation_modality' => 'Modalidad de participación',
-            'type' => 'Tipo',
-            'stay_type' => 'Tipo de asistencia',
-            'payment_status' => 'Estado de pago',
-            'approve_certificate_manually' => 'Aprobar el certificado manualmente',
-            'certificate_info' => 'Certificado',
-            'activities_info' => 'Actividades',
-            'statuses' => 'Estados',
-
-            'filters' => [
-                'name' => 'Buscar por nombre del evento',
-                'year' => 'Buscar por año del evento',
-                'person' => 'Buscar por persona (nombres, apellidos o N° identificación)',
-                'type' => 'Buscar por tipo de asistencia',
-                'modality' => 'Buscar por modalidad de asistencia',
-            ],
-
-            'participation_modalities' => [
-                'AS' => 'Asistente',
-                'SP' => 'Ponente',
-                'WS' => 'Tallerista',
-                'LE' => 'Conferencista',
-            ],
-            'types' => [
-                'SL' => 'Estudiante del Programa de Lic. en Informática de la Universidad de Nariño',
-                'ST' => 'Estudiante',
-                'TE' => 'Docente',
-                'PT' => 'Particular',
-                'EL' => 'Egresado del programa de Licenciatura en Informática',
-            ],
-            'stay_types' => [
-                'P' => 'Presencial',
-                'V' => 'Virtual',
-            ],
-            'payment_statuses' => [
-                'NP' => 'Sin pagar',
-                'NA' => 'No aplica',
-                'PA' => 'Pagado',
-            ],
-            'certificate_statuses' => [
-                'certified' => 'Certificado',
-                'not_certified' => 'No certificado',
-            ],
-            'manually_certificate_statuses' => [
-                'approved' => 'Aprobado manualmente',
-                'not_approved' => 'No aprobado manualmente',
-            ],
-
-        ],
-
-        # ACTIVITY MODEL ATTRIBUTES
-        'activity' => [
-            'model_name' => 'Actividad',
-
-            'event' => 'Evento',
-            'author_name' => 'Autor/es',
-            'name' => 'Nombre',
-            'slots' => 'Cupos',
-            'free_slots' => 'Cupos libres',
-            'type' => 'Tipo',
-            'modality' => 'Modalidad',
-            'status' => 'Estado',
-            'hidden' => 'Oculto',
-            'date' => 'Fecha',
-
-            'filters' => [
-                'author_name' => 'Buscar por autor de la actividad',
-                'name' => 'Buscar por nombre de la actividad',
-                'type' => 'Buscar por tipo de actividad',
-                'status' => 'Buscar por estado de actividad',
-                'date' => 'Buscar por fecha de actividad',
-            ],
-
-            'types' => [
-                'CF' => 'Conferencia',
-                'PT' => 'Ponencia',
-                'CL' => 'Taller',
-                'SN' => 'Refrigerio',
-                'OT' => 'Otro',
-            ],
-
-            'modalities' => [
-                'P' => 'Presencial',
-                'V' => 'Virtual',
-            ],
-
-            'status_types' => [
-                'O' => 'Abierta',
-                'I' => 'En curso',
-                'C' => 'Cerrada',
-            ],
-
-        ],
-
-        # ACTIVITY ATTENDANCE MODEL ATTRIBUTES
-        'activity_attendance' => [
-            'model_name' => 'Asistencia de actividad',
-
-            'activity' => 'Actividad',
-            'person' => 'Persona',
-            'state' => 'Estado',
-            'attendance_date' => 'Fecha y hora de asistencia',
-            'created_at' => 'Fecha y hora de inscripción',
-
-            'filters' => [
-                'person' => 'Buscar por nombres, apellidos o N° de identificación de la persona asistente',
-                'state' => 'Buscar por estado',
-                'attendance_date' => 'Buscar por fecha y hora de asistencia',
-            ],
-
-            'states' => [
-                'SU' => 'Inscrito',
-                'DO' => 'Realizado',
-                'UR' => 'No realizado',
             ],
 
         ],

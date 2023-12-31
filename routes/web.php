@@ -37,15 +37,6 @@ Route::prefix('portal')
         ## HOME
         Route::get('/home', \App\Livewire\Portal\Home::class)->name('home');
 
-        ## DASHBOARD
-        Route::get('/dashboard/{person}', \App\Livewire\Portal\Dashboard::class)->name('dashboard');
-
-        ## ACTIVITIES
-        Route::get('/event/{event_id}/activities/{person_id}', \App\Livewire\Portal\Activities::class)->name('event.activities')->withoutScopedBindings();
-
-        ## VIRTUAL CARD
-        Route::get('/event/{event_id}/virtual-card/{person_id}', \App\Livewire\Portal\VirtualCard::class)->name('event.virtual-card')->withoutScopedBindings();
-
     });
 
 /*
@@ -104,20 +95,6 @@ Route::prefix('sys')
 
         ## PEOPLE
         Route::get('/people', \App\Livewire\Sys\People\PeopleTable::class)->name('people')->middleware(['ability:*,people']);
-
-        ## EVENTS
-        Route::get('/events', \App\Livewire\Sys\Events\EventsTable::class)->name('events')->middleware(['ability:*,events']);
-
-        ## EVENT ATTENDANCES
-        Route::get('/events/attendances/{event}', \App\Livewire\Sys\Events\Attendances\AttendancesTable::class)->name('events.attendances')->middleware(['ability:*,event_attendances']);
-
-        ## ACTIVITIES
-        Route::get('/activities', \App\Livewire\Sys\Activities\ActivitiesTable::class)->name('activities')->middleware(['ability:*,activities']);
-
-        ## ACTIVITY ATTENDANCE
-        Route::get('/activities/attendances/{activity}', \App\Livewire\Sys\Activities\Attendances\AttendanceTable::class)->name('activities.attendances')->middleware(['ability:*,activity_attendances']);
-
-        # Route::get('/users/profile', \Laravel\Jetstream\Http\Livewire\UpdateProfileInformationForm::class);
 
     });
 

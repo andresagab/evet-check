@@ -13,6 +13,8 @@
             {{-- menu buttons --}}
             {{ $menu_buttons ?? null }}
 
+            <x-buttons.circle-icon-button onclick="toogle_dark_mode()" class="material-icons">contrast</x-buttons.circle-icon-button>
+
             {{-- settings dropdown --}}
             <x-layouts.navbars.items.manage-account/>
 

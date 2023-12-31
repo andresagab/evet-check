@@ -29,7 +29,7 @@
                         {{-- filters.name --}}
                         <div class="flex flex-col items-start w-full">
                             <label class="font-semibold text-sm text-zinc-900 dark:text-stone-100" for="filters.name">{{ __('messages.models.person.names_surnames') }}:</label>
-                            <input wire:model.defer="filters.name" wire:keydown.enter='search(true, true)' type="text" name="filters.name" id="filters.name" placeholder="{{ __('messages.models.person.filters.person') }}" class="border-none px-2 py-1 text-sm w-full bg-white-200 dark:bg-slate-900 dark:text-stone-200 rounded-md">
+                            <input wire:model.defer="filters.name" wire:keydown.enter='search(true, true)' type="text" name="filters.name" id="filters.name" placeholder="{{ __('messages.models.person.filters.person') }}" class="dark:border-none border-slate-700 px-2 py-1 text-sm w-full bg-white-200 dark:bg-slate-900 dark:text-stone-200 rounded-md">
                         </div>
 
                     </div>
@@ -48,7 +48,7 @@
                     {{-- per_page --}}
                     <div class="flex flex-row items-center space-x-1 select-none">
                         <label class="font-semibold text-xs text-zinc-900 dark:text-stone-100" for="pagination.per_page">Registros por página:</label>
-                        <select wire:model.defer="pagination.per_page" name="pagination.per_page" id="pagination.per_page" class="border-none bg-white dark:bg-slate-900 dark:text-stone-300 text-xs font-zinc-700 rounded-md p-0.5 w-16">
+                        <select wire:model.defer="pagination.per_page" name="pagination.per_page" id="pagination.per_page" class="dark:border-none border-slate-700 bg-white dark:bg-slate-900 dark:text-stone-300 text-xs font-zinc-700 rounded-md p-0.5 w-16">
                             @foreach (\App\Utils\CommonUtils::RECORDS_PER_PAGE as $item)
                                 <option class="bg-zinc-100 dark:bg-slate-900 text-zinc-700 dark:text-stone-300" value="{{ $item }}">{{ $item }}</option>
                             @endforeach

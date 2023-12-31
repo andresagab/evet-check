@@ -42,3 +42,15 @@ import {Toast, SAlert} from "@/sweet/Sweet.js";
 // add custom Toast to window app
 window.Toast = Toast
 window.SAlert = SAlert
+
+/// TAILWIND CUSTOM FN
+import {toggle_dark_mode} from "@/tailwind/DarkMode.js";
+// add fn to window app
+window.toogle_dark_mode = toggle_dark_mode
+
+// On page load or when changing themes, best to add inline in `head` to avoid FOUC
+if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark')
+} else {
+    document.documentElement.classList.remove('dark')
+}

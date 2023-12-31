@@ -14,16 +14,16 @@ return [
     */
 
     'menu' => [
+
+        # admin module
         'users' => 'Users',
         'permissions' => 'Permissions',
         'roles' => 'Roles',
 
-        'events' => 'Events',
-        'event_attendances' => 'Event attendances',
-        'activities' => 'Activities',
-        'activity_attendances' => 'Activity attendances',
+        # sys module
         'people' => 'People',
 
+        # others
         'manage_account' => 'Manage Account',
         'profile' => 'Profile',
         'logout' => 'Log Out',
@@ -145,165 +145,6 @@ return [
 
             'filters' => [
                 'person' => 'Search by names, surnames or dni'
-            ]
-
-        ],
-
-        # EVENT MODEL ATTRIBUTES
-        'event' => [
-            'model_name' => 'Event',
-
-            'name' => 'Name',
-            'year' => 'Year',
-            'banner_path' => 'Banner',
-            'poster_path' => 'Poster',
-            'virtual_card_path' => 'Virtual card',
-            'logo_path' => 'Logo',
-            'state' => 'State',
-            'symbolic_cost' => 'Symbolic cost',
-            'certificate_path' => 'Certificate template path',
-            'certificate_setup' => 'Certificate template setup',
-            'min_percent' => 'Minimum percent',
-
-            'registered_people' => 'Registered people',
-            'certificate_form' => 'Setup certificate',
-
-            'filters' => [
-                'name' => 'Search by event name',
-                'year' => 'Search by event year',
-            ],
-
-            'states' => [
-                'OP' => 'Open',
-                'OG' => 'On going',
-                'CP' => 'Completed',
-            ],
-
-        ],
-
-        # EVENT ATTENDANCE MODEL ATTRIBUTES
-        'event_attendance' => [
-            'model_name' => 'Event attendance',
-
-            'event' => 'Event',
-
-            'person' => 'Person',
-            'institution' => 'Institution',
-            'other_institution' => 'Other institution',
-            'attendance' => 'Attendance',
-            'participation_modality' => 'Participation modality',
-            'type' => 'Type',
-            'stay_type' => 'Stay type',
-            'payment_status' => 'Payment status',
-            'approve_certificate_manually' => 'Approve the certificate manually',
-            'certificate_info' => 'Certificate info',
-            'activities_info' => 'Activities info',
-            'statuses' => 'Statuses',
-
-            'filters' => [
-                'name' => 'Search by name of event',
-                'year' => 'Search by year of event',
-                'person' => 'Search by assistant of event (names, surnames or dni)',
-                'participation_modality' => 'Search by participation modality',
-                'type' => 'Search by type',
-                'stay_type' => 'Search by stay type',
-            ],
-
-            'participation_modalities' => [
-                'AS' => 'Assistant',
-                'SP' => 'Speaker',
-                'WS' => 'Educator',
-                'LE' => 'Lecturer',
-            ],
-            'types' => [
-                'SL' => 'Student of Program of Lic. in Computing of the Universidad de Nariño',
-                'ST' => 'Student',
-                'TE' => 'Teacher',
-                'PT' => 'Particular',
-                'EL' => 'Graduate of Program of Lic. in Computing of the Universidad de Nariño',
-            ],
-            'stay_types' => [
-                'P' => 'In person',
-                'V' => 'Virtual',
-            ],
-            'payment_statuses' => [
-                'NP' => 'Not paid',
-                'NA' => 'Not apply',
-                'PA' => 'Paid',
-            ],
-            'certificate_statuses' => [
-                'certified' => 'Certified',
-                'not_certified' => 'Not certified',
-            ],
-            'manually_certificate_statuses' => [
-                'approved' => 'Manually approved',
-                'not_approved' => 'Not manually approved',
-            ],
-
-        ],
-
-        # ACTIVITY MODEL ATTRIBUTES
-        'activity' => [
-            'model_name' => 'Activity',
-
-            'event' => 'Event',
-            'author_name' => "Author/'s",
-            'name' => 'Name',
-            'slots' => 'Slots',
-            'free_slots' => 'Free Slots',
-            'type' => 'Type',
-            'modality' => 'Modality',
-            'status' => 'Status',
-            'hidden' => 'Hidden',
-            'date' => 'Date',
-
-            'filters' => [
-                'author_name' => 'Search by author of activity',
-                'name' => 'Search by name of activity',
-                'type' => 'Search by type of activity',
-                'status' => 'Search by status of activity',
-                'date' => 'Search by date of activity',
-            ],
-
-            'types' => [
-                'CF' => 'Conference',
-                'PT' => 'Presentation',
-                'CL' => 'Class',
-                'SN' => 'Snacks',
-                'OT' => 'Other',
-            ],
-            'modalities' => [
-                'P' => 'In person',
-                'V' => 'Virtual',
-            ],
-            'status_types' => [
-                'O' => 'Open',
-                'I' => 'In progress',
-                'C' => 'Closed',
-            ],
-
-        ],
-
-        # ACTIVITY ATTENDANCE MODEL ATTRIBUTES
-        'activity_attendance' => [
-            'model_name' => 'Activity attendance',
-
-            'activity' => 'Activity',
-            'person' => 'Person',
-            'state' => 'State',
-            'attendance_date' => 'Datetime of attendance',
-            'created_at' => 'Datetime of register',
-
-            'filters' => [
-                'person' => 'Search by names, surnames or dni of attendant',
-                'state' => 'Search by state',
-                'attendance_date' => 'Search by datetime of attendance',
-            ],
-
-            'states' => [
-                'SU' => 'Signed up',
-                'DO' => 'Done',
-                'UR' => 'Unrealized',
             ],
 
         ],
