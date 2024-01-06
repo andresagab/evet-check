@@ -137,6 +137,16 @@ class EventsTable extends Component
     }
 
     /**
+     * Open virtual card form
+     * @param Event $event
+     * @return void
+     */
+    public function open_virtual_card_form_modal(Event $event): void
+    {
+        $this->dispatch('open-modal', $event)->to('sys.events.virtual-card-setup-form');
+    }
+
+    /**
      * Render view of component
      * @return \Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
      */

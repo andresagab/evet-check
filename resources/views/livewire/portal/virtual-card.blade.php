@@ -25,19 +25,29 @@
 
     <div class="flex items-center justify-center mb-8 md:mb-16" id="virtual_card_div">
         <div class="relative">
+            {{-- bar code --}}
+            @if($setup['bar_code_position'] == 'top')
+                <span class="font-bold text-md text-white uppercase w-full flex items-center justify-center bg-white">{!! $person->get_bar_code('black', 30) !!}</span>
+            @endif
             {{-- template --}}
-            <img src="{{ asset('assets/img/virtual_card_template.png') }}" alt="Template Card" class="static" width="300px">
+            <img src="{{ \App\Utils\CommonUtils::getImage($event->virtual_card_path) }}" alt="Template Card" class="static" width="300px">
+            {{--<img src="{{ asset('assets/img/virtual_card_template.png') }}" alt="Template Card" class="static" width="300px">--}}
             <div class="absolute top-0 left-0 w-full">
                 {{-- person names --}}
-                <span class="absolute top-48 text-center font-bold text-xs uppercase w-full">{{ $person->get_short_full_name() }}</span>
+                <span class="absolute text-center font-bold text-xs uppercase w-full" style="color: {{ $setup['text_color'] ?? '#000' }} ;margin-top: {{ $setup['person_names_margin_top'] ?? 400 }}px; margin-left: {{ $setup['person_names_margin_x'] ?? 10 }}px; margin-right: {{ $setup['person_names_margin_x'] ?? 10 }}px;">{{ $person->get_short_full_name() }}</span>
                 {{-- nip --}}
-                <span class="absolute pt-0.5 top-60 text-center font-bold text-sm uppercase w-full">{{ $person->nuip }}</span>
+                <span class="absolute pt-0.5 text-center font-bold text-sm uppercase w-full" style="color: {{ $setup['text_color'] ?? '#000' }} ;margin-top: {{ $setup['dni_margin_top'] ?? 400 }}px; margin-left: {{ $setup['dni_margin_x'] ?? 10 }}px; margin-right: {{ $setup['dni_margin_x'] ?? 10 }}px;">{{ $person->nuip }}</span>
                 {{-- participation modality --}}
-                <span class="absolute top-72 text-center font-bold text-md text-white uppercase w-full">{{ $participation_modality }}</span>
-
+                <span class="absolute text-center font-bold text-md text-white uppercase w-full" style="color: {{ $setup['attendance_type_text_color'] ?? '#000' }} ;margin-top: {{ $setup['attendance_type_margin_top'] ?? 400 }}px; margin-left: {{ $setup['attendance_type_margin_x'] ?? 10 }}px; margin-right: {{ $setup['attendance_type_margin_x'] ?? 10 }}px;">{{ $participation_modality }}</span>
+                {{-- custom bar code position --}}
+                @if($setup['bar_code_position'] == 'custom')
+                    <span class="font-bold text-md text-white uppercase w-full flex items-center justify-center bg-white" style="margin-top: {{ $setup['bar_code_margin_top'] ?? 400 }}px; margin-bottom: {{ $setup['bar_code_margin_bottom'] ?? 400 }}px;margin-left: {{ $setup['bar_code_margin_left'] ?? 400 }}px;margin-right: {{ $setup['bar_code_margin_right'] ?? 400 }}px;">{!! $person->get_bar_code('black', 30) !!}</span>
+                @endif
             </div>
             {{-- bar code --}}
-            <span class="font-bold text-md text-white uppercase w-full flex items-center justify-center bg-white">{!! $person->get_bar_code('black', 30) !!}</span>
+            @if($setup['bar_code_position'] == 'bottom')
+                <span class="font-bold text-md text-white uppercase w-full flex items-center justify-center bg-white">{!! $person->get_bar_code('black', 30) !!}</span>
+            @endif
         </div>
     </div>
 

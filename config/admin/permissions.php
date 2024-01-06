@@ -160,6 +160,12 @@ return [
         'description' => 'Permiso que permite acceder a la configuración del certificado de un evento',
         'module' => 'events',
     ],
+    [
+        'name' => 'events:setup-virtual-card',
+        'display_name' => 'Configurar carnet virtual del evento',
+        'description' => 'Permiso que permite acceder a la configuración del carnet virtual de un evento',
+        'module' => 'events',
+    ],
     # event attendances
     [
         'name' => 'event_attendances',

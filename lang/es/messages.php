@@ -164,10 +164,12 @@ return [
             'symbolic_cost' => 'Costo simbólico',
             'certificate_path' => 'Plantilla de certificado',
             'certificate_setup' => 'Configuración de plantilla de certificado',
+            'virtual_card_setup' => 'Configuración del carnet virtual',
             'min_percent' => 'Porcentaje mínimo',
 
             'registered_people' => 'Personas inscritas',
             'certificate_form' => 'Configurar certificado',
+            'virtual_card_form' => 'Configurar carnet virtual',
 
             'filters' => [
                 'name' => 'Buscar por nombre del evento',
@@ -179,6 +181,12 @@ return [
                 'OG' => 'En curso',
                 'CP' => 'Terminado',
             ],
+
+            'bar_code_positions' => [
+                'bottom' => 'Inferior',
+                'top' => 'Superior',
+                'custom' => 'Personalizado',
+            ]
 
         ],
 

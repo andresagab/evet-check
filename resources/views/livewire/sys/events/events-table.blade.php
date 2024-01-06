@@ -144,6 +144,10 @@
                                 @ability('*', 'events:setup-certificate')
                                     <x-buttons.circle-icon-button wire:click="open_certificate_form_modal({{ $item }})" title="Click para configurar el certificado del evento" color="amber" size="20px">workspace_premium</x-buttons.circle-icon-button>
                                 @endability
+                                {{-- setup-certificate --}}
+                                @ability('*', 'events:setup-virtual-card')
+                                    <x-buttons.circle-icon-button wire:click="open_virtual_card_form_modal({{ $item }})" title="Click para configurar el carnet virtual del evento" color="teal" size="20px">badge</x-buttons.circle-icon-button>
+                                @endability
                             </div>
                         </td>
 
@@ -164,7 +168,9 @@
     <livewire:sys.events.event-form/>
     {{-- event-delete --}}
     <livewire:sys.events.event-delete/>
-    {{-- event-delete --}}
+    {{-- certificate-setup-form --}}
     <livewire:sys.events.certificate-setup-form/>
+    {{-- virtual-card-setup-form --}}
+    <livewire:sys.events.virtual-card-setup-form/>
 
 </div>

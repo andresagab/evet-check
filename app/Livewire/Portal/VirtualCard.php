@@ -32,6 +32,12 @@ class VirtualCard extends Component
 
     public string $participation_modality = '';
 
+    /**
+     * The virtual card setup
+     * @var array
+     */
+    public array $setup = [];
+
     /// HOOKS
 
     /**
@@ -65,6 +71,10 @@ class VirtualCard extends Component
 
                     # pending add validation after search person and event
                     $this->load_participation_modality();
+
+                    # load virtual card setup
+                    $this->setup = $this->event->get_virtual_card_setup();
+
                 }
                 # else, redirect to dashboard
                 else

@@ -63,6 +63,12 @@ class Frm extends Form
      */
     public $certificate_file;
 
+    /**
+     * The virtual card file
+     * @var
+     */
+    public $virtual_card_file;
+
     /// PUBLIC FUNCTIONS
 
     /**
@@ -99,6 +105,11 @@ class Frm extends Form
                 'image',
                 'max:3062',
             ],
+            'virtual_card_file' => [
+                'nullable',
+                'image',
+                'max:3062',
+            ],
             'min_percent' => [
                 'nullable',
                 'numeric',
@@ -131,7 +142,7 @@ class Frm extends Form
     public function set_form_data(Event $event) : void
     {
         # set event
-        $this->event = $event;
+        $this->event = $event->refresh();
         # set event form attributes
         $this->name = $this->event->name;
         $this->year = $this->event->year;
@@ -173,11 +184,17 @@ class Frm extends Form
             else
             {
                 # store file of certificate and get path
-                $certificate_path = $this->store_file($this->certificate_file, $event);
+                $certificate_path = $this->store_file($this->certificate_file, $event, 'public/events/certificates', 'certificate_template');
+                # store file of virtual card and get path
+                $virtual_card_path = $this->store_file($this->virtual_card_file, $event, 'public/events/virtual_cards', 'virtual_card_template');
                 # if file was stored
                 if ($certificate_path)
                     # set certificate_path in event model
                     $event->certificate_path = $certificate_path;
+                # if file was stored
+                if ($virtual_card_path)
+                    # set certificate_path in event model
+                    $event->virtual_card_path = $virtual_card_path;
 
                 # update changes
                 $event->update();
@@ -231,12 +248,20 @@ class Frm extends Form
             # else, continue saving files
             else
             {
+
                 # store file of certificate and get path
-                $certificate_path = $this->store_file($this->certificate_file, $event);
+                $certificate_path = $this->store_file($this->certificate_file, $event, 'public/events/certificates', 'certificate_template');
+                # store file of virtual card and get path
+                $virtual_card_path = $this->store_file($this->virtual_card_file, $event, 'public/events/virtual_cards', 'virtual_card_template');
+
                 # if file was stored
                 if ($certificate_path)
                     # set certificate_path in event model
                     $event->certificate_path = $certificate_path;
+                # if file was stored
+                if ($virtual_card_path)
+                    # set certificate_path in event model
+                    $event->virtual_card_path = $virtual_card_path;
 
                 # update changes
                 $event->update();
@@ -262,11 +287,13 @@ class Frm extends Form
 
     /**
      * Store file and return path
-     * @param $file
-     * @param Event $event
+     * @param $file => The file object to store
+     * @param Event $event => The event to save your file
+     * @param string $path => The path to store file
+     * @param string $filename => The common file name to be stored
      * @return null
      */
-    private function store_file($file, Event $event)
+    private function store_file($file, Event $event, string $path, string $filename)
     {
         # define file name as null
         $file_name = null;
@@ -275,10 +302,10 @@ class Frm extends Form
         if ($file)
         {
             # generate file name
-            $file_name = CommonUtils::generateUniqueFileName($event->id, 'certificate_template');
+            $file_name = CommonUtils::generateUniqueFileName($event->id, $filename);
             # load file extension
             $extension = CommonUtils::get_file_extension($file->getRealPath());
-            $file_name = $file->storeAs('public/events/certificates', "$file_name.$extension");
+            $file_name = $file->storeAs($path, "$file_name.$extension");
         }
 
         return $file_name;
