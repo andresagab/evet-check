@@ -7,6 +7,7 @@ use App\Models\Sys\EventAttendance;
 use App\Models\Sys\Person;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Livewire\Attributes\Locked;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Dashboard extends Component
@@ -57,11 +58,16 @@ class Dashboard extends Component
 
     /// PRIVATE FUNCTIONS
 
+
+
+    /// PUBLIC FUNCTIONS
+
     /**
      * Load registered events of person
      * @return void
      */
-    private function load_registered_events() : void
+    #[On('load-registered-events')]
+    public function load_registered_events() : void
     {
         $this->attendances = EventAttendance::query()
             # link to events
@@ -76,8 +82,6 @@ class Dashboard extends Component
             ->orderBy('year', 'DESC')
             ->get();
     }
-
-    /// PUBLIC FUNCTIONS
 
     /**
      * Open activities of event
@@ -155,6 +159,14 @@ class Dashboard extends Component
 
     /// EVENTS
 
+    /**
+     * Open the register event attendance modal
+     * @return void
+     */
+    public function open_register_event_attendance_modal() : void
+    {
+        $this->dispatch('open-modal', $this->person)->to('portal.register-event-attendance');
+    }
 
 
     /**

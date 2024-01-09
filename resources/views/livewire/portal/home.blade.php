@@ -28,9 +28,11 @@
                     </div>
 
                     {{-- buttons --}}
-                    <div class="flex items-center justify-start w-full mt-8">
+                    <div class="flex space-x-2 items-center justify-start w-full mt-8">
                         {{-- search button --}}
                         <x-buttons.main-button type="submit" class="w-24 font-semibold dark:bg-green-600">Continuar</x-buttons.main-button>
+                        {{-- sing in --}}
+                        <x-buttons.secondary-button wire:click="open_register_modal" title="Click para registrarte" color="red">Registrarme</x-buttons.secondary-button>
                     </div>
 
                 </form>
@@ -41,6 +43,10 @@
 
     </div>
 
+    {{-- footer --}}
     <x-layouts.footers.portal-footer/>
+
+    {{-- components --}}
+    <livewire:portal.register/>
 
 </div>

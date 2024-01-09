@@ -88,4 +88,27 @@
         @endif
     </x-forms.input-group>
 
+    {{-- virtual_card_file --}}
+    <x-forms.input-group class="w-full">
+        {{-- label --}}
+        <x-forms.label value="{{ __('messages.models.event.virtual_card_path') }}" for="frm.certificate_file"/>
+        {{-- input --}}
+        <x-forms.input type="file" accept="image/*" wire:model="frm.virtual_card_file" size="3062" step="1"/>
+        {{-- error --}}
+        <x-forms.error for="frm.virtual_card_file"/>
+        {{-- preview of loaded file --}}
+        {{--@if($this->certificate_file)
+            <img src="{{ $certificate_file->temporaryUrl() }}"/>
+        @endif--}}
+        {{-- old file --}}
+        @if($event)
+            @if($event->virtual_card_path)
+                <div class="flex flex-col space-y-1 items-start justify-start p-2 mt-2">
+                    <span class="font-normal text-sm text-slate-100">Archivo guardado anteriormente:</span>
+                    <img src="{{  \App\Utils\CommonUtils::getImage($event->virtual_card_path) }}" class="rounded-md"/>
+                </div>
+            @endif
+        @endif
+    </x-forms.input-group>
+
 </div>

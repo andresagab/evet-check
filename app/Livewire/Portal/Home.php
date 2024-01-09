@@ -66,7 +66,14 @@ class Home extends Component
 
     /// EVENTS
 
-
+    /**
+     * Open the register modal
+     * @return void
+     */
+    public function open_register_modal() : void
+    {
+        $this->dispatch('open-modal')->to('portal.register');
+    }
 
 
     /**

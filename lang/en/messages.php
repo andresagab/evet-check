@@ -163,10 +163,12 @@ return [
             'symbolic_cost' => 'Symbolic cost',
             'certificate_path' => 'Certificate template path',
             'certificate_setup' => 'Certificate template setup',
+            'virtual_card_setup' => 'Virtual card setup',
             'min_percent' => 'Minimum percent',
 
             'registered_people' => 'Registered people',
             'certificate_form' => 'Setup certificate',
+            'virtual_card_form' => 'Setup virtual card',
 
             'filters' => [
                 'name' => 'Search by event name',
@@ -178,6 +180,12 @@ return [
                 'OG' => 'On going',
                 'CP' => 'Completed',
             ],
+
+            'bar_code_positions' => [
+                'bottom' => 'Bottom',
+                'top' => 'Top',
+                'custom' => 'Custom',
+            ]
 
         ],
 
@@ -214,6 +222,7 @@ return [
                 'SP' => 'Speaker',
                 'WS' => 'Educator',
                 'LE' => 'Lecturer',
+                'OR' => 'Organizer',
             ],
             'types' => [
                 'SL' => 'Student of Program of Lic. in Computing of the Universidad de Nariño',

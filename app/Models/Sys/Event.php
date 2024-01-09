@@ -38,6 +38,15 @@ class Event extends Model implements Auditable, Wireable
         ],
     ];
 
+    /**
+     * The available bar code positions
+     */
+    const BAR_CODE_POSITIONS = [
+        'bottom' => 'messages.models.event.bar_code_positions.bottom',
+        'top' => 'messages.models.event.bar_code_positions.top',
+        'custom' => 'messages.models.event.bar_code_positions.custom',
+    ];
+
     /// PROPERTIES
 
     /**
@@ -57,6 +66,7 @@ class Event extends Model implements Auditable, Wireable
         'certificate_path',
         'certificate_setup',
         'min_percent',
+        'virtual_card_setup',
     ];
 
     /// PRIVATE FUNCTIONS
@@ -103,6 +113,7 @@ class Event extends Model implements Auditable, Wireable
             'certificate_path' => $this->certificate_path,
             'certificate_setup' => $this->certificate_setup,
             'min_percent' => $this->min_percent,
+            'virtual_card_setup' => $this->virtual_card_setup,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
@@ -129,6 +140,7 @@ class Event extends Model implements Auditable, Wireable
         $event->certificate_path = $value['certificate_path'];
         $event->certificate_setup = $value['certificate_setup'];
         $event->min_percent = $value['min_percent'];
+        $event->virtual_card_setup = $value['virtual_card_setup'];
 
         $event->created_at = $value['created_at'];
         $event->updated_at = $value['updated_at'];
@@ -222,6 +234,22 @@ class Event extends Model implements Auditable, Wireable
         # if certificate_setup is not null
         if (strlen($this->certificate_setup) > 0)
             $setup = json_decode($this->certificate_setup, true);
+
+        return $setup;
+    }
+
+    /**
+     * Get the virtual card setup as array
+     * @return array
+     */
+    public function get_virtual_card_setup() : array
+    {
+        # define setup as empty array
+        $setup = [];
+
+        # if virtual card setup is not null
+        if (strlen($this->virtual_card_setup) > 0)
+            $setup = json_decode($this->virtual_card_setup, true);
 
         return $setup;
     }

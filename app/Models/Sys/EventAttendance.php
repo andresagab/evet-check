@@ -43,6 +43,11 @@ class EventAttendance extends Model implements Auditable, Wireable
             'key_name' => 'messages.models.event_attendance.participation_modalities.LE',
             'color' => 'yellow',
         ],
+        'OR' => [
+            'key' => 'OR',
+            'key_name' => 'messages.models.event_attendance.participation_modalities.OR',
+            'color' => 'emerald',
+        ],
     ];
 
     /**

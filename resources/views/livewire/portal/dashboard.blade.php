@@ -9,6 +9,8 @@
         <h1 class="font-bold text-3xl md:text-5xl text-violet-500 dark:text-white text-center">EVENTOS INSCRITOS</h1>
         {{-- person --}}
         <h3 class="font-normal text-lg md:text-xl text-slate-100 text-left mt-4">{{ $person->getFullName() }}</h3>
+        {{-- register event attendance --}}
+        <x-buttons.secondary-button wire:click="open_register_event_attendance_modal" color="teal" class="mt-3">Inscribir evento</x-buttons.secondary-button>
 
         {{-- events --}}
         <div class="flex flex-col space-y-2 mt-8">
@@ -62,9 +64,14 @@
                 @endforeach
             {{-- else, then show custom info message --}}
             @else
-                <p class="font-normal text-lg md:text-xl text-red-700 dark:text-red-400 text-left mt-4">No tienes eventos inscritos, por favor comunicate con los organizadores del evento para realizar tu inscripción.</p>
+                <p class="font-normal text-lg md:text-xl text-red-700 dark:text-red-400 text-left mt-4">No tienes eventos inscritos, por favor realiza la inscripción o comunícate con los organizadores del evento para mayor información.</p>
             @endif
         </div>
     </div>
+
+    {{-- components --}}
+
+    {{-- register-event-attendance --}}
+    <livewire:portal.register-event-attendance/>
 
 </div>
