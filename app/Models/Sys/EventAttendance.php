@@ -339,8 +339,11 @@ class EventAttendance extends Model implements Auditable, Wireable
         # if person not is 'assistant' and payment status is 'paid'
         if ($this->participation_modality != 'AS' && $this->payment_status === 'PA')
             $can = true;
-        # else, if payment status is 'paid'
-        elseif ($this->payment_status === 'PA')
+        # else, if approve certificate manually is true
+        elseif ($this->approve_certificate_manually)
+            $can = true;
+        # else, if payment status is 'paid' and participation modality is 'assistant'
+        elseif ($this->payment_status === 'PA' && $this->participation_modality === 'AS')
         {
 
             # load dates of event
@@ -377,9 +380,6 @@ class EventAttendance extends Model implements Auditable, Wireable
             return $can;
 
         }
-        # else, if approve certificate manually is true
-        elseif ($this->approve_certificate_manually)
-            $can = true;
 
         return $can;
 
