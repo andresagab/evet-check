@@ -23,6 +23,7 @@ return [
         'activities' => 'Actividades',
         'activity_attendances' => 'Asistencia de actividad',
         'people' => 'Personas',
+        'locations' => 'Ubicaciones',
 
         'manage_account' => 'Gestionar cuenta',
         'profile' => 'Perfil',
@@ -80,6 +81,11 @@ return [
             'group_coordinator' => 'Coordinador de grupo semillero',
             'other' => 'Otro',
         ],
+
+        'statuses' => [
+            'active' => 'Activo',
+            'disabled' => 'Inhabilitado',
+        ]
 
     ],
 
@@ -314,6 +320,24 @@ return [
                 'SU' => 'Inscrito',
                 'DO' => 'Realizado',
                 'UR' => 'No realizado',
+            ],
+
+        ],
+
+        # LOCATION MODEL ATTRIBUTES
+        'location' => [
+            'model_name' => 'Ubicación',
+
+            'name' => 'Nombre',
+            'url' => 'URL',
+            'is_maps_location' => '¿Es ubicación de Google Maps?',
+            'active' => '¿Está activa?',
+
+            'activities' => 'Actividades',
+
+            'filters' => [
+                'name' => 'Buscar por nombre de ubicación',
+                'active' => 'Buscar por estado de ubicación',
             ],
 
         ],

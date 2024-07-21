@@ -42,6 +42,28 @@ class CommonUtils
         1 => 'messages.data.actions.yes',
     ];
 
+    /**
+     * The common statuses
+     */
+    const COMMON_STATUSES = [
+        # Disabled/Not
+        0 => [
+            'value' => 0,
+            'key' => 'DI',
+            'key_name' => 'messages.collections.common.statuses.disable',
+            'affirmation_key_name' => 'messages.data.actions.not',
+            'color' => 'red',
+        ],
+        # Active/Yes
+        1 => [
+            'value' => 1,
+            'key' => 'AC',
+            'key_name' => 'messages.collections.common.statuses.active',
+            'affirmation_key_name' => 'messages.data.actions.yes',
+            'color' => 'green',
+        ],
+    ];
+
     /// public functions
 
     /// private functions

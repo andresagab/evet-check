@@ -23,6 +23,7 @@ return [
         'activities' => 'Activities',
         'activity_attendances' => 'Activity attendances',
         'people' => 'People',
+        'locations' => 'Location',
 
         'manage_account' => 'Manage Account',
         'profile' => 'Profile',
@@ -80,6 +81,10 @@ return [
             'group_coordinator' => 'Seed group coordinator',
             'other' => 'Other',
         ],
+        'statuses' => [
+            'active' => 'Active',
+            'disable' => 'Disable',
+        ]
 
     ],
 
@@ -313,6 +318,24 @@ return [
                 'SU' => 'Signed up',
                 'DO' => 'Done',
                 'UR' => 'Unrealized',
+            ],
+
+        ],
+
+        # LOCATION MODEL ATTRIBUTES
+        'location' => [
+            'model_name' => 'Location',
+
+            'name' => 'Name',
+            'url' => 'URL',
+            'is_maps_location' => 'Is maps location?',
+            'active' => 'Is active?',
+
+            'activities' => 'Activities',
+
+            'filters' => [
+                'name' => 'Search by name of location',
+                'active' => 'Search by is active of location',
             ],
 
         ],

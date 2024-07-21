@@ -117,7 +117,8 @@ Route::prefix('sys')
         ## ACTIVITY ATTENDANCE
         Route::get('/activities/attendances/{activity}', \App\Livewire\Sys\Activities\Attendances\AttendanceTable::class)->name('activities.attendances')->middleware(['ability:*,activity_attendances']);
 
-        # Route::get('/users/profile', \Laravel\Jetstream\Http\Livewire\UpdateProfileInformationForm::class);
+        ## LOCATIONS
+        Route::get('/locations', \App\Livewire\Sys\Locations\Table::class)->name('locations')->middleware(['ability:*,locations']);
 
     });
 
