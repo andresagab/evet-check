@@ -329,6 +329,7 @@ return [
             'model_name' => 'Ubicación',
 
             'name' => 'Nombre',
+            'address' => 'Dirección',
             'url' => 'URL',
             'is_maps_location' => '¿Es ubicación de Google Maps?',
             'active' => '¿Está activa?',

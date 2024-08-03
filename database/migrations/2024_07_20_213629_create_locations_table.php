@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('name', 500)->unique();
+            $table->string('address', 500)->nullable()->default(null);
             $table->string('url', 1000)->nullable()->default(null);
             $table->boolean('is_maps_location')->default(false);
             $table->boolean('active')->default(true);

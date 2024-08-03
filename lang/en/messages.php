@@ -327,6 +327,7 @@ return [
             'model_name' => 'Location',
 
             'name' => 'Name',
+            'address' => 'Dirección',
             'url' => 'URL',
             'is_maps_location' => 'Is maps location?',
             'active' => 'Is active?',

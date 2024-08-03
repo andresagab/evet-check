@@ -23,6 +23,7 @@ class Location extends Model implements Auditable, Wireable
      */
     protected $fillable = [
         'name',
+        'address',
         'url',
         'is_map_location',
         'active',
@@ -54,6 +55,7 @@ class Location extends Model implements Auditable, Wireable
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'address' => $this->address,
             'url' => $this->url,
             'is_map_location' => $this->is_map_location,
             'active' => $this->active,
@@ -65,23 +67,24 @@ class Location extends Model implements Auditable, Wireable
     /**
      * Load attributes from livewire
      * @param $value
-     * @return Activity
+     * @return Location
      */
     public static function fromLivewire($value)
     {
 
-        $activity = new Activity();
+        $location = new Location();
 
-        $activity->id = $value['id'];
-        $activity->name = $value['name'];
-        $activity->url = $value['url'];
-        $activity->is_map_location = $value['is_map_location'];
-        $activity->active = $value['active'];
+        $location->id = $value['id'];
+        $location->name = $value['name'];
+        $location->addres = $value['address'];
+        $location->url = $value['url'];
+        $location->is_map_location = $value['is_map_location'];
+        $location->active = $value['active'];
 
-        $activity->created_at = $value['created_at'];
-        $activity->updated_at = $value['updated_at'];
+        $location->created_at = $value['created_at'];
+        $location->updated_at = $value['updated_at'];
 
-        return $activity;
+        return $location;
 
     }
 
@@ -114,7 +117,7 @@ class Location extends Model implements Auditable, Wireable
     public function can_delete() : bool
     {
         # define can as true
-        $can = true;
+        return $can = true;
 
         # if count of activity attendances is greater than zero, then can as false
         if ($this->activities()->count() > 0)

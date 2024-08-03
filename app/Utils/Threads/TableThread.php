@@ -51,6 +51,16 @@ trait TableThread
 
     }
 
+    protected function queryStringTableThread()
+    {
+        return [
+            'filters.name' => [
+                'except' => '',
+                'as' => 'qn',
+            ],
+        ];
+    }
+
     /// PRIVATE FUNCTIONS
 
     /// PUBLIC FUNCTIONS
@@ -58,16 +68,15 @@ trait TableThread
     /**
      * Refresh or update pagination data
      * @param array $pagination => pagination info array
-     * @param callable $callback => function to be called after set pagination
      * @return void
      */
     #[On('refreshPagination')]
-    public function refreshPagination(array $pagination, callable $callback) : void
+    public function refreshPagination(array $pagination) : void
     {
         # refresh pagination
         $this->pagination = $pagination;
         # execute callback
-        $callback();
+        $this->search();
     }
 
     /**
