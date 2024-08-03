@@ -50,7 +50,7 @@ class CommonUtils
         0 => [
             'value' => 0,
             'key' => 'DI',
-            'key_name' => 'messages.collections.common.statuses.disable',
+            'key_name' => 'messages.collections.statuses.disable',
             'affirmation_key_name' => 'messages.data.actions.not',
             'color' => 'red',
         ],
@@ -58,7 +58,7 @@ class CommonUtils
         1 => [
             'value' => 1,
             'key' => 'AC',
-            'key_name' => 'messages.collections.common.statuses.active',
+            'key_name' => 'messages.collections.statuses.active',
             'affirmation_key_name' => 'messages.data.actions.yes',
             'color' => 'green',
         ],

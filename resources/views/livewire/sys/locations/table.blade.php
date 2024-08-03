@@ -14,7 +14,7 @@
     </x-layouts.headers.sub-header>
 
     {{-- content page --}}
-    <x-layouts.pages.content.base-content-page-layout>
+    <x-layouts.pages.content.base-content-page-layout padding="p-8">
 
         {{-- filters section --}}
         <x-cards.card title="{{ __('messages.content_page.searcher') }}">
@@ -76,14 +76,19 @@
                     <th class="px-2 py-1 text-left w-10">ID</th>
                     <th class="px-2 py-1 text-left w-96">{{ __('messages.models.location.model_name') }}</th>
                     <th class="px-2 py-1 text-left w-96">{{ __('messages.models.location.address') }}</th>
-                    <th class="px-2 py-1 text-left w-60">{{ __('messages.models.location.active') }}</th>
+                    <th class="px-2 py-1 text-center w-60">{{ __('messages.models.location.active') }}</th>
                     <th class="px-2 py-1 text-left w-60">{{ __('messages.data.dates') }}</th>
-                    <th class="px-2 py-1 w-auto"></th>
+                    <th class="px-2 py-1 w-min max-w-min"></th>
                 </tr>
                 </thead>
                 {{-- body --}}
                 <tbody>
                 @foreach ($locations as $item)
+
+                    {{-- php code --}}
+                    @php
+                    $active = $item->get_active();
+                    @endphp
 
                     <tr class="border-b border-b-blue-300 dark:border-b-slate-500 bg-white dark:bg-slate-600 hover:bg-blue-100 dark:hover:bg-slate-500 dark:text-stone-50 dark:hover:text-white hover:shadow transition ease-in-out duration-300">
 
@@ -96,18 +101,35 @@
                         </td>
                         {{-- address --}}
                         <td class="p-2 text-left truncate">
-                            <span class="font-semibold text-sm">{{ $item->address }}</span>
+                            <div class="flex flex-col">
+                                @if($item->address)
+                                    <span class="font-medium text-sm">{{ $item->address }}</span>
+                                    @if($item->is_maps_location)
+                                        <a
+                                            href="{{ $item->url }}"
+                                            target="_blank"
+                                            title="Ver ubicación en el mapa"
+                                            class="text-zinc-300 text-sm italic hover:underline transition ease-in-out duration-150"
+                                        >
+                                            Ver
+                                        </a>
+                                    @endif
+                                @else
+                                    <x-utils.colored-text color="red">{{ __('messages.data.unregistered') }}</x-utils.colored-text>
+                                @endif
+                            </div>
                         </td>
                         {{-- active --}}
-                        <td class="p-2 text-left">
+                        <td class="p-2 text-center">
+                            <x-utils.cheap :color="$active['color']" class="text-sm font-medium">{{ __($active['key_name']) }}</x-utils.cheap>
                         </td>
                         {{-- dates --}}
                         <td class="p-2 text-left">
                             <x-tables.dates-columns :created_at="$item->created_at" :updated_at="$item->updated_at"/>
                         </td>
                         {{-- actions --}}
-                        <td>
-                            <div class="inline-flex items-center space-x-1">
+                        <td class="p-2 w-min">
+                            <div class="flex items-center space-x-1">
                                 {{-- edit --}}
                                 @ability('*', 'locations:edit')
                                 <x-buttons.circle-icon-button wire:click="openEditModal({{ $item }})" title="Click para editar este registro" color="violet" size="20px">edit</x-buttons.circle-icon-button>
