@@ -5,7 +5,7 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-baseline w-full">
 
     {{-- event_id --}}
-    <x-forms.input-group class="w-full">
+    <x-forms.input-group class="w-full col-span-full">
         {{-- label --}}
         <x-forms.label value="{{ __('messages.models.activity.event') }}" for="frm.event_id" class="required"/>
         {{-- select --}}
@@ -20,21 +20,31 @@
     </x-forms.input-group>
 
     {{-- name --}}
-    <x-forms.input-group class="w-full">
+    <x-forms.input-group class="w-full col-span-full">
         {{-- label --}}
         <x-forms.label value="{{ __('messages.models.activity.name') }}" for="frm.name" class="required"/>
         {{-- input --}}
-        <x-forms.input type="text" wire:model="frm.name" required maxLength="250" placeholder="Ingresa el nombre de la actividad"/>
+        <x-forms.text-area
+            wire:model="frm.name"
+            placeholder="Ingresa el nombre de la actividad"
+            maxLength="250"
+            required
+        />
         {{-- error --}}
         <x-forms.error for="frm.name"/>
     </x-forms.input-group>
 
     {{-- author_name --}}
-    <x-forms.input-group class="w-full">
+    <x-forms.input-group class="w-full col-span-full">
         {{-- label --}}
         <x-forms.label value="{{ __('messages.models.activity.author_name') }}" for="frm.author_name" class="required"/>
         {{-- input --}}
-        <x-forms.input type="text" wire:model="frm.author_name" required maxLength="250" placeholder="Ingresa el nombre del autor"/>
+        <x-forms.text-area
+            wire:model="frm.author_name"
+            placeholder="Ingresa el nombre del autor o autores de la actividad"
+            maxLength="250"
+            required
+        />
         {{-- error --}}
         <x-forms.error for="frm.author_name"/>
     </x-forms.input-group>
