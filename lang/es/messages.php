@@ -151,7 +151,8 @@ return [
             'names_surnames' => 'Nombres y apellidos',
 
             'filters' => [
-                'person' => 'Buscar por nombres, apellidos o n° de identificación'
+                'person' => 'Buscar por nombres, apellidos o n° de identificación',
+                'main_searcher' => 'Buscar por nombres, apellidos o n° de identificación',
             ]
 
         ],

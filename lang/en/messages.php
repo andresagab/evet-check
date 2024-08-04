@@ -149,7 +149,8 @@ return [
             'names_surnames' => 'Names and surnames',
 
             'filters' => [
-                'person' => 'Search by names, surnames or dni'
+                'person' => 'Search by names, surnames or dni',
+                'main_searcher' => 'Search by names, surnames or dni',
             ]
 
         ],
