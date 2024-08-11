@@ -72,31 +72,58 @@
 
                                             <div class="m-auto bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 transition ease-in-out duration-300 w-full rounded-md p-4">
                                                 {{-- info --}}
-                                                <div class="flex flex-col items-start">
+                                                <article class="flex flex-col items-start">
                                                     {{-- type and hour --}}
-                                                    <div class="flex flex-row items-center w-full">
+                                                    <header class="flex flex-row items-center w-full">
                                                         <h3 class="text-slate-300 text-sm font-normal flex-grow">{{ $item->get_type() }}</h3>
                                                         <h3 class="text-slate-300 text-sm font-thin flex-shrink">{{ $date_hour->format("d M Y h:i a") }}</h3>
-                                                    </div>
+                                                    </header>
                                                     {{-- name, author, modality --}}
                                                     <div class="flex flex-col items-start w-full mt-6">
-                                                        <h3 class="text-white text-xl font-bold break-all text-justify">{{ $item->name }}</h3>
-                                                        <h3 class="text-slate-100 text-md font-normal">{{ $item->author_name }}</h3>
-                                                        <h3 class="text-slate-300 text-sm font-thin">{{ $item->get_modality() }}</h3>
+                                                        <h3 class="text-white text-xl lg:text-2xl font-bold break-words text-justify">{{ $item->name }}</h3>
+                                                        <h3 class="text-slate-100 text-md lg:text-lg font-normal">{{ $item->author_name }}</h3>
+                                                        <h3 class="text-slate-300 text-sm lg:text-md font-thin">{{ $item->get_modality() }}</h3>
                                                     </div>
+
+                                                    {{-- location info --}}
+                                                    @if($item->location)
+                                                        <div
+                                                            class="flex items-center justify-center space-x-2 mt-12 w-full"
+                                                            title="Ubicación de la actividad"
+                                                        >
+                                                            <div class="flex flex-col grow items-start justify-start">
+                                                                <h3 class="text-slate-50 text-sm font-medium">Lugar:</h3>
+                                                                <h3 class="text-slate-100 text-sm font-normal md:flex-grow break-words">{{ $item->location->name }}</h3>
+                                                                @if($item->location->address)
+                                                                    @if($item->location->url)
+                                                                        <a
+                                                                            href="{{ $item->location->url }}"
+                                                                            target="_blank"
+                                                                            title="Ver ubicación en el mapa"
+                                                                            class="text-slate-300 text-sm font-normal italic underline">{{ $item->location->address }}</a>
+                                                                    @else
+                                                                        <h4 class="text-slate-300 text-sm font-normal italic">{{ $item->location->address }}</h4>
+                                                                    @endif
+                                                                @endif
+                                                            </div>
+                                                            {{--<x-utils.icon class="dark:text-sky-400 select-none">place</x-utils.icon>--}}
+                                                        </div>
+                                                    @endif
+
                                                     {{-- additional info --}}
-                                                    <div class="flex flex-col md:flex-row items-start w-full mt-6 select-none">
-                                                        <h3 class="text-slate-300 text-sm font-normal md:flex-grow">Estado: {{ $item->get_status() }}</h3>
+                                                    <div class="flex flex-col md:flex-row items-start w-full select-none mt-4">
+
+                                                        <h3 class="text-slate-300 text-md font-normal md:flex-grow">Estado: {{ $item->get_status() }}</h3>
                                                         {{-- if can_register_activity is true --}}
                                                         @if($item->get_free_slots() === 0)
                                                             <span class="text-xs font-normal italic dark:text-red-300">Está actividad no tiene cupos disponibles</span>
                                                         @else
-                                                            <h3 class="text-slate-100 text-sm font-thin" title="Cupos libres: {{ $item->get_free_slots() }} | Cupos habilitados: {{ $item->slots }}">Cupos: <span class="font-normal">{{ $item->activity_attendances()->count() }}/{{ $item->slots }}</span></h3>
+                                                            <h3 class="text-slate-100 text-md font-thin" title="Cupos libres: {{ $item->get_free_slots() }} | Cupos habilitados: {{ $item->slots }}">Cupos: <span class="font-normal">{{ $item->activity_attendances()->count() }}/{{ $item->slots }}</span></h3>
                                                         @endif
                                                     </div>
-                                                </div>
+                                                </article>
                                                 {{-- actions --}}
-                                                <div class="flex flex-row w-full justify-end mt-4">
+                                                <div class="flex flex-row w-full justify-end mt-10">
                                                     {{-- if can_register_activity is true --}}
                                                     @if($can_register_activity)
                                                         <x-buttons.secondary-button wire:click="register_activity({{ $item }})" wire:confirm="¿Estás seguro de inscribir la actividad: {{ $item->name }}?" color="green">Inscribirme</x-buttons.secondary-button>
