@@ -271,6 +271,7 @@ return [
             'status' => 'Estado',
             'hidden' => 'Oculto',
             'date' => 'Fecha',
+            'location' => 'Ubicación',
 
             'filters' => [
                 'author_name' => 'Buscar por autor de la actividad',
@@ -340,6 +341,7 @@ return [
             'filters' => [
                 'name' => 'Buscar por nombre de ubicación',
                 'active' => 'Buscar por estado de ubicación',
+                'main_searcher' => 'Buscar por nombre o dirección de la ubicación',
             ],
 
         ],

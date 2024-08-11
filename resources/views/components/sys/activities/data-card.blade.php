@@ -71,6 +71,14 @@
                 <span class="font-normal text-zinc-700 dark:text-stone-300 text-sm">{{ $activity->get_hidden() }}</span>
             </div>
 
+            {{-- location --}}
+            @if($activity->location)
+                <div class="inline-flex items-center space-x-1 px-1.5">
+                    <span class="font-semibold text-zinc-900 dark:text-stone-100 text-sm">{{ __('messages.models.activity.location') }}:</span>
+                    <span class="font-normal text-zinc-700 dark:text-stone-300 text-sm">{{ $activity->location->name }}</span>
+                </div>
+            @endif
+
             {{-- date --}}
             <div class="inline-flex items-center space-x-1 px-1.5">
                 <span class="font-semibold text-zinc-900 dark:text-stone-100 text-sm">Fecha:</span>

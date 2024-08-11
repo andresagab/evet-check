@@ -84,13 +84,12 @@
                 <thead>
                 <tr class="bg-emerald-300 dark:bg-slate-700 text-emerald-900 dark:text-slate-100 text-sm font-bold uppercase">
                     <th class="px-2 py-1 text-left w-10">ID</th>
-                    <th class="px-2 py-1 text-left w-96">{{ __('messages.models.activity.model_name') }}</th>
-                    <th class="px-2 py-1 text-left w-60">{{ __('messages.models.activity.event') }}</th>
+                    <th class="px-2 py-1 text-left w-80">{{ __('messages.models.activity.model_name') }}</th>
+                    <th class="px-2 py-1 text-left w-80">{{ __('messages.models.activity.location') }}</th>
+                    <th class="px-2 py-1 text-left w-72">{{ __('messages.models.activity.event') }}</th>
                     <th class="px-2 py-1 text-left w-48">{{ __('messages.models.activity.type') }}/{{ __('messages.models.activity.modality') }}</th>
                     <th class="px-2 py-1 text-left w-32">{{ __('messages.models.activity.slots') }}</th>
                     <th class="px-2 py-1 text-left w-32">{{ __('messages.models.activity.status') }}</th>
-                    <th class="px-2 py-1 text-left w-32">{{ __('messages.models.activity.hidden') }}</th>
-                    <th class="px-2 py-1 text-left w-60">{{ __('messages.models.activity.date') }}</th>
                     <th class="px-2 py-1 text-left w-60">{{ __('messages.data.dates') }}</th>
                     <th class="px-2 py-1 w-auto"></th>
                 </tr>
@@ -107,15 +106,38 @@
                         <td class="p-2 text-left">
                             <div class="flex flex-col space-y-0 items-start">
                                 {{-- name --}}
-                                <span class="font-bold text-sm">{{ $item->name }}</span>
+                                <span class="font-bold text-sm break-words">{{ $item->name }}</span>
                                 {{-- author_name --}}
-                                <span class="font-semibold text-xs dark:text-slate-300 italic">{{ $item->author_name }}</span>
+                                <span class="font-semibold text-xs dark:text-slate-300 italic break-words">{{ $item->author_name }}</span>
                             </div>
                         </td>
+                        {{-- location --}}
+                        <td class="p-2 text-left">
+                            @if($item->location)
+                                <div class="flex flex-col space-y-0 items-start">
+                                    {{-- location name --}}
+                                    <span class="font-semibold text-sm break-words">{{ $item->location->name }}</span>
+                                    {{-- address --}}
+                                    @if($item->location->address)
+                                        @if($item->location->url)
+                                            <a
+                                                href="{{ $item->location->url }}"
+                                                target="_blank"
+                                                title="Click para ir a la ubicación"
+                                                class="font-normal text-xs dark:text-slate-300 italic break-words hover:underline transition ease-in-out duration-300">{{ $item->location->address }}</a>
+                                        @else
+                                            <span class="font-normal text-xs dark:text-slate-300 italic break-words">{{ $item->location->address }}</span>
+                                        @endif
+                                    @endif
+                                </div>
+                            @else
+                                <x-utils.colored-text color="red">{{ __('messages.data.unregistered') }}</x-utils.colored-text>
+                            @endif
+                        </td>
                         {{-- event --}}
-                        <td class="p-2 text-left truncate">
+                        <td class="p-2 text-left">
                             <div class="flex flex-col space-y-0 items-start">
-                                <span class="font-semibold text-sm">{{ $item->event->name }}</span>
+                                <span class="font-semibold text-sm break-words">{{ $item->event->name }}</span>
                                 <span class="font-normal text-xs text-gray-700 dark:text-slate-300 italic">{{ $item->event->year }}</span>
                             </div>
                         </td>
@@ -150,21 +172,31 @@
 
                             </div>
                         </td>
-                        {{-- status --}}
+                        {{-- status and hiddend --}}
                         <td class="p-2 text-left">
-                            <span class="font-bold text-sm">{{ $item->get_status() }}</span>
-                        </td>
-                        {{-- hidden --}}
-                        <td class="p-2 text-left">
-                            <span class="font-normal text-sm">{{ $item->get_hidden() }}</span>
-                        </td>
-                        {{-- date --}}
-                        <td class="p-2 text-left">
-                            <span class="font-normal">{{ \Illuminate\Support\Carbon::createFromTimeString($item->date)->format('Y-m-d h:i a') }}</span>
+                            <div class="flex flex-col items-start">
+                                {{-- status --}}
+                                <div class="flex items-center space-x-2">
+                                    <x-utils.icon class="text-sky-600 dark:text-sky-400 select-none" size="16px">toggle_on</x-utils.icon>
+                                    <span class="font-normal text-sm">{{ $item->get_status() }}</span>
+                                </div>
+                                {{-- hidden --}}
+                                <div class="flex items-center space-x-2">
+                                    <x-utils.icon class="text-orange-600 dark:text-orange-400 select-none" size="16px">visibility</x-utils.icon>
+                                    <span class="font-normal text-sm">{{ $item->get_hidden() }}</span>
+                                </div>
+                            </div>
                         </td>
                         {{-- dates --}}
                         <td class="p-2 text-left">
-                            <x-tables.dates-columns :created_at="$item->created_at" :updated_at="$item->updated_at"/>
+                            <x-tables.dates-columns :created_at="$item->created_at" :updated_at="$item->updated_at">
+                                <x-slot:extra_dates>
+                                    <div class="inline-flex items-center space-x-2" title="{{ __('Fecha de la actividad') }}">
+                                        <x-utils.icon class="text-sky-600 dark:text-sky-400 select-none" size="16px">event</x-utils.icon>
+                                        <span class="font-normal">{{ \Carbon\Carbon::createFromTimeString($item->date)->format('d \\d\\e M Y, h:i A') }}</span>
+                                    </div>
+                                </x-slot>
+                            </x-tables.dates-columns>
                         </td>
                         {{-- actions --}}
                         <td>

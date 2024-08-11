@@ -4,6 +4,7 @@ namespace App\Livewire\Sys\Activities;
 
 use App\Livewire\Forms\Sys\Activities\Frm;
 use App\Models\Sys\Activity;
+use App\Models\Sys\Location;
 use App\Utils\Threads\FormThread;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -64,6 +65,8 @@ class ActivityForm extends Component
         $this->action = $action;
         # always reset frm
         $this->frm->reset();
+        # always unselect searched models
+        $this->dispatch('unselect-model')->to('sys.locations.searcher');
 
         # if $person is not null
         if ($action === 'edit' && $activity)
@@ -72,11 +75,37 @@ class ActivityForm extends Component
             $this->activity = $activity;
             # model in frm
             $this->frm->set_form_data($activity);
+            # select searched models
+            if ($activity->location_id)
+                $this->dispatch('select-model', $this->activity->location)->to('sys.locations.searcher');
         }
 
         # open modal
         $this->open = true;
 
+    }
+
+    /**
+     * Set searched model in Frm
+     *
+     * @param Location $location
+     * @return void
+     */
+    #[On('select-location')]
+    public function select_person(Location $location): void
+    {
+        $this->frm->location_id = $location->id;
+    }
+
+    /**
+     * Unselect searched model in Frm
+     *
+     * @return void
+     */
+    #[On('unselect-location')]
+    public function unselect_location(): void
+    {
+        $this->frm->reset('location_id');
     }
 
     /**

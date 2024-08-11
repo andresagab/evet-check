@@ -1,6 +1,20 @@
 {{-- props of component --}}
 @props([])
 
+{{-- php code --}}
+@php
+
+    use \App\Models\Sys\Activity;
+    use \App\Models\Sys\Event;
+
+    # define dispatch references of location
+    $location_dispatch_references = [
+        'select' => 'select-location',
+        'unselect' => 'unselect-location',
+    ]
+
+@endphp
+
 {{-- template --}}
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-baseline w-full">
 
@@ -11,7 +25,7 @@
         {{-- select --}}
         <x-forms.select wire:model="frm.event_id" required>
             {{-- loop generate option list of people --}}
-            @foreach(\App\Models\Sys\Event::query()->orderBy('name')->get() as $item)
+            @foreach(Event::query()->orderBy('name')->get() as $item)
                 <x-forms.option value="{{ $item->id }}" class="text-gray-700 dark:text-stone-400 font-normal">{{ $item->name }}</x-forms.option>
             @endforeach
         </x-forms.select>
@@ -64,7 +78,7 @@
         {{-- label --}}
         <x-forms.label value="{{ __('messages.models.activity.type') }}" for="frm.type" class="required"/>
         {{-- select --}}
-        <x-forms.select wire:model="frm.type" required :data="\App\Models\Sys\Activity::get_types()"/>
+        <x-forms.select wire:model="frm.type" required :data="Activity::get_types()"/>
         {{-- error --}}
         <x-forms.error for="frm.type"/>
     </x-forms.input-group>
@@ -97,6 +111,17 @@
         <x-forms.select wire:model="frm.hide" required :data="[1 => 'Si', 0 => 'No']"/>
         {{-- error --}}
         <x-forms.error for="frm.hide"/>
+    </x-forms.input-group>
+
+    {{-- location --}}
+    <x-forms.input-group class="w-full col-span-full">
+        {{-- select --}}
+        <livewire:sys.locations.searcher
+            label_name="{{ __('messages.models.activity.location') }}"
+            :dispatch_references="$location_dispatch_references"
+            :custom_list="1"
+        />
+        <x-forms.error for="frm.location_id"/>
     </x-forms.input-group>
 
     {{-- date --}}

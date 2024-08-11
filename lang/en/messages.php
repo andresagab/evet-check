@@ -271,6 +271,7 @@ return [
             'status' => 'Status',
             'hidden' => 'Hidden',
             'date' => 'Date',
+            'location' => 'Location',
 
             'filters' => [
                 'author_name' => 'Search by author of activity',
@@ -338,6 +339,7 @@ return [
             'filters' => [
                 'name' => 'Search by name of location',
                 'active' => 'Search by is active of location',
+                'main_searcher' => 'Search by name or address of location',
             ],
 
         ],

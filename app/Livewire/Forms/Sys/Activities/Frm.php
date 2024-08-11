@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms\Sys\Activities;
 
 use App\Models\Sys\Activity;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\Rule;
 use Livewire\Form;
 
@@ -71,6 +72,12 @@ class Frm extends Form
      */
     public $date = '';
 
+    /**
+     * The location_id attribute
+     * @var string|int
+     */
+    public $location_id = '';
+
     /// PUBLIC FUNCTIONS
 
     /**
@@ -123,6 +130,9 @@ class Frm extends Form
                 'required',
                 'date',
             ],
+            'location_id' => [
+                'required',
+            ],
         ];
 
         return $rules;
@@ -148,12 +158,14 @@ class Frm extends Form
         $this->status = $this->activity->status;
         $this->hide = $this->activity->hide;
         $this->date = $this->activity->date;
+        $this->location_id = $this->activity->location_id;
 
     }
 
     /**
      * Store data
      * @return string
+     * @throws ValidationException
      */
     public function store() : string
     {
@@ -179,6 +191,7 @@ class Frm extends Form
             $activity->status = $this->status;
             $activity->hide = $this->hide;
             $activity->date = $this->date;
+            $activity->location_id = $this->location_id;
 
             # if activity was not saved
             if (!$activity->save())
@@ -203,6 +216,7 @@ class Frm extends Form
     /**
      * Update data
      * @return string
+     * @throws ValidationException
      */
     public function update() : string
     {
@@ -228,6 +242,7 @@ class Frm extends Form
             $activity->status = $this->status;
             $activity->hide = $this->hide;
             $activity->date = $this->date;
+            $activity->location_id = $this->location_id;
 
             # update data, if not then set wrong message
             if (!$activity->update())
