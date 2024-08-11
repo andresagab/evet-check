@@ -175,6 +175,20 @@ class Activity extends Model implements Auditable, Wireable
     }
 
     /**
+     * Get color of status
+     * @return string
+     */
+    public function get_status_color() : string
+    {
+        if ($this->status === 'O')
+            return 'green';
+        elseif ($this->status === 'I')
+            return 'orange';
+        else
+            return 'red';
+    }
+
+    /**
      * Get string value of hidden
      * @return string
      */
