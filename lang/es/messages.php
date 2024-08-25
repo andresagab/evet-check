@@ -14,15 +14,21 @@ return [
     */
 
     'menu' => [
+        'home' => 'Inicio',
+
         'users' => 'Usuarios',
         'permissions' => 'Permisos',
         'roles' => 'Roles',
+
+        'sys' => 'Sistema de Información',
+        'admin' => 'Panel de administración',
 
         'events' => 'Eventos',
         'event_attendances' => 'Asistencia de evento',
         'activities' => 'Actividades',
         'activity_attendances' => 'Asistencia de actividad',
         'people' => 'Personas',
+        'locations' => 'Ubicaciones',
 
         'manage_account' => 'Gestionar cuenta',
         'profile' => 'Perfil',
@@ -80,6 +86,11 @@ return [
             'group_coordinator' => 'Coordinador de grupo semillero',
             'other' => 'Otro',
         ],
+
+        'statuses' => [
+            'active' => 'Activo',
+            'disabled' => 'Inhabilitado',
+        ]
 
     ],
 
@@ -145,7 +156,8 @@ return [
             'names_surnames' => 'Nombres y apellidos',
 
             'filters' => [
-                'person' => 'Buscar por nombres, apellidos o n° de identificación'
+                'person' => 'Buscar por nombres, apellidos o n° de identificación',
+                'main_searcher' => 'Buscar por nombres, apellidos o n° de identificación',
             ]
 
         ],
@@ -264,6 +276,7 @@ return [
             'status' => 'Estado',
             'hidden' => 'Oculto',
             'date' => 'Fecha',
+            'location' => 'Ubicación',
 
             'filters' => [
                 'author_name' => 'Buscar por autor de la actividad',
@@ -314,6 +327,26 @@ return [
                 'SU' => 'Inscrito',
                 'DO' => 'Realizado',
                 'UR' => 'No realizado',
+            ],
+
+        ],
+
+        # LOCATION MODEL ATTRIBUTES
+        'location' => [
+            'model_name' => 'Ubicación',
+
+            'name' => 'Nombre',
+            'address' => 'Dirección',
+            'url' => 'URL',
+            'is_maps_location' => '¿Es ubicación de Google Maps?',
+            'active' => '¿Está activa?',
+
+            'activities' => 'Actividades',
+
+            'filters' => [
+                'name' => 'Buscar por nombre de ubicación',
+                'active' => 'Buscar por estado de ubicación',
+                'main_searcher' => 'Buscar por nombre o dirección de la ubicación',
             ],
 
         ],

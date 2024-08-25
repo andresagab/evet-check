@@ -14,15 +14,21 @@ return [
     */
 
     'menu' => [
+        'home' => 'Home',
+
         'users' => 'Users',
         'permissions' => 'Permissions',
         'roles' => 'Roles',
+
+        'sys' => 'Information System',
+        'admin' => 'Admin panel',
 
         'events' => 'Events',
         'event_attendances' => 'Event attendances',
         'activities' => 'Activities',
         'activity_attendances' => 'Activity attendances',
         'people' => 'People',
+        'locations' => 'Location',
 
         'manage_account' => 'Manage Account',
         'profile' => 'Profile',
@@ -80,6 +86,10 @@ return [
             'group_coordinator' => 'Seed group coordinator',
             'other' => 'Other',
         ],
+        'statuses' => [
+            'active' => 'Active',
+            'disable' => 'Disable',
+        ]
 
     ],
 
@@ -144,7 +154,8 @@ return [
             'names_surnames' => 'Names and surnames',
 
             'filters' => [
-                'person' => 'Search by names, surnames or dni'
+                'person' => 'Search by names, surnames or dni',
+                'main_searcher' => 'Search by names, surnames or dni',
             ]
 
         ],
@@ -265,6 +276,7 @@ return [
             'status' => 'Status',
             'hidden' => 'Hidden',
             'date' => 'Date',
+            'location' => 'Location',
 
             'filters' => [
                 'author_name' => 'Search by author of activity',
@@ -313,6 +325,26 @@ return [
                 'SU' => 'Signed up',
                 'DO' => 'Done',
                 'UR' => 'Unrealized',
+            ],
+
+        ],
+
+        # LOCATION MODEL ATTRIBUTES
+        'location' => [
+            'model_name' => 'Location',
+
+            'name' => 'Name',
+            'address' => 'Dirección',
+            'url' => 'URL',
+            'is_maps_location' => 'Is maps location?',
+            'active' => 'Is active?',
+
+            'activities' => 'Activities',
+
+            'filters' => [
+                'name' => 'Search by name of location',
+                'active' => 'Search by is active of location',
+                'main_searcher' => 'Search by name or address of location',
             ],
 
         ],

@@ -259,4 +259,29 @@ return [
         'description' => 'Permiso que permite acceder a la función de agregar un registro',
         'module' => 'activity_attendances',
     ],
+    # locations
+    [
+        'name' => 'locations',
+        'display_name' => 'Módulo de ubicaciones',
+        'description' => 'Permiso que permite acceder al módulo de ubicaciones',
+        'module' => 'locations',
+    ],
+    [
+        'name' => 'locations:add',
+        'display_name' => 'Agregar un registro',
+        'description' => 'Permiso que permite acceder a la función de agregar un registro',
+        'module' => 'locations',
+    ],
+    [
+        'name' => 'locations:edit',
+        'display_name' => 'Editar un registro',
+        'description' => 'Permiso que permite acceder a la función de editar un registro',
+        'module' => 'locations',
+    ],
+    [
+        'name' => 'locations:delete',
+        'display_name' => 'Borrar un registro',
+        'description' => 'Permiso que permite acceder a la función de agregar un registro',
+        'module' => 'locations',
+    ],
 ];

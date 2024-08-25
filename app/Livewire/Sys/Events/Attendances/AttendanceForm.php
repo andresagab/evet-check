@@ -5,6 +5,7 @@ namespace App\Livewire\Sys\Events\Attendances;
 use App\Livewire\Forms\Sys\Events\Attendances\Frm;
 use App\Models\Sys\Event;
 use App\Models\Sys\EventAttendance;
+use App\Models\Sys\Person;
 use App\Utils\Threads\FormThread;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -58,7 +59,8 @@ class AttendanceForm extends Component
     /**
      * Open modal component and setting an action
      * @param string $action => key of action to set in the component ('add' for create new resources or 'edit' to update old resources)
-     * @param Event|null $event
+     * @param Event $event
+     * @param EventAttendance|null $attendance
      * @return void
      */
     #[On('open-modal')]
@@ -75,6 +77,8 @@ class AttendanceForm extends Component
         $this->frm->reset();
         # always set main resource model in form
         $this->frm->set_main_resource($this->event);
+        # always unselect searched models
+        $this->dispatch('unselect-model')->to('sys.people.searcher');
 
         # if $person is not null
         if ($action === 'edit' && $attendance)
@@ -83,12 +87,38 @@ class AttendanceForm extends Component
             $this->attendance = $attendance;
             # model in frm
             $this->frm->set_form_data($attendance);
+            # select nested models in searchers
+            $this->dispatch('select-model', $this->attendance->person)->to('sys.people.searcher');
         }
 
         # open modal
         $this->open = true;
 
     }
+
+    /**
+     * Set searched model in Frm
+     *
+     * @param Person $person
+     * @return void
+     */
+    #[On('select-person')]
+    public function select_person(Person $person): void
+    {
+        $this->frm->person_id = $person->id;
+    }
+
+    /**
+     * Unselect searched model in Frm
+     *
+     * @return void
+     */
+    #[On('unselect-person')]
+    public function unselect_person(): void
+    {
+        $this->frm->reset('person_id');
+    }
+
 
     /**
      * Render view fo component

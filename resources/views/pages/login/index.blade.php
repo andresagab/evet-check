@@ -5,12 +5,11 @@
         {{-- tab title --}}
         <x-slot:tabTitle>Inicio de sesión</x-slot:tabTitle>
 
-        {{-- content page --}}
-        <section class="flex w-full h-screen">
+        <div class="flex w-full min-h-screen">
 
-            <div class="m-auto">
+            <div class="flex flex-col gap-6 m-auto w-full md:w-3/4 lg:w-1/3 p-8 md:p-16">
 
-                <x-jet.validation-errors class="mb-4" />
+                <h1 class="font-bold text-2xl md:text-4xl text-white text-center">INICIO DE SESIÓN</h1>
 
                 @if (session('status'))
                     <div class="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
@@ -18,48 +17,85 @@
                     </div>
                 @endif
 
-                <h3 class="text-gray-900 dark:text-gray-100 antialiased font-semibold mb-3">INICIO DE SESIÓN</h3>
+                <div class="bg-slate-800 shadow-md border border-slate-900 rounded-md p-8">
 
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
-                    {{-- fields --}}
-                    <div class="flex flex-col items-start space-y-2">
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+                        {{-- fields --}}
+                        <div class="flex flex-col gap-2 items-start space-y-2 w-full">
 
-                        {{-- code --}}
-                        <div class="flex flex-col items-start">
-                            <label for="code" class="text-gray-800 dark:text-gray-100 antialiased">Código:</label>
-                            <input type="text" name="code" id="code" maxlength="30" placeholder="Ingresa el código de usuario" class="bg-zinc-100 px-2 py-1 rounded-md">
-                        </div>
-                        {{-- password --}}
-                        <div class="flex flex-col items-start">
-                            <label for="password" class="text-gray-800 dark:text-gray-100 antialiased">Contraseña:</label>
-                            <input type="password" name="password" id="password" maxlength="255" placeholder="Ingresa tu contraseña" class="bg-zinc-100 px-2 py-1 rounded-md">
-                        </div>
-                        {{-- remenber session --}}
-                        <div class="block mt-4">
-                            <label for="remember_me" class="flex items-center">
-                                <x-jet.checkbox id="remember_me" name="remember" />
-                                <span class="ml-2 text-sm text-gray-600 dark:text-gray-200">{{ __('Remember me') }}</span>
-                            </label>
-                        </div>
+                            {{-- code --}}
+                            <div class="flex flex-col w-full">
+                                <label for="code"
+                                       class="text-gray-800 dark:text-white antialiased font-semibold text-sm md:text-lg"
+                                >
+                                    Código:
+                                </label>
+                                <input
+                                    type="text"
+                                    name="code"
+                                    id="code"
+                                    maxlength="30"
+                                    placeholder="Ingresa el código de usuario"
+                                    class="bg-slate-700 border border-slate-400 px-2 py-1 rounded-sm w-full text-sm md:text-lg font-normal text-slate-300 with focus:border-sky-500 focus:ring-sky-600 transition ease-in-out duration-150"
+                                >
+                                <x-forms.error for="code" />
+                            </div>
+                            {{-- password --}}
+                            <div class="flex flex-col w-full">
+                                <label for="password"
+                                       class="text-gray-800 dark:text-white antialiased font-semibold text-sm md:text-lg"
+                                >
+                                    Contraseña:
+                                </label>
+                                <input
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    maxlength="30"
+                                    placeholder="Ingresa tu contraseña"
+                                    class="bg-slate-700 border border-slate-400 px-2 py-1 rounded-sm w-full text-sm md:text-lg font-normal text-slate-300 with focus:border-sky-500 focus:ring-sky-600 transition ease-in-out duration-150"
+                                >
+                                <x-forms.error for="password" />
+                            </div>
+                            {{-- remember session --}}
+                            <div class="flex flex-col w-full">
+                                <label for="remember_me"
+                                       class="text-gray-800 dark:text-white antialiased font-medium text-sm md:text-lg"
+                                >
+                                    Recordar sesión:
+                                </label>
+                                <input
+                                    type="checkbox"
+                                    name="remember"
+                                    id="remember_me"
+                                    placeholder="Ingresa tu contraseña"
+                                    class="bg-slate-700 border border-slate-400 px-2 py-1 rounded-sm w-min text-sm md:text-lg font-normal text-purple-400 with focus:border-purple-500 focus:ring-purple-600 transition ease-in-out duration-150"
+                                >
+                            </div>
 
-                    </div>
-                    {{-- actions --}}
-                    <div class="flex flex-col justify-end mt-3 space-y-1">
-                        {{-- password reset --}}
-                        @if (Route::has('password.request'))
-                            <a class="underline text-sm text-gray-600 dark:text-gray-200 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                                {{ __('Forgot your password?') }}
-                            </a>
-                        @endif
-                        {{-- login --}}
-                        <button type="submit" class="bg-orange-400 rounded-md p-2">Ingresar</button>
-                    </div>
-                </form>
+                            <x-buttons.main-button
+                                type="submit"
+                                textSize="md"
+                                class="px-4 font-medium rounded-sm"
+                                color="blue"
+                            >Ingresar</x-buttons.main-button>
+
+                        </div>
+                    </form>
+
+                </div>
+
+                <blockquote class="block text-center text-sm break-words text-slate-400">
+                    <p>
+                        Desarrollador por: <a href="https://www.linkedin.com/in/andresangulodev/" target="_blank" title="Click para ver el perfil del autor principal" class="text-blue-600 dark:text-blue-400 hover:underline transition ease-in-out duration-150">Andrés Angulo - Software Developer</a>
+                    </p>
+                    <a href="https://github.com/andresagab/evet-check?tab=MIT-1-ov-file#readme" target="_blank" title="Click para ver la licencia" class="text-center text-sm break-words text-slate-300 hover:underline">MIT License</a>
+                </blockquote>
 
             </div>
 
-        </section>
+        </div>
 
     </x-layouts.pages.base-layout>
 @endif

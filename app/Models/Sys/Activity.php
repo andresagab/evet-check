@@ -34,6 +34,7 @@ class Activity extends Model implements Auditable, Wireable
         'status',
         'hide',
         'date',
+        'location_id',
     ];
 
     /// PRIVATE FUNCTIONS
@@ -60,6 +61,15 @@ class Activity extends Model implements Auditable, Wireable
         return $this->hasMany(ActivityAttendance::class);
     }
 
+    /**
+     * Load the Location model
+     * @return BelongsTo
+     */
+    public function location() : BelongsTo
+    {
+        return $this->belongsTo(Location::class);
+    }
+
     /// WIRE FUNCTIONS
 
     /**
@@ -79,6 +89,7 @@ class Activity extends Model implements Auditable, Wireable
             'status' => $this->status,
             'hide' => $this->hide,
             'date' => $this->date,
+            'location_id' => $this->location_id,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
@@ -104,6 +115,7 @@ class Activity extends Model implements Auditable, Wireable
         $activity->status = $value['status'];
         $activity->hide = $value['hide'];
         $activity->date = $value['date'];
+        $activity->location_id = $value['location_id'];
 
         $activity->created_at = $value['created_at'];
         $activity->updated_at = $value['updated_at'];
@@ -160,6 +172,20 @@ class Activity extends Model implements Auditable, Wireable
             $return_value = CommonUtils::getKeyValueFromArray($this->status, self::get_status_types()) ?? __('messages.data.unknown');
 
         return $return_value;
+    }
+
+    /**
+     * Get color of status
+     * @return string
+     */
+    public function get_status_color() : string
+    {
+        if ($this->status === 'O')
+            return 'green';
+        elseif ($this->status === 'I')
+            return 'orange';
+        else
+            return 'red';
     }
 
     /**

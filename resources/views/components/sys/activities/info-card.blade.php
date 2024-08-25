@@ -6,7 +6,7 @@
 ])
 
 {{-- template --}}
-<div class="m-auto bg-{{ $bg_color }} dark:bg-{{ $bg_dark_color }} hover:bg-gray-200 dark:hover:bg-slate-700 transition ease-in-out duration-300 w-full rounded-md p-4">
+<article class="m-auto bg-{{ $bg_color }} dark:bg-{{ $bg_dark_color }} hover:bg-gray-200 dark:hover:bg-slate-700 transition ease-in-out duration-300 w-full rounded-md p-4">
     {{-- info --}}
     <div class="flex flex-col items-start">
         {{-- type and hour --}}
@@ -20,6 +20,22 @@
             <h3 class="text-slate-100 text-md font-normal">{{ $activity->author_name }}</h3>
             <h3 class="text-slate-300 text-sm font-thin">{{ $activity->get_modality() }}</h3>
         </div>
+        @if($activity->location)
+            <div class="flex flex-col items-start justify-start mt-4">
+                <h3 class="text-slate-100 text-sm font-normal md:flex-grow">{{ __('messages.models.activity.location') }}: {{ $activity->location->name }}</h3>
+                @if($activity->location->address)
+                    @if($activity->location->url)
+                        <a
+                            href="{{ $activity->location->url }}"
+                            target="_blank"
+                            title="Ver ubicación en el mapa"
+                            class="text-slate-300 text-sm font-normal italic">{{ $activity->location->address }}</a>
+                    @else
+                        <h4 class="text-slate-300 text-sm font-normal italic">{{ $activity->location->address }}</h4>
+                    @endif
+                @endif
+            </div>
+        @endif
         {{-- additional info --}}
         <div class="flex flex-col md:flex-row md:space-x-2 items-start w-full mt-4 select-none">
             {{-- state --}}
@@ -34,4 +50,4 @@
             <h3 class="text-slate-100 text-sm font-normal dark:text-red-300">No asistieron: <span class="font-normal">{{ $activity->activity_attendances()->count() - $activity->activity_attendances()->where('state', 'DO')->count() }}</span></h3>
         </div>
     </div>
-</div>
+</article>

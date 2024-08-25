@@ -3,6 +3,16 @@
     'event'
 ])
 
+{{-- php code --}}
+@php
+
+$person_dispatch_references = [
+    'select' => 'select-person',
+    'unselect' => 'unselect-person',
+]
+
+@endphp
+
 {{-- template --}}
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-baseline w-full">
 
@@ -13,16 +23,19 @@
     </div>
 
     {{-- person_id --}}
-    <x-forms.input-group class="w-full">
-        {{-- label --}}
-        <x-forms.label value="{{ __('messages.models.event_attendance.person') }}" for="frm.person_id" class="required"/>
+    <x-forms.input-group class="w-full col-span-full">
         {{-- select --}}
-        <x-forms.select wire:model="frm.person_id" required>
-            {{-- loop generate option list of people --}}
+        <livewire:sys.people.searcher
+            label_name="{{ __('messages.models.event_attendance.person') }}"
+            :dispatch_references="$person_dispatch_references"
+            :custom_list="1"
+        />
+        {{--<x-forms.select wire:model="frm.person_id" required>
+            --}}{{-- loop generate option list of people --}}{{--
             @foreach(\App\Models\Sys\Person::query()->orderBy('names')->get() as $item)
                 <x-forms.option value="{{ $item->id }}" class="text-gray-700 dark:text-stone-400 font-normal">{{ $item->getFullName() }}</x-forms.option>
             @endforeach
-        </x-forms.select>
+        </x-forms.select>--}}
         {{-- error --}}
         <x-forms.error for="frm.person_id"/>
     </x-forms.input-group>

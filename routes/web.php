@@ -117,16 +117,7 @@ Route::prefix('sys')
         ## ACTIVITY ATTENDANCE
         Route::get('/activities/attendances/{activity}', \App\Livewire\Sys\Activities\Attendances\AttendanceTable::class)->name('activities.attendances')->middleware(['ability:*,activity_attendances']);
 
-        # Route::get('/users/profile', \Laravel\Jetstream\Http\Livewire\UpdateProfileInformationForm::class);
+        ## LOCATIONS
+        Route::get('/locations', \App\Livewire\Sys\Locations\Table::class)->name('locations')->middleware(['ability:*,locations']);
 
     });
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
