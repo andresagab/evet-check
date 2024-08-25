@@ -14,6 +14,8 @@ return [
     */
 
     'menu' => [
+        'home' => 'Inicio',
+
         'users' => 'Usuarios',
         'permissions' => 'Permisos',
         'roles' => 'Roles',

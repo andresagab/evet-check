@@ -8,6 +8,9 @@
             <x-buttons.a-button wire:navigate.hover href="{{ route('admin.home') }}" color="sky" textSise="md">{{__('messages.menu.admin')}}</x-buttons.a-button>
         @endability
 
+        {{-- home --}}
+        <x-buttons.a-button wire:navigate.hover href="{{ route('sys.home') }}" color="slate" textSise="md">{{__('messages.menu.home')}}</x-buttons.a-button>
+
         {{-- people --}}
         @ability('*', 'people')
             <x-buttons.a-button wire:navigate.hover href="{{ route('sys.people') }}" color="slate" textSise="md">{{__('messages.menu.people')}}</x-buttons.a-button>
