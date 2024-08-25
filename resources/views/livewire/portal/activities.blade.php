@@ -71,7 +71,7 @@
                                                 $can_register_activity = $person->can_register_activity($item);
                                             @endphp
 
-                                            <div class="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 transition ease-in-out duration-300 w-full h-full rounded-md p-4">
+                                            <div class="bg-gray-100 dark:bg-slate-800 hover:bg-gray-200 dark:hover:bg-slate-700 shadow-md border border-slate-900 transition ease-in-out duration-300 w-full h-full rounded-md p-4">
                                                 {{-- info --}}
                                                 <article class="flex flex-col items-start w-full h-full">
                                                     {{-- type and hour --}}
@@ -129,7 +129,13 @@
                                                     <div class="flex flex-row w-full justify-end mt-10">
                                                         {{-- if can_register_activity is true --}}
                                                         @if($can_register_activity)
-                                                            <x-buttons.secondary-button wire:click="register_activity({{ $item }})" wire:confirm="¿Estás seguro de inscribir la actividad: {{ $item->name }}?" color="green">Inscribirme</x-buttons.secondary-button>
+                                                            <x-buttons.main-button
+                                                                wire:click="register_activity({{ $item }})"
+                                                                wire:confirm="¿Estás seguro de inscribir la actividad: {{ $item->name }}?"
+                                                                color="green"
+                                                                class="px-3 py-1 rounded-sm font-semibold"
+                                                            >Inscribirme
+                                                            </x-buttons.main-button>
                                                         @elseif($item->activity_attendances()->where('person_id', $person->id)->count() === 1)
                                                             <span class="font-bold text-sm md:text-md text-yellow-500 select-none">Inscrito</span>
                                                         @endif
