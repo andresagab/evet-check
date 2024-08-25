@@ -121,13 +121,3 @@ Route::prefix('sys')
         Route::get('/locations', \App\Livewire\Sys\Locations\Table::class)->name('locations')->middleware(['ability:*,locations']);
 
     });
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified',
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
