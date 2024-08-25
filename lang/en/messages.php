@@ -18,6 +18,9 @@ return [
         'permissions' => 'Permissions',
         'roles' => 'Roles',
 
+        'sys' => 'Information System',
+        'admin' => 'Admin panel',
+
         'events' => 'Events',
         'event_attendances' => 'Event attendances',
         'activities' => 'Activities',

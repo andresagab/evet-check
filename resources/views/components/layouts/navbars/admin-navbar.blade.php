@@ -3,19 +3,24 @@
     {{-- menu buttons --}}
     <x-slot:menu_buttons>
 
+        {{-- information system --}}
+        @ability('*', 'users')
+            <x-buttons.a-button wire:navigate.hover href="{{ route('sys.home') }}" color="teal" textSise="md">{{ __('messages.menu.sys') }}</x-buttons.a-button>
+        @endability
+
         {{-- users --}}
         @ability('*', 'users')
-            <x-buttons.a-button href="{{ route('admin.users') }}" color="slate" textSise="sm">{{ __('messages.menu.users') }}</x-buttons.a-button>
+            <x-buttons.a-button wire:navigate.hover href="{{ route('admin.users') }}" color="slate" textSise="md">{{ __('messages.menu.users') }}</x-buttons.a-button>
         @endability
 
         {{-- permissions --}}
         @ability('*', 'permissions')
-            <x-buttons.a-button href="{{ route('admin.permissions') }}" color="slate" textSise="sm">{{ __('messages.menu.permissions') }}</x-buttons.a-button>
+            <x-buttons.a-button wire:navigate.hover href="{{ route('admin.permissions') }}" color="slate" textSise="md">{{ __('messages.menu.permissions') }}</x-buttons.a-button>
         @endability
 
         {{-- roles --}}
         @ability('*', 'roles')
-            <x-buttons.a-button href="{{ route('admin.roles') }}" color="slate" textSise="sm">{{ __('messages.menu.roles') }}</x-buttons.a-button>
+            <x-buttons.a-button wire:navigate.hover href="{{ route('admin.roles') }}" color="slate" textSise="md">{{ __('messages.menu.roles') }}</x-buttons.a-button>
         @endability
 
     </x-slot:menu_buttons>
