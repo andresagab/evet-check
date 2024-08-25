@@ -11,4 +11,9 @@
     {{-- content --}}
     {{ $slot }}
 
+    {{-- footer --}}
+    @section('footer')
+        <x-layouts.footers.admin-footer />
+    @endsection
+
 </x-layouts.pages.base-layout>
