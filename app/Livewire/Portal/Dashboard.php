@@ -80,6 +80,7 @@ class Dashboard extends Component
             ->with(['event'])
             # order by year of event
             ->orderBy('year', 'DESC')
+            ->orderBy('created_at', 'DESC')
             ->get();
     }
 
