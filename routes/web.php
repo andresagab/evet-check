@@ -120,4 +120,11 @@ Route::prefix('sys')
         ## LOCATIONS
         Route::get('/locations', \App\Livewire\Sys\Locations\Table::class)->name('locations')->middleware(['ability:*,locations']);
 
+        Route::get('/certificate-dev', function() {
+            $event_attendance = \App\Models\Sys\EventAttendance::query()->find(18);
+            $person = \App\Models\Sys\Person::query()->find(18);
+            $event = \App\Models\Sys\Event::query()->find(1);
+            return view('pages.portal.certificates.certificate-pdf', compact('event', 'person', 'event_attendance'));
+        });
+
     });
