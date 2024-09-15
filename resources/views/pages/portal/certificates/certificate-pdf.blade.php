@@ -58,7 +58,7 @@
 
 <div class="watermark">
     <img
-        src="{{ CommonUtils::get_public_path(\Illuminate\Support\Facades\Storage::url($event->certificate_path)) }}"
+        src="{{ public_path(\Illuminate\Support\Facades\Storage::url($event->certificate_path)) }}"
         width="100%"
     >
 </div>
