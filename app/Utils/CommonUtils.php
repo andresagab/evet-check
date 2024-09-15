@@ -243,4 +243,16 @@ class CommonUtils
         return $return_value;
     }
 
+    /**
+     * Get the public path of app or file
+     * Setup .env('PUBLIC_PATH'), example: the public dir of your server is '/public_html', the set it in .env
+     * @param $path => set with the file path to get the full path
+     * @return string
+     */
+    public static function get_public_path($path) : string
+    {
+        $public_dir = env('PUBLIC_PATH') != 'DEFAULT' ? base_path(env('PUBLIC_PATH')) : base_path('public');
+        return $public_dir.($path != '' ? $path : $path);
+    }
+
 }
