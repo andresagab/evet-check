@@ -53,7 +53,7 @@
             </div>
         </div>
     @else
-        <p class="font-normal text-lg md:text-xl text-red-700 dark:text-red-400 text-left mb-10">El carnet virtual aún no ha sido configurado; por tanto, estará disponible proximamente.</p>
+        <p class="font-normal text-lg md:text-xl text-red-700 dark:text-red-400 text-left mb-10">El carnet virtual aún no ha sido configurado.</p>
     @endif
 
 </div>
