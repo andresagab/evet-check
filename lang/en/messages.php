@@ -241,6 +241,7 @@ return [
                 'TE' => 'Teacher',
                 'PT' => 'Particular',
                 'EL' => 'Graduate of Program of Lic. in Computing of the Universidad de Nariño',
+                'ND' => 'Not defined',
             ],
             'stay_types' => [
                 'P' => 'In person',

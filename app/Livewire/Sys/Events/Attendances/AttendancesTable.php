@@ -192,6 +192,15 @@ class AttendancesTable extends Component
     }
 
     /**
+     * Open import modal to import resources
+     * @return void
+     */
+    public function openImportModal(): void
+    {
+        $this->dispatch('open-import-modal', $this->event)->to('sys.events.attendances.import-attendances');
+    }
+
+    /**
      * Open edit modal to update a resource
      * @param EventAttendance $attendance
      * @return void

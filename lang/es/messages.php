@@ -241,6 +241,7 @@ return [
                 'TE' => 'Docente',
                 'PT' => 'Particular',
                 'EL' => 'Egresado del programa de Licenciatura en Informática',
+                'ND' => 'No definido',
             ],
             'stay_types' => [
                 'P' => 'Presencial',

@@ -11,6 +11,11 @@
         <x-buttons.circle-icon-button wire:click="openAddModal" wire.offline="disabled" wire:loading.class="hidden" color="green">add</x-buttons.circle-icon-button>
         @endability
 
+        {{-- import button --}}
+        @ability('*', 'event_attendances:add')
+        <x-buttons.circle-icon-button wire:click="openImportModal" wire.offline="disabled" wire:loading.class="hidden" color="teal" title="Importar participantes">upload_file</x-buttons.circle-icon-button>
+        @endability
+
         {{-- back --}}
         <a href="javascript:history.back()"> <x-buttons.circle-icon-button title="{{ __('messages.data.action.go_back') }}" color="yellow" size="20px">undo</x-buttons.circle-icon-button></a>
 
@@ -225,5 +230,7 @@
     <livewire:sys.events.attendances.attendance-form/>
     {{-- event-delete --}}
     <livewire:sys.events.attendances.attendance-delete/>
+    {{-- import-attendances --}}
+    <livewire:sys.events.attendances.import-attendances/>
 
 </div>

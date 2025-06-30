@@ -128,7 +128,7 @@ class EventAttendance extends Model implements Auditable, Wireable
     protected $fillable = [
         'event_id',
         'person_id',
-        'institution',
+        'institution_id',
         'other_institution',
         'participation_modality',
         'type',
