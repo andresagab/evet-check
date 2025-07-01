@@ -166,6 +166,12 @@ return [
         'description' => 'Permiso que permite acceder a la configuración del carnet virtual de un evento',
         'module' => 'events',
     ],
+    [
+        'name' => 'events:reports:attendees-participation',
+        'display_name' => 'Reporte de asistencia y participación de un evento',
+        'description' => 'Permiso que permite acceder al reporte de asistencia y participación de un evento',
+        'module' => 'events',
+    ],
     # event attendances
     [
         'name' => 'event_attendances',

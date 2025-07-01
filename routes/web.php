@@ -111,6 +111,11 @@ Route::prefix('sys')
         ## EVENT ATTENDANCES
         Route::get('/events/attendances/{event}', \App\Livewire\Sys\Events\Attendances\AttendancesTable::class)->name('events.attendances')->middleware(['ability:*,event_attendances']);
 
+        ## REPORTS
+        Route::prefix('reports')->name('reports.')->group(function () {
+            Route::get('events/{event}/attendees', \App\Livewire\Sys\Reports\EventAttendees::class)->name('events.attendees')->middleware(['ability:*,events:reports:attendees-participation']);
+        });
+
         ## ACTIVITIES
         Route::get('/activities', \App\Livewire\Sys\Activities\ActivitiesTable::class)->name('activities')->middleware(['ability:*,activities']);
 

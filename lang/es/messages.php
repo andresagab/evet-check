@@ -198,7 +198,10 @@ return [
                 'bottom' => 'Inferior',
                 'top' => 'Superior',
                 'custom' => 'Personalizado',
-            ]
+            ],
+            'reports' => [
+                'attendees-participation' => 'Reporte de asistencia y participación',
+            ],
 
         ],
 

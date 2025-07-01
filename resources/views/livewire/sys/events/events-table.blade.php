@@ -132,6 +132,10 @@
                                 @if($item->can_delete() && Laratrust::ability('*', 'events:delete'))
                                 <x-buttons.circle-icon-button wire:click="openDeleteModal({{ $item }})" title="Click para eliminar este registro" color="red" size="20px">delete</x-buttons.circle-icon-button>
                                 @endif
+                                {{-- report attendees --}}
+                                @ability('*', 'events:reports:attendees-participation')
+                                    <a href="{{ route('sys.reports.events.attendees', $item) }}"><x-buttons.circle-icon-button title="Click para ver el reporte de asistencia y participación de este evento" color="sky" size="20px">file_present</x-buttons.circle-icon-button></a>
+                                @endability
                                 {{-- event attendances --}}
                                 @ability('*', 'event_attendances')
                                 <a href="{{ route('sys.events.attendances', $item) }}"><x-buttons.circle-icon-button title="Click para gestionar la asistencia del evento" color="blue" size="20px">diversity_3</x-buttons.circle-icon-button></a>

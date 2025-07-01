@@ -196,7 +196,11 @@ return [
                 'bottom' => 'Bottom',
                 'top' => 'Top',
                 'custom' => 'Custom',
-            ]
+            ],
+
+            'reports' => [
+                'attendees-participation' => 'Attendees and participation report',
+            ],
 
         ],
 

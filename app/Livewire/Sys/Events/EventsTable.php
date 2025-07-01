@@ -147,10 +147,19 @@ class EventsTable extends Component
     }
 
     /**
-     * Render view of component
-     * @return \Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+     * Redirect to report of event
+     * @param Event $event
+     * @return void
      */
-    public function render(): \Illuminate\Foundation\Application|\Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function open_report(Event $event): void
+    {
+        $this->redirect(route('sys.reports.events.attendees', ['event' => $event->id]), navigate: true);
+    }
+
+    /**
+     * Render view of component
+     */
+    public function render()
     {
         return view('livewire.sys.events.events-table')
             ->layout('components.layouts.pages.sys-layout', [
