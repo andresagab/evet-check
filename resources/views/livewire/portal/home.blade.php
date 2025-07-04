@@ -35,8 +35,7 @@
                         @csrf
                         <div>
                             <x-jet.label for="dni" class="dark:text-gray-300 font-semibold">Número de identificación</x-jet.label>
-                            <x-jet.input wire:model="dni" name="dni" id="dni" type="number" required
-                                max="99999999999999999999" min="0" step="1" placeholder="Ej: 1085..."
+                            <x-jet.input wire:model="dni" name="dni" id="dni" type="text" required placeholder="Ej: 1085..."
                                 class="w-full text-sm md:text-md mt-2 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                                 autofocus />
                             <x-jet.input-error for="dni" class="mt-2" />
