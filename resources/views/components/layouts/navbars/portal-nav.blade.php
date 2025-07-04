@@ -1,5 +1,5 @@
 @props(['menu_buttons'])
-<header class="w-full fixed">
+<header class="w-full fixed z-10">
     <nav class="flex flex-row items-center bg-lime-500 dark:bg-slate-950 shadow-md w-full px-2 py-3">
 
         {{-- app name --}}
