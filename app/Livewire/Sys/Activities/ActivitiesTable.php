@@ -5,9 +5,13 @@ namespace App\Livewire\Sys\Activities;
 use App\Models\Sys\Activity;
 use App\Utils\CommonUtils;
 use App\Utils\Threads\TableThread;
+use Illuminate\View\View;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Title;
 use Livewire\Component;
 
+#[Layout('components.layouts.pages.sys-layout')]
 class ActivitiesTable extends Component
 {
 
@@ -166,14 +170,23 @@ class ActivitiesTable extends Component
     }
 
     /**
-     * Render view of component
-     * @return mixed
+     * Set layout data
+     * @return array
      */
-    public function render(): mixed
+    public function layoutData(): array
     {
-        return view('livewire.sys.activities.activities-table')
-            ->layout('components.layouts.pages.sys-layout', [
-                'title' => __('messages.menu.activities'),
-            ]);
+        return [
+            'title' => __('messages.menu.activities'),
+        ];
+    }
+
+    /**
+     * Render view of component
+     * @return \Illuminate\View\View
+     */
+    #[Title('Actividades')]
+    public function render(): View
+    {
+        return view('livewire.sys.activities.activities-table');
     }
 }

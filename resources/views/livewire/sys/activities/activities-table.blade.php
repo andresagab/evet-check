@@ -98,7 +98,7 @@
                 <tbody>
                 @foreach ($activities as $item)
 
-                    <tr class="border-b border-b-blue-300 dark:border-b-slate-500 bg-white dark:bg-slate-600 hover:bg-blue-100 dark:hover:bg-slate-500 dark:text-stone-50 dark:hover:text-white hover:shadow transition ease-in-out duration-300">
+                    <tr wire:key="activity-tr-{{ $item->id }}" class="border-b border-b-blue-300 dark:border-b-slate-500 bg-white dark:bg-slate-600 hover:bg-blue-100 dark:hover:bg-slate-500 dark:text-stone-50 dark:hover:text-white hover:shadow transition ease-in-out duration-300">
 
                         {{-- id event --}}
                         <td class="p-2 text-center">{{ $item->id }}</td>
@@ -234,10 +234,10 @@
     {{-- include wire components --}}
 
     {{-- activity-form --}}
-    <livewire:sys.activities.activity-form/>
+    <livewire:sys.activities.activity-form wire:key="activity-form-{{ $this->id() }}"/>
     {{-- activity-delete --}}
-    <livewire:sys.activities.activity-delete/>
+    <livewire:sys.activities.activity-delete wire:key="activity-delete-{{ $this->id() }}"/>
     {{-- regiter-attendance --}}
-    <livewire:sys.activities.register-attendance/>
+    <livewire:sys.activities.register-attendance wire:key="register-attendance-{{ $this->id() }}"/>
 
 </div>
