@@ -117,6 +117,7 @@
     <x-forms.input-group class="w-full col-span-full">
         {{-- select --}}
         <livewire:sys.locations.searcher
+            wire:key="'location-searcher'"
             label_name="{{ __('messages.models.activity.location') }}"
             :dispatch_references="$location_dispatch_references"
             :custom_list="1"
