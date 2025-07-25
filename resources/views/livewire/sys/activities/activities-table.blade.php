@@ -234,10 +234,10 @@
     {{-- include wire components --}}
 
     {{-- activity-form --}}
-    <livewire:sys.activities.activity-form wire:key="activity-form-{{ $this->id() }}"/>
+    <livewire:sys.activities.activity-form wire:key="'activity-form'" lazy/>
     {{-- activity-delete --}}
-    <livewire:sys.activities.activity-delete wire:key="activity-delete-{{ $this->id() }}"/>
+    <livewire:sys.activities.activity-delete wire:key="'activity-delete'" lazy/>
     {{-- regiter-attendance --}}
-    <livewire:sys.activities.register-attendance wire:key="register-attendance-{{ $this->id() }}"/>
+    <livewire:sys.activities.register-attendance wire:key="'register-attendance'" lazy/>
 
 </div>
