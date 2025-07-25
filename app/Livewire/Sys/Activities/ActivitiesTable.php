@@ -144,8 +144,9 @@ class ActivitiesTable extends Component
      * @param Activity $activity
      * @return void
      */
-    public function openEditModal(Activity $activity): void
+    public function openEditModal($id): void
     {
+        $activity = Activity::find($id);
         $this->dispatch('open-modal', 'edit', $activity)->to('sys.activities.activity-form');
     }
 
@@ -154,8 +155,9 @@ class ActivitiesTable extends Component
      * @param Activity $activity
      * @return void
      */
-    public function openDeleteModal(Activity $activity): void
+    public function openDeleteModal($id): void
     {
+        $activity = Activity::find($id);
         $this->dispatch('open-modal', $activity)->to('sys.activities.activity-delete');
     }
 
@@ -164,8 +166,9 @@ class ActivitiesTable extends Component
      * @param Activity $activity
      * @return void
      */
-    public function open_register_attendance_modal(Activity $activity): void
+    public function open_register_attendance_modal($id): void
     {
+        $activity = Activity::find($id);
         $this->dispatch('open-modal', $activity)->to('sys.activities.register_attendance');
     }
 
