@@ -203,11 +203,11 @@
                             <div class="inline-flex items-center space-x-1">
                                 {{-- edit --}}
                                 @ability('*', 'activities:edit')
-                                <x-buttons.circle-icon-button wire:click="openEditModal({{ $item }})" title="Click para editar este registro" color="violet" size="20px">edit</x-buttons.circle-icon-button>
+                                <x-buttons.circle-icon-button wire:click="openEditModal({{ $item->id }})" title="Click para editar este registro" color="violet" size="20px">edit</x-buttons.circle-icon-button>
                                 @endability
                                 {{-- delete --}}
                                 @if($item->can_delete() && Laratrust::ability('*', 'activities:delete'))
-                                <x-buttons.circle-icon-button wire:click="openDeleteModal({{ $item }})" title="Click para eliminar este registro" color="red" size="20px">delete</x-buttons.circle-icon-button>
+                                <x-buttons.circle-icon-button wire:click="openDeleteModal({{ $item->id }})" title="Click para eliminar este registro" color="red" size="20px">delete</x-buttons.circle-icon-button>
                                 @endif
                                 {{-- activity attendances --}}
                                 @ability('*', 'activity_attendances')
@@ -215,7 +215,7 @@
                                 @endability
                                 {{-- regiter attendance --}}
                                 @if($item->status != "C" && Laratrust::ability('*', 'activities:register-attendance'))
-                                <x-buttons.circle-icon-button wire:click="open_register_attendance_modal({{ $item }})" title="Click para registrar una asistencia a esta actividad" color="emerald" size="20px">how_to_reg</x-buttons.circle-icon-button>
+                                <x-buttons.circle-icon-button wire:click="open_register_attendance_modal({{ $item->id }})" title="Click para registrar una asistencia a esta actividad" color="emerald" size="20px">how_to_reg</x-buttons.circle-icon-button>
                                 @endif
                             </div>
                         </td>
