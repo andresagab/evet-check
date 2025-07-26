@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Sys\ActivityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -118,6 +119,11 @@ Route::prefix('sys')
 
         ## ACTIVITIES
         Route::get('/activities', \App\Livewire\Sys\Activities\ActivitiesTable::class)->name('activities')->middleware(['ability:*,activities']);
+        # more activities routes
+        Route::prefix('activity/{activity}')->as('activities.')->group(function () {
+            Route::get('edit', [ActivityController::class, 'edit'])->name('edit')->middleware(['ability:*,activities:edit']);
+            Route::put('update', [ActivityController::class, 'update'])->name('update')->middleware(['ability:*,activities:edit']);
+        });
 
         ## ACTIVITY ATTENDANCE
         Route::get('/activities/attendances/{activity}', \App\Livewire\Sys\Activities\Attendances\AttendanceTable::class)->name('activities.attendances')->middleware(['ability:*,activity_attendances']);
