@@ -1,6 +1,6 @@
 <x-layouts.pages.sys-layout :title="__('messages.data.actions.edit', ['resource' => __('messages.models.activity.model_name')])">
 
-    <x-layouts.headers.sub-header :title="__('messages.data.actions.edit', ['resource' => __('messages.models.activity.model_name')])" />
+    <x-layouts.headers.sub-header :title="__('messages.data.actions.edit', ['resource' => __('messages.models.activity.model_name')]) . ' - ' . $activity->name" />
 
     <x-layouts.pages.content.base-content-page-layout>
 
