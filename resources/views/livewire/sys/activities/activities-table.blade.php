@@ -203,7 +203,9 @@
                             <div class="inline-flex items-center space-x-1">
                                 {{-- edit --}}
                                 @ability('*', 'activities:edit')
-                                <x-buttons.circle-icon-button wire:click="openEditModal({{ $item->id }})" title="Click para editar este registro" color="violet" size="20px">edit</x-buttons.circle-icon-button>
+                                <a href="{{ route('sys.activities.edit', $item) }}" title="Click para editar este registro">
+                                    <x-buttons.circle-icon-button color="violet" size="20px">edit</x-buttons.circle-icon-button>
+                                </a>
                                 @endability
                                 {{-- delete --}}
                                 @if($item->can_delete() && Laratrust::ability('*', 'activities:delete'))

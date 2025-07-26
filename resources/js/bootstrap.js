@@ -42,3 +42,7 @@ import {Toast, SAlert} from "@/sweet/Sweet.js";
 // add custom Toast to window app
 window.Toast = Toast
 window.SAlert = SAlert
+
+/// TOM-SELECT
+import TomSelect from 'tom-select';
+window.TomSelect = TomSelect;

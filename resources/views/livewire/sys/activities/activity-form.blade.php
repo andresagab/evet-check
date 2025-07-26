@@ -1,6 +1,6 @@
 <div>
 
-    <x-modals.modal-dialog wire:model.live='open' includeFooter="0">
+    <x-modals.modal-dialog wire:model='open' includeFooter="0">
         <!-- modal title -->
         <x-slot:title>
             <div class="flex flex-row items-center">
