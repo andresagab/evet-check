@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Sys\ActivityController;
+use App\Http\Controllers\Sys\EventAttendanceController;
+use App\Livewire\Sys\Activities\ActivitiesTable;
+use App\Livewire\Sys\Events\Attendances\AttendancesTable;
 
 /*
 |--------------------------------------------------------------------------
@@ -111,6 +114,11 @@ Route::prefix('sys')
 
         ## EVENT ATTENDANCES
         Route::get('/events/attendances/{event}', \App\Livewire\Sys\Events\Attendances\AttendancesTable::class)->name('events.attendances')->middleware(['ability:*,event_attendances']);
+        # more event_attendances routes
+        Route::prefix('event/{event}/attendance/{attendance}')->as('events.attendances.')->group(function () {
+            Route::get('edit', [EventAttendanceController::class, 'edit'])->name('edit')->middleware(['ability:*,event_attendances:edit']);
+            Route::put('update', [EventAttendanceController::class, 'update'])->name('update')->middleware(['ability:*,event_attendances:edit']);
+        });
 
         ## REPORTS
         Route::prefix('reports')->name('reports.')->group(function () {
