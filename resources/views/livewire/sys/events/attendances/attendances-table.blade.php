@@ -189,7 +189,9 @@
                             <div class="inline-flex items-center space-x-1">
                                 {{-- edit --}}
                                 @ability('*', 'event_attendances:edit')
-                                <x-buttons.circle-icon-button wire:click="openEditModal({{ $item }})" title="Click para editar este registro" color="violet" size="20px">edit</x-buttons.circle-icon-button>
+                                <a href="{{ route('sys.events.attendances.edit', ['event' => $event, 'attendance' => $item]) }}" title="Click para editar este registro">
+                                    <x-buttons.circle-icon-button color="violet" size="20px">edit</x-buttons.circle-icon-button>
+                                </a>
                                 @endability
                                 {{-- delete --}}
                                 @ability('*', 'event_attendances:delete')
