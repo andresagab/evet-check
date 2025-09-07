@@ -116,8 +116,7 @@ class Location extends Model implements Auditable, Wireable
      */
     public function can_delete() : bool
     {
-        # define can as true
-        return $can = true;
+        $can = true;
 
         # if count of activity attendances is greater than zero, then can as false
         if ($this->activities()->count() > 0)
